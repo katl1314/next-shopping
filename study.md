@@ -136,36 +136,213 @@ staticDirs속성은 정적 파일을 배치할 디렉터리를 지정한다.
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
   위 주석을 사용할 경우 명시적으로 any타입을 사용해도 타입검사를 무시한다.
 
-## Prettier 설정 관련 정리
+3. 스토리북 설정 파일 수정
+   .storybook/preview.ts에서 스토리북에 대한 설정 파일을 설정한다.
+   테마 적용 및 간단한 리셋 css, Next.js의 next/image를 변경한다.
+   next/image는 이미지를 최적화해주는 이미지 컴포넌트 => 스토리북에서는 적용하지 않음.
 
-{
-"arrowParens": "avoid", // 화살표 함수 괄호 사용 방식 "avoid" | "always"
-"bracketSpacing": false, // 객체 리터럴에서 괄호에 공백 삽입 여부
-"endOfLine": "auto", // EoF 방식, OS별로 처리 방식이 다름 => 개행처리 관련 속성
-"htmlWhitespaceSensitivity": "css", // HTML 공백 감도 설정
-"jsxBracketSameLine": false, // JSX의 마지막 `>`를 다음 줄로 내릴지 여부
-"jsxSingleQuote": false, // JSX에 singe 쿼테이션 사용 여부
-"printWidth": 80, // 줄 바꿈 할 폭 길이
-"proseWrap": "preserve", // markdown 텍스트의 줄바꿈 방식 (v1.8.2)
-"quoteProps": "as-needed" // 객체 속성에 쿼테이션 적용 방식
-"semi": true, // 세미콜론 사용 여부
-"singleQuote": true, // single 쿼테이션 사용 여부
-"tabWidth": 2, // 탭 너비
-"trailingComma": "all", // 여러 줄을 사용할 때, 후행 콤마 사용 방식
-"useTabs": false, // 탭 사용 여부
-"vueIndentScriptAndStyle": true, // Vue 파일의 script와 style 태그의 들여쓰기 여부 (v1.19.0)
-"parser": '', // 사용할 parser를 지정, 자동으로 지정됨
-"filepath": '', // parser를 유추할 수 있는 파일을 지정
-"rangeStart": 0, // 포맷팅을 부분 적용할 파일의 시작 라인 지정
-"rangeEnd": Infinity, // 포맷팅 부분 적용할 파일의 끝 라인 지정,
-"requirePragma": false, // 파일 상단에 미리 정의된 주석을 작성하고 Pragma로 포맷팅 사용 여부 지정 (v1.8.0)
-"insertPragma": false, // 미리 정의된 @format marker의 사용 여부 (v1.8.0)
-"overrides": [
-{
-"files": "*.json",
-"options": {
-"printWidth": 200
+```tsx
+// .storybook/preview.tsx
+import type { Preview } from '@storybook/react';
+import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import theme from '../app/theme';
+import * as NextImage from 'next/image';
+import React from 'react';
+
+const preview: Preview = {
+  // storybook7은 @storybook/react에서 지원하는 addDecorator를 지원하지 않는다.
+  // decorators에서 직접 설정해도 된다.
+  decorators: [
+    (story) => (
+      <ThemeProvider theme={theme}>
+        {/* 전역 스타일 적용 */}
+        <GlobalStyle />
+        {story()}
+      </ThemeProvider>
+    ),
+  ], // addDecorator 대체
+  parameters: {
+    actions: { argTypesRegex: '^on[A-Z].*' },
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/,
+      },
+    },
+  },
+};
+
+// 전역 스타일을 적용하는 함수
+export const GlobalStyle = createGlobalStyle`
+  html,
+  body,
+  textarea {
+    padding: 0;
+    margin: 0;
+  }
+  * {
+    box-sizing: border-box;
+  }
+  a {
+    text-decoration: none;
+    transition: 0.25s;
+    color: #000;
+  }
+`;
+
+// storybook은 이미지 최적화를 위한 이미지 컴포넌트를 사용할 수 없기 때문에 대체한다.
+const OriginalNextImage = NextImage.default;
+
+Object.defineProperty(NextImage, 'default', {
+  configurable: true,
+  value: (props) =>
+    typeof props.src === 'string' ? (
+      <OriginalNextImage {...props} unoptimized blurDataURL={props.src} />
+    ) : (
+      <OriginalNextImage {...props} unoptimized />
+    ),
+});
+
+export default preview;
+```
+
+.storybook/main.ts에서 storybook addon을 추가해야함.
+webpackFinal설정은 필요한 애드온을 도입하고, tsconfig속성을 상속받을 수 있다.
+
+### React Hook Form 도입
+
+React Hook Form은 폼 밸리데이션(유효성 검사) 라이브러리이다.
+성능/유연성/확장성이 우수한다.
+React 컴포넌트의 입력 요소에 사용 가능
+리렌더링 수를 최소한으로 억제하여 마운트를 작성함. 뛰어난 사용자 경험을 제공함.
+
+1. 설치법
+   npm i react-hook-form
+   --
+
+2. 사용법
+   react-hook-form은 리액트 form컴포넌트 내 유효성 검사를 위해 사용한다.
+
+```tsx
+import { useForm, SubmitHandler } from 'react-hook-form';
+
+interface IForm {
+  firstName: string;
+  lastName: string;
+  category: string;
 }
+
+export default function Page() {
+  // submit 이벤트 처리
+  // useForm을 호출하면 register, handleSubmit, formState값을 객체로 받는다.
+  // 제네릭을 이용하여 폼 데이터의 인터페이스를 정의한다.
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IForm>();
+  const onSubmit: SubmitHandler<IForm> = (data) => {
+    // submit시 처리한다.
+    console.info(data);
+  };
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      {/* 반드시 필수로 입력해야함. */}
+      <input {...register('firstName', { required: true })} placeholder="이름" />
+      {errors.firstName && <div>이름을 입력하시오.</div>}
+      <input {...register('lastName', { required: true })} placeholder="성" />
+      {errors.lastName && <div>성을 입력하시오.</div>}
+      <select {...register('category', { required: true })}>
+        <option value="">선택...</option>
+        <option value="a">카테고리 A</option>
+        <option value="b">카테고리 B</option>
+      </select>
+      {errors.category && <div>카테고리를 선택하세요.</div>}
+      <input type="submit" value="전달" />
+    </form>
+  );
 }
-], // 특정 파일별로 옵션을 다르게 지정함, ESLint 방식 사용
+```
+
+useForm훅 : form validate 체크를 위한 훅으로 제네릭 타입을 지정할 수 있음. (폼 객체의 타입)
+register, handleSubmit: form validation통과시 호출하는 함수, formState: { errors, ...} 폼 검사 상태 여부
+
+### SWR도입
+
+swr은 데이터를 가져오는 react hook 라이브러리
+react-query와 상당히 비슷하나, react-query는 push 기능도 지원한다. (useQuery(데이터 취득용), useMutate(데이터 전달용))
+일단 캐시를 해, 그 다음 백그라운드에서 일정 시간이 지났을때 업데이트를 한다.
+
+swr은 데이터를 효율적으로 가져올 수 있다.
+데이터 업데이트를 지속적으로 자동적으로 받을 수 있음.
+=> csr구현을 효율적으로 하기 위해 도입함.
+
+- 캐시 기능 (서버로부터 데이터를 가져올 경우 내부에서 저장한다.)
+- 백그라운드 업데이트,
+- 정기적인 폴링 => 주기적으로 일정 조건을 만족할 때, 송수신 등 자료처리를 하는 방식
+- 이미지 포커스시 데이터 업데이트
+- 네트워크 회복시 데이터 재업데이트
+- 에러 재시도
+- 페이지네이션과 스크롤 포지션 회복
+
+설치 방법은 간단하다.
+npm i swr
+
+예제 파일
+
+```tsx
+import useSWR from 'swr';
+
+interface IUser {
+  name: string;
 }
+
+const githubUrl = 'https://api.github.com';
+
+const fetcher = (url: string) => fetch(`${githubUrl}${url}`).then((res) => res.json());
+
+// useSWR : key와 fetcher함수 인자 2개를 받는다.
+// key는 데이터의 유일한 식별자로 fetcher의 인자로 전달한다.
+// fetcher는 비동기 함수로 fetch 또는 axios같은 비동기 함수를 사용한다.
+// 결과값은 data, error, isLoading을 반환한다.
+// error는 데이터 조회를 실패하였을때
+// isLoading 데이터를 조회중일때
+// data 데이터 조회시 결과물
+const Profile = (id?: string) => {
+  const { data, error, isLoading } = useSWR<IUser>(`/users/${id}`, fetcher);
+  if (error) return <div>Failed to load</div>;
+  if (isLoading) return <div>loading...</div>; // suspense
+  return <div>{data?.name}!</div>;
+};
+```
+
+### 데이터 로딩 ui를 위한 라이브러리
+
+- React Content Loader도입
+- 로딩을 위한 플레이스홀더를 간단하게 작성한다.
+- svg를 사용하여 커스터마이징이 가능함.
+
+npm install react-content-loader
+npm install --save-dev @types/react-content-loader
+
+```tsc
+import ContentLoader from 'react-content-loader';
+
+// react-content-loader를 사용하면 svg를 이용하여 placeholder loading ui를 쉽게 만들 수 있다.
+// ContentLoader를 감싸면 됨.
+const MyLoader = () => (
+  <ContentLoader viewBox="0 038070">
+    <rect x="0" y="0" rx="5" ry="5" width="70" height="70" />
+    <rect x="80" y="17" rx="4" ry="4" width="300" height="13" />
+    <rect x="80" y="40" rx="3" ry="3" width="250" height="10" />
+  </ContentLoader>
+);
+
+export default MyLoader;
+
+```
+
+### 환경 변수
+
+github키 라이브러리 키같은 중요한 키들은 소스에 작성하면 안된다.
+반드시 .env파일에서 변수를 지정하고, 외부에서는 process.env를 이용하여 접근해야한다.
