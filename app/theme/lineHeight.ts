@@ -1,0 +1,5 @@
+// 줄 높이
+
+const lineHeight: string[] = ['17px', '19px', '22px', '26px', '28px', '37px'];
+
+export default lineHeight;
