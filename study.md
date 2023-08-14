@@ -346,3 +346,30 @@ export default MyLoader;
 
 github키 라이브러리 키같은 중요한 키들은 소스에 작성하면 안된다.
 반드시 .env파일에서 변수를 지정하고, 외부에서는 process.env를 이용하여 접근해야한다.
+
+### 테스트 환경 구축
+
+npm i --save-dev @testing-library/jest-dom @testing-library/react jest jest-environment-jsdom
+
+위 명령어를 터미널에 입력하여 테스트에 필요한 라이브러리를 설치한다.
+
+jest.setup.js, jest.config.js파일을 생성한다.
+
+```javascript
+// jest.config.js
+const nextJest = require('next/jest');
+const createJestConfig = nextJest({ dir: './' });
+
+const customJestConfig = {
+  // testPathIgnorePatterns : 테스트 제외할 디렉터리 패턴
+  testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/'],
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+  moduleDirectories: ['node_modules', '<rootDir>/app'], // 모듈
+  testEnvironment: 'jsdom', // 테스트 환경
+};
+
+module.exports = createJestConfig(customJestConfig);
+```
+
+위에 jest.setup.js, jest.config.js을 모두 설치했음에도 실행되지 않으면
+test/test.t(j)s파일이 있는지 확인해보자.
