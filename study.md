@@ -1,4 +1,4 @@
-# Chapter 5 ~ 6 과제
+# Chapter 5 프로젝트 환경 세팅
 
 ## 1. 프로젝트 목표
 
@@ -373,3 +373,115 @@ module.exports = createJestConfig(customJestConfig);
 
 위에 jest.setup.js, jest.config.js을 모두 설치했음에도 실행되지 않으면
 test/test.t(j)s파일이 있는지 확인해보자.
+
+# Chapter 6 프로젝트 구현
+- 애플리케이션 아키텍처는 개발 생산성과 일관성에 매우 중요 요소다.
+- react/next.js 애플리케이션 개발에는 컴포넌트 지향 방식에 따라 애플리케이션 아키텍처를 구축한다.
+
+1. API 클라이언트 구현 (JSON서버용)
+2. 반응형 디자인에 대응하여 컴포넌트를 쉽게 구현하도록 유틸리티함수, 래퍼 컴포넌트를 작성한다.
+3. 아토믹 디자인을 따라 컴포넌트를 구성한다.
+4. 분할 후 스토리북을 이용하여 디자인을 확인하여 구현
+5. 분할된 컴포넌트를 조합하면서 페이지를 구축
+6. 컴포넌트 단위 테스트를 수행한 뒤 완성한다.
+
+
+## 6-1. api 클라이언트 구현
+- api에 대한 질의를 처리하는 API클라이언트 구현
+- Next.js는 api에 대해 요청을 보내는 api클라이언트를 구현하는 경우가 많다.
+- json서버는 보통 백엔드로 사용한다.
+  1. src/utils폴더를 만든 다음 fetch를 감싸 쉽게 사용하도록 fetcher함수를 생성
+  2. api클라이언트를 src/services/auth아래 함수별 파일로 나눠서 구현
+
+- fetch함수를 호출하기 위해서 유틸함수를 만들어야함.  
+  - app/utils/index.ts파일을 생성
+  - 범용적으로 처리할 수 있도록 제네릭 타입을 지정함. (any타입을 되도록 사용을 지양)
+```typescript
+export const fetcher = async <T>(resource: RequestInfo, init?: RequestInit): Promise<T> => {
+  const res = await fetch(resource, init);
+
+  // 응답 상태 체크
+  if (!res.ok) {
+    // 응답 실패시?
+    const errorRes = await res.json();
+    throw new Error(errorRes.message ?? '서버로부터 요청이 실패하였습니다.');
+  }
+
+  // 요청 성공시
+  return res.json();
+};
+
+/**
+ * interface Request extends Body {
+    readonly cache: RequestCache;
+    readonly credentials: RequestCredentials;
+    readonly destination: RequestDestination;
+    readonly headers: Headers;
+    readonly integrity: string;
+    readonly keepalive: boolean;
+    readonly method: string;
+    readonly mode: RequestMode;
+    readonly redirect: RequestRedirect;
+    readonly referrer: string;
+    readonly referrerPolicy: ReferrerPolicy;
+    readonly signal: AbortSignal;
+    readonly url: string;
+}
+
+init
+{
+  revalidate?: number | false // 재확인 => 일정 ms지나고 api서버에 재확인(업데이트)
+  tags?: string[]
+}
+ */
+
+```
+
+각 api서버에 대한 요청을 처리하는 로직은 app/services에서 처리한다.
+
+소스는 생략
+
+## 6.2 개발 환경을 위한 API 요청 프록시
+교차 출처 리소스 공유(CORS)에서 쿠키 전송을 피하기 위해서, Next.js에서 rewrite기능을 사용한다.
+그래서 프록시를 설정해야함.
+Next.js에서 엔드포인트에 요청을 전송시, json-server라는 엔드포인트로 변환되어 요청을 전송한다.
+
+
+next.config.js에서 확인 해보자.
+
+## 6.3 컴포넌트 구현 준비
+컴포넌트의 설계 구현에 앞서 준비를 완료한다.
+- 반응형 디자인 대응을 간결하게
+- 테마 기능 쉽게
+- 타입 기능 활용
+
+### 반응형 디자인
+- 디바이스의 크기에 따라 UI를 배치하는 디자인.
+- 반응형 디자인 (데스크톱 모바일에서 같은 CSS을 준비하고, CSS로 표시를 전환)
+- 다른 도메인 (모바일용과 데스크톱용의 URL을 별도로 준비한다. => NAVER같은...) 리다이렉트
+
+미디어 쿼리
+- CSS에 @media를 사용하여 특정 디바이스의 너비에 따라 스타일을 적용한다.
+  - 640px 이하 : 스마트폰용
+  - 641 ~ 1007px : 태블릿용
+  - 1008px ~ : 데스크톱용
+
+크기별로 이름을 붙여 관리할 수 있다.
+sm : small (640 ~ 767px)
+md: middle (768px ~ 1023px)
+lg: large (1024px ~ 1279px)
+xl : extra large (1280px ~ 1525px)
+
+#### styled-components로 반응형 디자인 구현
+화면 크기에 따라 css속성값을 쉽게, 타입을 활용하여 설정할 수 있다.
+
+
+```tsc
+// base(기본)과 sm(small)에 각각 다른 크기 설정
+<Component fontSize={{ base : '12rem', sm : '10rem'}}></Component>
+
+물론 base없이도 적절하게 처리할 수 있다.
+<Component fontSize="12rem"></Component>
+
+<Component textAlign="100px"></Component>
+```
