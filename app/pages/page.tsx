@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <div>
-      <Box width="200px" height="300px" marginTop="10px"></Box>
+      <Box width="200px" height="300px" marginTop="10px" backgroundColor="secondary"></Box>
     </div>
   );
 }

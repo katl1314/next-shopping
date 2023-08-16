@@ -45,7 +45,7 @@ function isTheme(theme: unknown): theme is AppTheme {
 /**
  * Responsive 타입을 css 속성과 그 값을 반환
  * @param propKey Css 속성
- * @param prop Responsive 타입
+ * @param prop Responsive 타입 (css값 또는 { sm: css값 })
  * @param theme theme AppTheme or unknwon
  * @returns CSS속성과 그 값 (style 속성...)
  */
@@ -63,7 +63,7 @@ export function toPropValue<T>(
     const result = [];
     for (const responsiveKey in prop) {
       switch (responsiveKey) {
-        case 'base':
+        case 'base': // 기본값
           result.push(`${propKey}: ${toThemeValueIfNeeded(propKey, prop[responsiveKey], theme)};`);
           break;
         case 'sm':
@@ -71,8 +71,8 @@ export function toPropValue<T>(
         case 'lg':
         case 'xl': {
           // 미디어 쿼리 스타일
-          const breakPoints = BREAKPOINTS[responsiveKey]; // unit에 맞은 최소 너비값을 할당한다.
-          const style = `${propKey}: ${toThemeValueIfNeeded(propKey, prop[responsiveKey], theme)};`; // 스타일을 만든다?
+          const breakPoints = BREAKPOINTS[responsiveKey]; // unit에 맞은 최소 너비값을 반환한다.
+          const style = `${propKey}: ${toThemeValueIfNeeded(propKey, prop[responsiveKey], theme)};`; // 컴포넌트 속성을 스타일로 변경한다.
           result.push(`@media screen and (min-width: ${breakPoints}) {${style}}`);
           break;
         }
