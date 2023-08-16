@@ -267,6 +267,8 @@ export default function Page() {
 useForm훅 : form validate 체크를 위한 훅으로 제네릭 타입을 지정할 수 있음. (폼 객체의 타입)
 register, handleSubmit: form validation통과시 호출하는 함수, formState: { errors, ...} 폼 검사 상태 여부
 
+바닐라 익스트렉트 + 
+
 ### SWR도입
 
 swr은 데이터를 가져오는 react hook 라이브러리
@@ -485,3 +487,9 @@ xl : extra large (1280px ~ 1525px)
 
 <Component textAlign="100px"></Component>
 ```
+
+### 래퍼 컴포넌트 구현
+- 레이아웃을 조정하는 역할
+- 유틸리티 함수를 조합하여 활용
+- 웹 프론트엔드의 규모가 커짐에 따라 레이아웃 조정의 필요성이 증가
+- 레이아웃과 관련된 컴포넌트는 app/components/layout에 작성한다.
