@@ -4,17 +4,17 @@ import theme from '@/app/theme';
 import { Responsive } from '@/app/types';
 import { Color, Space, toPropValue } from '@/app/utils/style';
 
-export interface BoxProps {
-  color?: Responsive<Color>;
-  backgroundColor?: Responsive<Color>;
-  width?: Responsive<string>;
-  height?: Responsive<string>;
-  minWidth?: Responsive<string>;
-  minHeight?: Responsive<string>;
-  display?: Responsive<string>;
-  border?: Responsive<string>;
-  overflow?: Responsive<string>;
-  margin?: Responsive<Space>;
+export interface IBoxProps {
+  color?: Responsive<Color>; // 폰트색
+  backgroundColor?: Responsive<Color>; // 배경색
+  width?: Responsive<string>; // 컨테이너 너비
+  height?: Responsive<string>; // 컨테이너 높이
+  minWidth?: Responsive<string>; // 컨테이너 최소 너비
+  minHeight?: Responsive<string>; // 컨테이너 최소 높이
+  display?: Responsive<string>; // 컨테이너 레이아웃 설정 flex, grid, ...
+  border?: Responsive<string>; // 컨테이너 테두리
+  overflow?: Responsive<string>; // 컨테이너내 내용이 영역에 벗어날 경우 표시할 방법
+  margin?: Responsive<Space>; // 컨테이너 바깥쪽 여백
   marginTop?: Responsive<Space>;
   marginRight?: Responsive<Space>;
   marginBottom?: Responsive<Space>;
@@ -30,7 +30,7 @@ export interface BoxProps {
  * Box 컴포넌트
  * 레이아웃 조정에 사용한다
  */
-const Box = styled.div<BoxProps>`
+const Box = styled.div<IBoxProps>`
   ${props => toPropValue('color', props.color, theme)}
   ${props => toPropValue('background-color', props.backgroundColor, theme)}
   ${props => toPropValue('width', props.width, theme)}

@@ -267,7 +267,7 @@ export default function Page() {
 useForm훅 : form validate 체크를 위한 훅으로 제네릭 타입을 지정할 수 있음. (폼 객체의 타입)
 register, handleSubmit: form validation통과시 호출하는 함수, formState: { errors, ...} 폼 검사 상태 여부
 
-바닐라 익스트렉트 + 
+바닐라 익스트렉트 +
 
 ### SWR도입
 
@@ -377,6 +377,7 @@ module.exports = createJestConfig(customJestConfig);
 test/test.t(j)s파일이 있는지 확인해보자.
 
 # Chapter 6 프로젝트 구현
+
 - 애플리케이션 아키텍처는 개발 생산성과 일관성에 매우 중요 요소다.
 - react/next.js 애플리케이션 개발에는 컴포넌트 지향 방식에 따라 애플리케이션 아키텍처를 구축한다.
 
@@ -387,19 +388,21 @@ test/test.t(j)s파일이 있는지 확인해보자.
 5. 분할된 컴포넌트를 조합하면서 페이지를 구축
 6. 컴포넌트 단위 테스트를 수행한 뒤 완성한다.
 
-
 ## 6-1. api 클라이언트 구현
+
 - api에 대한 질의를 처리하는 API클라이언트 구현
 - Next.js는 api에 대해 요청을 보내는 api클라이언트를 구현하는 경우가 많다.
 - json서버는 보통 백엔드로 사용한다.
+
   1. src/utils폴더를 만든 다음 fetch를 감싸 쉽게 사용하도록 fetcher함수를 생성
   2. api클라이언트를 src/services/auth아래 함수별 파일로 나눠서 구현
 
-- fetch함수를 호출하기 위해서 유틸함수를 만들어야함.  
+- fetch함수를 호출하기 위해서 유틸함수를 만들어야함.
   - app/utils/index.ts파일을 생성
   - 범용적으로 처리할 수 있도록 제네릭 타입을 지정함. (any타입을 되도록 사용을 지양)
+
 ```typescript
-export const fetcher = async <T>(resource: RequestInfo, init?: RequestInit): Promise<T> => {
+export const fetcher = async <T,>(resource: RequestInfo, init?: RequestInit): Promise<T> => {
   const res = await fetch(resource, init);
 
   // 응답 상태 체크
@@ -436,7 +439,6 @@ init
   tags?: string[]
 }
  */
-
 ```
 
 각 api서버에 대한 요청을 처리하는 로직은 app/services에서 처리한다.
@@ -444,25 +446,29 @@ init
 소스는 생략
 
 ## 6.2 개발 환경을 위한 API 요청 프록시
+
 교차 출처 리소스 공유(CORS)에서 쿠키 전송을 피하기 위해서, Next.js에서 rewrite기능을 사용한다.
 그래서 프록시를 설정해야함.
 Next.js에서 엔드포인트에 요청을 전송시, json-server라는 엔드포인트로 변환되어 요청을 전송한다.
 
-
 next.config.js에서 확인 해보자.
 
 ## 6.3 컴포넌트 구현 준비
+
 컴포넌트의 설계 구현에 앞서 준비를 완료한다.
+
 - 반응형 디자인 대응을 간결하게
 - 테마 기능 쉽게
 - 타입 기능 활용
 
 ### 반응형 디자인
+
 - 디바이스의 크기에 따라 UI를 배치하는 디자인.
 - 반응형 디자인 (데스크톱 모바일에서 같은 CSS을 준비하고, CSS로 표시를 전환)
 - 다른 도메인 (모바일용과 데스크톱용의 URL을 별도로 준비한다. => NAVER같은...) 리다이렉트
 
 미디어 쿼리
+
 - CSS에 @media를 사용하여 특정 디바이스의 너비에 따라 스타일을 적용한다.
   - 640px 이하 : 스마트폰용
   - 641 ~ 1007px : 태블릿용
@@ -475,8 +481,8 @@ lg: large (1024px ~ 1279px)
 xl : extra large (1280px ~ 1525px)
 
 #### styled-components로 반응형 디자인 구현
-화면 크기에 따라 css속성값을 쉽게, 타입을 활용하여 설정할 수 있다.
 
+화면 크기에 따라 css속성값을 쉽게, 타입을 활용하여 설정할 수 있다.
 
 ```tsc
 // base(기본)과 sm(small)에 각각 다른 크기 설정
@@ -489,7 +495,48 @@ xl : extra large (1280px ~ 1525px)
 ```
 
 ### 래퍼 컴포넌트 구현
+
 - 레이아웃을 조정하는 역할
 - 유틸리티 함수를 조합하여 활용
 - 웹 프론트엔드의 규모가 커짐에 따라 레이아웃 조정의 필요성이 증가
 - 레이아웃과 관련된 컴포넌트는 app/components/layout에 작성한다.
+
+## Next.js에서 절대경로 적용하는 방법
+
+지금까지 모듈을 import하였을때, 상대경로를 적용하였다.
+상대경로의 단점은 길이가 길어지는 문제가 있기에 가독성이 떨어진다고 생각이 들었다.
+tsconfig.json의 paths속성을 사용하여 별칭으로 지어주면 절대 경로를 사용할 수 있다고 한다.
+
+아래 예제는 paths속성을 사용하여 경로에 별칭을 적용한 것이다.
+
+```json
+compilerOptions: {
+  "paths": {
+      "@/*": ["./*"],
+      "@components/*": ["./app/components/*"] // app/components하위는 @components로 접근 가능
+    }
+}
+```
+
+다만 이렇게 적용했을때 eslint에서 에러가 발생하는 경우가 있다.
+
+> Unable to resolve path to module 모듈경로
+
+다음은 아래 모듈을 추가로 설치하자.
+
+npm i --save-dev eslint-import-resolver-typescript
+
+그다음 .eslintrc.json에 아래와 같이 추가한다.
+
+```json
+"settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "typescript": {}
+    }
+  },
+```
+
+위 모듈을 설치하면 에러가 발생하지 않는다.
