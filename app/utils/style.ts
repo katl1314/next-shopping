@@ -19,7 +19,7 @@ export type FontSize = FontSizeThemeKeys | (string & {});
 // eslint-disable-next-line
 export type LineHeight = LineHeightThemeKeys | (string & {});
 // eslint-disable-next-line
-export type letterSpacings = LetterSpacingsKeys | (string & {});
+export type LetterSpacings = LetterSpacingsKeys | (string & {});
 
 // 브레이크 포인트
 const BREAKPOINTS: { [unit: string]: string } = {

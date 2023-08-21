@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import Button from '../components/atoms/Button';
 import Box from '@components/layout/Box';
 import Flex from '@components/layout/Flex';
 import Grid from '@components/layout/Grid';
@@ -30,6 +31,7 @@ export default function Page() {
         <span>테스트8</span>
         <span>테스트9</span>
       </Grid>
+      <Button variant="secondary">테스트</Button>
     </div>
   );
 }
