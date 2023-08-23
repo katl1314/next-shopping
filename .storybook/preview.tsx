@@ -44,16 +44,18 @@ export const GlobalStyle = createGlobalStyle`
 `;
 
 // storybook은 이미지 최적화를 위한 이미지 컴포넌트를 사용할 수 없기 때문에 대체한다.
-const OriginalNextImage = NextImage.default;
+// storybook 7.2에서 아래 코드에는 문제가 있음.
+// 참조 사이트 : https://github.com/storybookjs/storybook/issues/23684
+// const OriginalNextImage = NextImage.default;
 
-Object.defineProperty(NextImage, 'default', {
-  configurable: true,
-  value: (props) =>
-    typeof props.src === 'string' ? (
-      <OriginalNextImage {...props} unoptimized blurDataURL={props.src} />
-    ) : (
-      <OriginalNextImage {...props} unoptimized />
-    ),
-});
+// Object.defineProperty(NextImage, 'default', {
+//   configurable: true,
+//   value: (props) =>
+//     typeof props.src === 'string' ? (
+//       <OriginalNextImage {...props} unoptimized blurDataURL={props.src} />
+//     ) : (
+//       <OriginalNextImage {...props} unoptimized />
+//     ),
+// });
 
 export default preview;

@@ -1,4 +1,13 @@
 {
+  // tsconfig.json paths속성에 절대 경로를 설정할 경우 eslint-import-resolver-typescript을 설치하고 아래 settings을 추가한다.
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "typescript": {}
+    }
+  },
   "extends": [
     "next",
     "next/core-web-vitals",
@@ -31,7 +40,7 @@
         "singleQuote": true,
         "printWidth": 100,
         "tabWidth": 2,
-        "arrowParens": "always"
+        "arrowParens": "avoid"
       }
     ]
   }
