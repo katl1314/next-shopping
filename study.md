@@ -510,12 +510,34 @@ tsconfig.json의 paths속성을 사용하여 별칭으로 지어주면 절대 �
 아래 예제는 paths속성을 사용하여 경로에 별칭을 적용한 것이다.
 
 ```json
+// tsconfig.json
 compilerOptions: {
   "paths": {
       "@/*": ["./*"],
       "@components/*": ["./app/components/*"] // app/components하위는 @components로 접근 가능
     }
 }
+```
+
+그 다음 .storybook/main.ts에서 추가로 설정해줘야함.
+웹팩 설정을 커스터마이징을 해주어야함.
+```ts
+// 스토리북의 웹팩 설정을 커스터마이징한다.
+// 현재 상대경로의 경우 가독성이 떨어지는 문제로 Path Alias를 이용하여 처리를 하려고 한다.
+// tsconfig.json만 수정했을때, storybook은 별도로 설정해야한다.
+// tsconfig-paths-webpack-plugin을 먼저 설치한다.
+webpackFinal: async (config) => {
+  // https://dev.to/lico/storybook-plugins-push-of-undefined-error-in-webpackfinal-after-upgrading-from-webpack4-to-webpack5-4280
+  // webpack에서 config.resolve.plugins가 undefined으로 표시됨.
+  if (config && config.resolve) {
+    config.resolve.plugins = config.resolve?.plugins ?? [];
+
+    config.resolve.plugins.push(new TsconfigPathsPlugin({
+      configFile: path.resolve(__dirname, "../tsconfig.json"),
+    }));
+  }
+  return config;
+},
 ```
 
 다만 이렇게 적용했을때 eslint에서 에러가 발생하는 경우가 있다.
@@ -540,3 +562,85 @@ npm i --save-dev eslint-import-resolver-typescript
 ```
 
 위 모듈을 설치하면 에러가 발생하지 않는다.
+
+Button컴포넌트의 storybook을 위한 styles.tsx파일 작성
+```tsx
+import type { Meta, StoryObj } from '@storybook/react'; // d.ts내 타입 불러오기 Meta, StoryObj
+import React from 'react';
+import Button from '@/app/components/atoms/Button';
+
+// Meta속성 정보를 입력
+const meta: Meta<typeof Button> = {
+  component: Button, // 스토리북 대상 컴포넌트
+  title: '버튼', // 사이드 바의 타이틀,
+};
+
+// render, component, args속성 가진 객체를 반환함.
+type Story = StoryObj<typeof Button>;
+
+export const Primary: Story = {
+  render: props => <Button {...props}>{props.children}</Button>,
+  // 스토리북에 표시한 컴포넌트의 props를 지정한다.
+  args: {
+    children: 'Primary',
+    padding: '10px 10px',
+    variant: 'primary',
+  },
+  // 컴포넌트에 전달한 인자들의 옵션 및 설명 정의
+  argTypes: {
+    // 버튼 클릭 속성 정의
+    onClick: {
+      action: 'clicked', // 클릭시 'clicked'라는 action전달
+    },
+    variant: {
+      // defaultValue: 'primary', // storybook7의 경우 더이상 args의 기본값을 유추하지 않는다.
+      options: ['primary', 'secondary', 'danger'],
+      control: { type: 'radio' },
+      description: '버튼 변형',
+    },
+    disabled: {
+      control: { type: 'boolean' }, // 토글 UI를 통해 값 변경 간으
+    },
+    width: {
+      control: { type: 'number' },
+    },
+    height: {
+      control: { type: 'number' },
+    },
+  },
+};
+
+export const Secondary: Story = {
+  render: props => <Button {...props}>{props.children}</Button>,
+  args: {
+    children: 'Secondary',
+    padding: '10px 10px',
+    variant: 'secondary',
+  },
+  argTypes: {
+    variant: {
+      options: ['primary', 'secondary', 'danger'],
+      control: { type: 'radio' },
+    },
+  },
+};
+
+export const Danger: Story = {
+  render: props => <Button {...props}>{props.children}</Button>,
+  args: {
+    children: 'Danger',
+    padding: '10px 10px',
+    variant: 'danger',
+  },
+  argTypes: {
+    // variant props에 대해 지정
+    variant: {
+      control: { type: 'radio' },
+      options: ['primary', 'secondary', 'danger'],
+    },
+  },
+};
+
+export default meta;
+
+```
