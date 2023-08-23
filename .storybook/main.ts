@@ -3,7 +3,7 @@ const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const path = require('path');
 
 const config: StorybookConfig = {
-  staticDirs: ['public'], // 정적 파일이 위치한 디렉터리
+  staticDirs: ['./public'], // 정적 파일이 위치한 디렉터리
   stories: ['../stories/**/*.mdx', '../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
   addons: [
     '@storybook/addon-links',
