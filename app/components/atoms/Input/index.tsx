@@ -2,18 +2,19 @@
 
 import styled, { css } from 'styled-components';
 import theme from '@/app/theme';
-interface IInputProps extends React.HTMLAttributes<HTMLInputElement> {
+interface IInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   hasError?: boolean;
   hasBorder?: boolean;
+  color?: string;
 }
 
 const Input = styled.input<IInputProps>`
-  color: ${({ theme }) => theme.colors.inputText};
-  ${({ hasError, hasBorder, theme }) => {
+  color: ${({ color }) => theme.colors?.text ?? color};
+  ${({ hasError, hasBorder }) => {
     // 경계선
     if (hasBorder) {
       return css`
-        border: 1px solid #${hasError ? theme.colors.danger : theme.colors.border};
+        border: 1px solid ${hasError ? theme.colors.danger : theme.colors.border};
         border-radius: 5px;
       `;
     } else {
