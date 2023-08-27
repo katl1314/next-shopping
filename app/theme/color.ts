@@ -12,6 +12,7 @@ const color = {
   black: '#000000',
   white: '#ffffff',
   text: '#000000',
+  placeholder: '#000000',
 } as const; // 속성 읽기 전용으로...
 
 export default color;

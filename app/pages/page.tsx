@@ -1,5 +1,7 @@
 import { Metadata } from 'next';
 import Button from '../components/atoms/Button';
+import Input from '../components/atoms/Input';
+import ShapeImage from '../components/atoms/ShapeImage';
 import Box from '@components/layout/Box';
 import Flex from '@components/layout/Flex';
 import Grid from '@components/layout/Grid';
@@ -32,6 +34,12 @@ export default function Page() {
         <span>테스트9</span>
       </Grid>
       <Button variant="secondary">테스트</Button>
+      <Input type="text" hasBorder={true} maxLength={10} color="#000"></Input>
+      {/* Next13에서는 public 폴더에 static asset을 추가한다. src으로 참조시 public기준으로 참조가능. */}
+      <Flex justifyContent="space-around">
+        <ShapeImage src="/images/1.jpg" shape="circle" alt="과일" width={100} height={100} />
+        <ShapeImage src="/images/2.jpg" shape="circle" alt="과일" width={100} height={100} />
+      </Flex>
     </div>
   );
 }
