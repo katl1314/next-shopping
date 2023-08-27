@@ -80,6 +80,26 @@ package.json의 script부분 추가
   "bracketSpacing": true // 중괄호 양 끝에 공백을 표시할지?
 }
 ```
+eslint와 prettier를 같이 사용하면 발생할 수 있는 문제점이 있다.
+만약 prettier에 적용한 포맷을 사용하면 저장시 설정된 포맷대로 저장되는데
+eslint은 구문검사를 담당하기 때문에 여기에 설정된 대로 저장되지 않으면 에러를 띄운다.
+그래서 prettier에 설정한 속성을 .eslintrc의 rules에 추가해야한다.
+```json
+"rules": {
+  "prettier/prettier": [
+    "error",
+    {
+      "trailingComma": "all",
+      "endOfLine": "auto",
+      "semi": true,
+      "singleQuote": true,
+      "printWidth": 100,
+      "tabWidth": 2,
+      "arrowParens": "avoid"
+    }
+  ]
+}
+```
 
 5. Storybook 설정
    스토리북을 도입할 것이다.
@@ -115,6 +135,8 @@ staticDirs속성은 정적 파일을 배치할 디렉터리를 지정한다.
   "staticDirs": ["public"] // 정적 파일을 배치할 디렉터리 정의
 }
 ```
+아래 이미지를 .storybook에 public에 넣어놨다면
+추후 스토리 세팅 시 이미지가 필요할 때 staticDirs에 지정한 경로를 기준으로 찾을 수 있다.
 
 그 다음에 스토리북에 사용할 이미지를 정적 파일을 배치하는 디렉터리인 .storybook/public/images에 배치한다.
 
@@ -501,7 +523,7 @@ xl : extra large (1280px ~ 1525px)
 - 웹 프론트엔드의 규모가 커짐에 따라 레이아웃 조정의 필요성이 증가
 - 레이아웃과 관련된 컴포넌트는 app/components/layout에 작성한다.
 
-## Next.js에서 절대경로 적용하는 방법
+## 6.4 Next.js에서 절대경로 적용하는 방법
 
 지금까지 모듈을 import하였을때, 상대경로를 적용하였다.
 상대경로의 단점은 길이가 길어지는 문제가 있기에 가독성이 떨어진다고 생각이 들었다.
@@ -519,16 +541,12 @@ compilerOptions: {
 }
 ```
 
+### storybook에서 tsconfig에 적용한 paths을 사용하는 방법
 그 다음 .storybook/main.ts에서 추가로 설정해줘야함.
 웹팩 설정을 커스터마이징을 해주어야함.
+// https://dev.to/lico/storybook-plugins-push-of-undefined-error-in-webpackfinal-after-upgrading-from-webpack4-to-webpack5-4280
 ```ts
-// 스토리북의 웹팩 설정을 커스터마이징한다.
-// 현재 상대경로의 경우 가독성이 떨어지는 문제로 Path Alias를 이용하여 처리를 하려고 한다.
-// tsconfig.json만 수정했을때, storybook은 별도로 설정해야한다.
-// tsconfig-paths-webpack-plugin을 먼저 설치한다.
 webpackFinal: async (config) => {
-  // https://dev.to/lico/storybook-plugins-push-of-undefined-error-in-webpackfinal-after-upgrading-from-webpack4-to-webpack5-4280
-  // webpack에서 config.resolve.plugins가 undefined으로 표시됨.
   if (config && config.resolve) {
     config.resolve.plugins = config.resolve?.plugins ?? [];
 
@@ -644,3 +662,7 @@ export const Danger: Story = {
 export default meta;
 
 ```
+
+## 6.5 몰리큘 구현
+기존에 생성한 텍스트 박스, 텍스트 등 여러 아톰을 모아 몰리큘을 만들 수 있다.
+예를 들어 체크박스를 예로 두면, 체크 할 수 있는 체크박스와 라벨값을 표시하는 라벨을 합쳐셔 몰리큘을 구현할 수 있다.

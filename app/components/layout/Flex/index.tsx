@@ -32,7 +32,7 @@ interface IFlexProps extends IBoxProps {
 }
 
 const Flex = styled(Box)<IFlexProps>`
-  ${props => toPropValue('align-item', props.alignItems, theme)}
+  ${props => toPropValue('align-items', props.alignItems, theme)}
   ${props => toPropValue('align-content', props.alignContent, theme)}
   ${props => toPropValue('justify-item', props.justifyItems, theme)}
   ${props => toPropValue('justify-content', props.justifyContent, theme)}

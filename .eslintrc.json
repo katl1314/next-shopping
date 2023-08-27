@@ -22,6 +22,7 @@
     "prettier"
   ],
   "rules": {
+    "import/no-named-as-default": 0,
     "react/react-in-jsx-scope": "off",
     "import/order": [
       2,
