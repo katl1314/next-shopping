@@ -666,3 +666,8 @@ export default meta;
 ## 6.5 몰리큘 구현
 기존에 생성한 텍스트 박스, 텍스트 등 여러 아톰을 모아 몰리큘을 만들 수 있다.
 예를 들어 체크박스를 예로 두면, 체크 할 수 있는 체크박스와 라벨값을 표시하는 라벨을 합쳐셔 몰리큘을 구현할 수 있다.
+
+React Hook useEffect has a missing dependency: 'fetchMovieData'. Either include it or remove the dependency array. 해결방법
+=> 리액트 훅을 사용하면서, 의존 배열에 대해서 확인을 해보았음.
+의존 배열의 경우 상태값, props을 등등 지정할 수 있으며, 해당 값들이 변경되었을때, 훅 내 콜백함수를 실행한다.
+만약 의존 배열에 지정한 값이 훅의 콜백에서 사용되지 않으면 경고문이 표시함.

@@ -38,7 +38,8 @@ export default function Page() {
         <ShapeImage src="/images/1.jpg" shape="circle" alt="과일" width={100} height={100} />
         <ShapeImage src="/images/2.jpg" shape="circle" alt="과일" width={100} height={100} />
       </Flex> */}
-      <Checkbox label="선택" checked={true}></Checkbox>
+      <Checkbox checkLabel="승인" unCheckLabel="미승인" checked={true}></Checkbox>
+      <Checkbox checkLabel="승인" unCheckLabel="미승인" checked={false}></Checkbox>
     </div>
   );
 }

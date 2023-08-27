@@ -5,32 +5,24 @@ import styled, { css } from 'styled-components';
 import { IButtonProps } from '../Button';
 export interface IIconButton extends IButtonProps {
   size?: number;
-  isCheck?: boolean;
+  checked?: boolean;
 }
 
 const StyledIconButton = styled.div<IIconButton>`
   width: ${({ size }) => `${size}px`};
   height: ${({ size }) => `${size}px`};
-  background-color: ${({ isCheck }) =>
-    isCheck ? css`rgb(16, 149, 193)` : css`rgb(255, 255, 255)`};
-  border: 1px solid ${({ isCheck }) => (!isCheck ? css`rgb(16, 149, 193)` : css`rgb(0, 0, 0)`)};
+  background-color: ${({ checked }) =>
+    checked ? css`rgb(16, 149, 193)` : css`rgb(255, 255, 255)`};
+  border: 1px solid ${() => css`rgb(16, 149, 193)`};
   box-sizing: border-box;
 `;
 
 export const CheckBoxIcon = (props: IIconButton) => {
   return (
     <>
-      <StyledIconButton {...props} isCheck={true}>
+      <StyledIconButton {...props}>
         <AiOutlineCheck color="white" />
       </StyledIconButton>
-    </>
-  );
-};
-
-export const CheckBoxOutlineBlankIcon = (props: IIconButton) => {
-  return (
-    <>
-      <StyledIconButton {...props} isCheck={false}></StyledIconButton>
     </>
   );
 };
