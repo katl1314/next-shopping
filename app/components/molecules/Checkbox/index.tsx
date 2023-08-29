@@ -1,6 +1,6 @@
 'use client';
 // eslint-disable-next-line import/no-unresolved
-import { useState, useRef, useEffect, useCallback, RefObject, useLayoutEffect } from 'react';
+import { useState, useRef, useCallback, RefObject, useLayoutEffect } from 'react';
 import styled from 'styled-components';
 import { CheckBoxIcon } from '@components/atoms/IconButton';
 import Text from '@components/atoms/Text';
@@ -29,29 +29,26 @@ const Checkbox = (props: ICheckboxProps) => {
   const { id, onChange, checked, checkLabel, unCheckLabel, ...rest } = props;
   // 체크 상태 관리 위한 useState
   const [isChecked, setChecked] = useState(checked);
-  const [label, setLabel] = useState<string | undefined>('');
-
+  const label = useRef<string | undefined>(isChecked ? checkLabel : unCheckLabel);
   // dom접근을 위한 useRef => useRef는 null로 초기화
   const ref = useRef<HTMLInputElement>(null);
 
-  // 체크 박스 클릭 위한 이벤트
   // useCallback을 통해 의존 배열내 내용이 변경되지 않으면 메모이제이션된 콜백함수를 사용한다.
   const handleClick = useCallback(
     (event: React.MouseEvent) => {
       event.preventDefault();
-      setChecked(isChecked => !isChecked); // 리액트 훅에는 콜백함수를 통해 이전값을 새로운 값으로 처리가능.
+      setChecked(isChecked => {
+        label.current = isChecked ? unCheckLabel : checkLabel;
+        return !isChecked;
+      }); // 리액트 훅에는 콜백함수를 통해 이전값을 새로운 값으로 처리가능.
     },
-    [setChecked],
+    [setChecked, unCheckLabel, checkLabel],
   );
 
   // 화면에 페인팅 되기 전 실행하는 훅
   useLayoutEffect(() => {
-    setLabel(isChecked ? checkLabel : unCheckLabel);
-  }, [isChecked, checkLabel, unCheckLabel]);
-
-  useEffect(() => {
     setChecked(checked ?? false);
-  }, [checked]); // checked가 변경될때 useEffect를 호출한다. => 다만 props이므로 변경되지 않음.
+  }, [checked]);
 
   return (
     <>
@@ -66,7 +63,7 @@ const Checkbox = (props: ICheckboxProps) => {
         ></CheckboxElement>
         <CheckBoxIcon size={20} onClick={handleClick} checked={isChecked} />
         <Label htmlFor={id} onClick={handleClick}>
-          <Text>{label}</Text>
+          <Text>{label.current}</Text>
         </Label>
       </Flex>
     </>

@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 // import Input from '../components/atoms/Input';
 // import ShapeImage from '../components/atoms/ShapeImage';
 import Checkbox from '../components/molecules/Checkbox';
+import Dropdown from '../components/molecules/Dropdown';
 // import Box from '@components/layout/Box';
 // import Flex from '@components/layout/Flex';
 // import Grid from '@components/layout/Grid';
@@ -10,6 +11,11 @@ import Checkbox from '../components/molecules/Checkbox';
 export const metadata: Metadata = {
   title: 'wrapper Components 테스트',
 };
+
+const dropdownItem = [
+  { value: 'a', label: 'A' },
+  { value: 'b', label: 'B' },
+];
 
 export default function Page() {
   return (
@@ -40,6 +46,7 @@ export default function Page() {
       </Flex> */}
       <Checkbox checkLabel="승인" unCheckLabel="미승인" checked={true}></Checkbox>
       <Checkbox checkLabel="승인" unCheckLabel="미승인" checked={false}></Checkbox>
+      <Dropdown id="combo" items={dropdownItem} placeholder="테스트"></Dropdown>
     </div>
   );
 }
