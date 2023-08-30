@@ -51,22 +51,19 @@ const Checkbox = (props: ICheckboxProps) => {
   }, [checked]);
 
   return (
-    <>
-      {/* Flex 1차원 요소 배치 */}
-      <Flex alignItems="center">
-        <CheckboxElement
-          {...rest}
-          ref={ref}
-          type="checkbox"
-          checked={checked}
-          onChange={onChange}
-        ></CheckboxElement>
-        <CheckBoxIcon size={20} onClick={handleClick} checked={isChecked} />
-        <Label htmlFor={id} onClick={handleClick}>
-          <Text>{label.current}</Text>
-        </Label>
-      </Flex>
-    </>
+    <Flex alignItems="center">
+      <CheckboxElement
+        {...rest}
+        ref={ref}
+        type="checkbox"
+        defaultChecked={checked}
+        onChange={onChange}
+      ></CheckboxElement>
+      <CheckBoxIcon size={20} onClick={handleClick} checked={isChecked} />
+      <Label htmlFor={id} onClick={handleClick}>
+        <Text>{label.current}</Text>
+      </Label>
+    </Flex>
   );
 };
 

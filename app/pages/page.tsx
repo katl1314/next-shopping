@@ -4,6 +4,7 @@ import { Metadata } from 'next';
 // import ShapeImage from '../components/atoms/ShapeImage';
 import Checkbox from '../components/molecules/Checkbox';
 import Dropdown from '../components/molecules/Dropdown';
+import Dropzone from '../components/molecules/Dropzone';
 // import Box from '@components/layout/Box';
 // import Flex from '@components/layout/Flex';
 // import Grid from '@components/layout/Grid';
@@ -47,6 +48,7 @@ export default function Page() {
       <Checkbox checkLabel="승인" unCheckLabel="미승인" checked={true}></Checkbox>
       <Checkbox checkLabel="승인" unCheckLabel="미승인" checked={false}></Checkbox>
       <Dropdown id="combo" items={dropdownItem} placeholder="테스트"></Dropdown>
+      <Dropzone id="dropzone" width={500} height={300} accept={['text/plain']}></Dropzone>
     </div>
   );
 }
