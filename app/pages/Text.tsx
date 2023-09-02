@@ -17,7 +17,8 @@ const Test = () => {
   };
 
   const handlePreviewRemove = (src: string) => {
-    setImageSrc(prevSrc => (prevSrc === src ? '' : prevSrc));
+    console.info(src);
+    setImageSrc('');
   };
 
   const [imageSrc, setImageSrc] = useState<string>('/images/1.jpg');
