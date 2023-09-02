@@ -20,6 +20,7 @@ interface IDropzoneProps {
   files?: File[]; // 입력 파일
   width?: number | string; // 드롭존 너비 number타입이면 px, string타입이면 %도 사용할 수 있다.
   height?: number | string; // 드롭존 높이
+  onChange?: (file: File[]) => void;
 }
 
 type SizeType = { width: number | string; height: number | string };
@@ -45,7 +46,7 @@ const DropdownContent = styled.div<SizeType>`
 `;
 
 const Dropzone = (props: IDropzoneProps) => {
-  const { accept, id, width = '100%', height = 300, files = [] } = props;
+  const { accept, id, width = '100%', height = 300, files = [], onChange } = props;
   const rootRef = useRef<HTMLDivElement>(null); // root영역 접근을 위한 ref
   const inputRef = useRef<HTMLInputElement>(null); // input접근을 위한 ref
   const [fileList, setFileList] = useState<File[]>(files);
@@ -65,6 +66,7 @@ const Dropzone = (props: IDropzoneProps) => {
 
     if (files != undefined) {
       setFileList(files);
+      onChange && onChange(files);
     }
   };
 
@@ -74,6 +76,7 @@ const Dropzone = (props: IDropzoneProps) => {
 
     if (files != undefined) {
       setFileList(files);
+      onChange && onChange(files);
     }
   }, []);
 
@@ -85,6 +88,7 @@ const Dropzone = (props: IDropzoneProps) => {
     return 'tagName' in target;
   };
 
+  // 파일이 drop했을때와 input에서 change되었을때 동작이 상이함.
   const getFilesFromEvent = (
     event: React.DragEvent | React.ChangeEvent,
     accept?: FileType[],
