@@ -8,7 +8,7 @@ import Flex from '@components/layout/Flex';
 // 드롭다운 래퍼
 const DropdownWrapper = styled.div`
   position: relative; // 부모 요소가 relative이므로 자식요소가 absolute이면 부모 요소 기준으로 top, left설정
-  height: 30px;
+  height: 38px;
 `;
 
 type DropdownItemType = { value: string | number | undefined; label?: string };

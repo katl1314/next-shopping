@@ -1,8 +1,20 @@
 'use client';
 
+import { Noto_Sans_KR } from 'next/font/google'; // google fonts에서 제공하는 폰트 컴포넌트를 반환
 import styled from 'styled-components';
 import type { Responsive } from '@/app/types/style';
 import { toPropValue, Space, LetterSpacings, LineHeight, Color, FontSize } from '@/app/utils/style';
+
+const notoSansKr = Noto_Sans_KR({
+  subsets: ['latin'],
+  weight: ['100', '400', '700', '900'],
+});
+
+// const roboto = Roboto({
+//   subsets: ['latin'], // preload시 적용할 폰트 subsets
+//   weight: ['100', '400', '700'],
+//   variable: '--roboto', // css 변수 스타일을 지정할 경우 사용함.
+// });
 
 export type TextVariant =
   | 'extraSmall'
@@ -110,6 +122,7 @@ const Text = styled.span<ITextProps>`
 Text.defaultProps = {
   variant: 'medium',
   color: 'text',
+  className: notoSansKr.className,
 };
 
 export default Text;

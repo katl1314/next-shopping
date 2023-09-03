@@ -671,3 +671,34 @@ React Hook useEffect has a missing dependency: 'fetchMovieData'. Either include 
 => 리액트 훅을 사용하면서, 의존 배열에 대해서 확인을 해보았음.
 의존 배열의 경우 상태값, props을 등등 지정할 수 있으며, 해당 값들이 변경되었을때, 훅 내 콜백함수를 실행한다.
 만약 의존 배열에 지정한 값이 훅의 콜백에서 사용되지 않으면 경고문이 표시함.
+
+
+## 6.6 오거니즘 구현
+오거니즘은 로그인 폼이나, 헤더보다 구체적인 UI컴포넌트
+도메인 지식에 의존하는 데이터를 받거나, 콘텍스트를 참조하거나, 고유의 작동을 가질 수 있다.
+|컴포넌트|함수 컴포넌트|
+|---|---|
+|카트상품|CartProduct|
+|푸터|Footer|
+|글로벌 스피너|GloalSpinner|
+|헤더|Header|
+|상품 카드|ProductCard|
+|상품 등록 폼|ProductForm|
+|로그인 폼|SigninForm|
+|사용자 프로필|UserProfile|
+
+### Next13의 next/image에서 objectFit이 사라진 이유
+[참고 사이트](https://velog.io/@pixartive/%EC%99%9C-%EC%83%88%EB%A1%9C%EC%9B%8C%EC%A7%84-nextImage%EB%8A%94-%EB%8D%94%EC%9D%B4%EC%83%81-objectFit%EC%9D%84-%ED%95%84%EC%9A%94%EB%A1%9C-%ED%95%98%EC%A7%80-%EC%95%8A%EA%B2%8C-%EB%90%90%EC%9D%84%EA%B9%8C
+)
+
+next.js13에서 Image컴포넌트의 objectFit 미지원 
+legacy버전에서는 이미지의 크기를 알수 없기에, props로 layout="fill"을 추가했어야함  => 부모요소의 position을 가지고 크기를 결정함.
+layout="fill"은 이미지의 크기를 유동적으로 결정하더라고 비율을 보장하지 않았음
+그래서 이를 해결하기 위해 objectFit가 등장
+defaultProp으로 objectFit을 설정해야했음
+
+다행이도 next13에서는 fill이라는 prop가 추가됨
+이미지가 부모 요소를 채우도록 하는 prop이다
+반드시 부모 요소는 absolute, relative, fixed같은 position이 설정되어야함.
+
+quality속성은 1 ~ 100중에서 최적화된 이미지를 표시할때 사용함
