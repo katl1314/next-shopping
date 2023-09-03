@@ -10,7 +10,7 @@ import Flex from '@components/layout/Flex';
 
 type ButtonClickFunc = (id: number) => void;
 
-interface ICartProductProps {
+export interface ICartProductProps {
   /**
    * 상품 고유 아이디
    */

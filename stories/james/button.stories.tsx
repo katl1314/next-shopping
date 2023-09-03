@@ -6,6 +6,7 @@ import Button from '@/app/components/atoms/Button';
 const meta: Meta<typeof Button> = {
   component: Button, // 스토리북 대상 컴포넌트
   title: '버튼', // 사이드 바의 타이틀,
+  tags: ['autodocs'],
   // control // props을 변경하기 위한 ui를 설정 text, select, boolean, array, object, ...
 };
 

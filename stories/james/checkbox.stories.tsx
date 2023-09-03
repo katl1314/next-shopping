@@ -18,6 +18,7 @@ export const Agree: Story = {
 const meta: Meta<ICheckboxProps> = {
   title: '체크박스',
   component: props => <Checkbox {...props} />,
+  tags: ['autodocs'],
 };
 
 export default meta;

@@ -690,7 +690,7 @@ React Hook useEffect has a missing dependency: 'fetchMovieData'. Either include 
 ### Next13의 next/image에서 objectFit이 사라진 이유
 [참고 사이트](https://velog.io/@pixartive/%EC%99%9C-%EC%83%88%EB%A1%9C%EC%9B%8C%EC%A7%84-nextImage%EB%8A%94-%EB%8D%94%EC%9D%B4%EC%83%81-objectFit%EC%9D%84-%ED%95%84%EC%9A%94%EB%A1%9C-%ED%95%98%EC%A7%80-%EC%95%8A%EA%B2%8C-%EB%90%90%EC%9D%84%EA%B9%8C
 )
-
+72
 next.js13에서 Image컴포넌트의 objectFit 미지원 
 legacy버전에서는 이미지의 크기를 알수 없기에, props로 layout="fill"을 추가했어야함  => 부모요소의 position을 가지고 크기를 결정함.
 layout="fill"은 이미지의 크기를 유동적으로 결정하더라고 비율을 보장하지 않았음
@@ -702,3 +702,46 @@ defaultProp으로 objectFit을 설정해야했음
 반드시 부모 요소는 absolute, relative, fixed같은 position이 설정되어야함.
 
 quality속성은 1 ~ 100중에서 최적화된 이미지를 표시할때 사용함
+
+### next/font/google 적용하기
+ - next.js은 google fonts을 자체 호스팅
+ - 구글에 요청을 하지 않음
+ - 레이아웃 쉬프트 없이 폰트 사용 가능
+
+ 사용 방법은 매우 쉽다 먼저 원하는 폰트를 import한다. (export)
+ ```typescript
+  import { Inter } from 'next/font/google';
+ ```
+ 그 다음 변수를 선언하고 함수의 인자로 스타일을 지정한다.
+ ```tsx
+ const inter = Inter( {
+  subsets: ['latin'], //  latin, greek, vietnamese
+  weight: 700
+ })
+ ```
+
+ 그리고 적용할 컴포넌트의 className에 추가한다.
+ ```tsx
+ export default App() {
+  return <div className={inter.className}>
+  </div>
+ }
+ ```
+
+ 물론 className에다만 적용하는 것이 아니라, tailwind.config 또는 css 변수로 사용할 수 있다.
+
+추가로 찾아본 점 next.js의 구글 폰트는 preload한다.
+subsets은 preload시 하위 집합을 설정한다. => 글꼴 파일을 줄이고 성능 향상 => 반드시 사용해야함.
+
+### next/link 적용하기
+HTML의 a태그의 역할과 동등하다고 생각하며 페이지를 이동하기 위한 태그...
+legacy version과 차이점은 실제 dom 렌더링시 다른 결과를 갖는다.
+
+### react 컨텍스트 사용하기
+props의 drilling을 지양하기 위해, 컨텍스트를 사용하여 props을 원하는 컴포넌트에서 사용한다.
+createContext => 컨텍스트 생성
+useContext => 컨텍스트 사용
+
+Context.Provider를 props을 받은 컴포넌트에 감싼다.
+
+[스토리북 사용법](https://velog.io/@juno7803/Storybook-Storybook-200-%ED%99%9C%EC%9A%A9%ED%95%98%EA%B8%B0#parameters)

@@ -18,6 +18,7 @@ const meta: Meta<typeof Input> = {
   argTypes: {
     onChange: { action: 'changed' },
   },
+  tags: ['autodocs'],
 };
 
 export default meta;
