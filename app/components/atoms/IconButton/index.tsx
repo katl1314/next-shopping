@@ -1,6 +1,6 @@
 'use client';
 
-import { AiOutlineCheck } from 'react-icons/ai';
+import { AiOutlineCheck, AiOutlineSearch } from 'react-icons/ai';
 import styled, { css } from 'styled-components';
 import { IButtonProps } from '../Button';
 export interface IIconButton extends IButtonProps {
@@ -26,5 +26,15 @@ export const CheckBoxIcon = (props: IIconButton) => {
     </>
   );
 };
+
+export const SearchIcon = () => {
+  return (
+    <>
+      <AiOutlineSearch size="22" />
+    </>
+  );
+};
+
+export const ShoppingCartIcon = () => {};
 
 export default undefined;
