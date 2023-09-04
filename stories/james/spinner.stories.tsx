@@ -1,7 +1,21 @@
 import { StoryObj, Meta } from '@storybook/react';
-import Spinner from '@components/atoms/Spinner';
+import GlobalSpinner from '@components/organisms/GlobalSpinner';
+import GlobalSpinnerContextProvider, {
+  useGlobalSpinnerActionsContext,
+} from '@context/GlobalSpinnerContext';
+import { useEffect } from 'react';
 
-type Story = StoryObj<typeof Spinner>;
+type Story = StoryObj<typeof GlobalSpinner>;
+
+const Spinner = () => {
+  return (
+    <>
+      <GlobalSpinnerContextProvider>
+        <ChildComponent />
+      </GlobalSpinnerContextProvider>
+    </>
+  );
+};
 
 const meta = {
   component: Spinner,
@@ -18,8 +32,24 @@ const meta = {
   },
 } satisfies Meta<typeof Spinner>;
 
+const ChildComponent = () => {
+  const setGlobalSpinnerOn = useGlobalSpinnerActionsContext();
+
+  useEffect(() => {
+    setGlobalSpinnerOn(true);
+    setTimeout(() => {
+      setGlobalSpinnerOn(false);
+    }, 5000);
+  }, []);
+  return (
+    <>
+      <GlobalSpinner />
+    </>
+  );
+};
+
 export const MySpinner: Story = {
-  render: props => <Spinner {...props} />,
+  render: Spinner,
   args: {
     isLoading: true,
   },

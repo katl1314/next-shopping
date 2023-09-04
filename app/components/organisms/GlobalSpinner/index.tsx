@@ -20,12 +20,21 @@ const GlobalSpinnerWrap = styled.div`
 `;
 
 const GlobalSpinner = () => {
+  // 컨텍스트를 사용한다.
+  // isGlobalSpinnerOn이 true이면 스피너 표시, false이면 스피너 미표시
   const isGlobalSpinnerOn = useGlobalSpinnerContext();
-  console.debug(isGlobalSpinnerOn);
+
   return (
-    <GlobalSpinnerWrap>
-      <Spinner isLoading={true} />
-    </GlobalSpinnerWrap>
+    <>
+      {
+        // isGlobalSpinnerOn이 true일때 스피너를 표시한다.
+        isGlobalSpinnerOn && (
+          <GlobalSpinnerWrap>
+            <Spinner isLoading={true} />
+          </GlobalSpinnerWrap>
+        )
+      }
+    </>
   );
 };
 
