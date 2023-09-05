@@ -80,6 +80,26 @@ package.json의 script부분 추가
   "bracketSpacing": true // 중괄호 양 끝에 공백을 표시할지?
 }
 ```
+eslint와 prettier를 같이 사용하면 발생할 수 있는 문제점이 있다.
+만약 prettier에 적용한 포맷을 사용하면 저장시 설정된 포맷대로 저장되는데
+eslint은 구문검사를 담당하기 때문에 여기에 설정된 대로 저장되지 않으면 에러를 띄운다.
+그래서 prettier에 설정한 속성을 .eslintrc의 rules에 추가해야한다.
+```json
+"rules": {
+  "prettier/prettier": [
+    "error",
+    {
+      "trailingComma": "all",
+      "endOfLine": "auto",
+      "semi": true,
+      "singleQuote": true,
+      "printWidth": 100,
+      "tabWidth": 2,
+      "arrowParens": "avoid"
+    }
+  ]
+}
+```
 
 5. Storybook 설정
    스토리북을 도입할 것이다.
@@ -115,6 +135,8 @@ staticDirs속성은 정적 파일을 배치할 디렉터리를 지정한다.
   "staticDirs": ["public"] // 정적 파일을 배치할 디렉터리 정의
 }
 ```
+아래 이미지를 .storybook에 public에 넣어놨다면
+추후 스토리 세팅 시 이미지가 필요할 때 staticDirs에 지정한 경로를 기준으로 찾을 수 있다.
 
 그 다음에 스토리북에 사용할 이미지를 정적 파일을 배치하는 디렉터리인 .storybook/public/images에 배치한다.
 
@@ -501,7 +523,7 @@ xl : extra large (1280px ~ 1525px)
 - 웹 프론트엔드의 규모가 커짐에 따라 레이아웃 조정의 필요성이 증가
 - 레이아웃과 관련된 컴포넌트는 app/components/layout에 작성한다.
 
-## Next.js에서 절대경로 적용하는 방법
+## 6.4 Next.js에서 절대경로 적용하는 방법
 
 지금까지 모듈을 import하였을때, 상대경로를 적용하였다.
 상대경로의 단점은 길이가 길어지는 문제가 있기에 가독성이 떨어진다고 생각이 들었다.
@@ -519,16 +541,12 @@ compilerOptions: {
 }
 ```
 
+### storybook에서 tsconfig에 적용한 paths을 사용하는 방법
 그 다음 .storybook/main.ts에서 추가로 설정해줘야함.
 웹팩 설정을 커스터마이징을 해주어야함.
+// https://dev.to/lico/storybook-plugins-push-of-undefined-error-in-webpackfinal-after-upgrading-from-webpack4-to-webpack5-4280
 ```ts
-// 스토리북의 웹팩 설정을 커스터마이징한다.
-// 현재 상대경로의 경우 가독성이 떨어지는 문제로 Path Alias를 이용하여 처리를 하려고 한다.
-// tsconfig.json만 수정했을때, storybook은 별도로 설정해야한다.
-// tsconfig-paths-webpack-plugin을 먼저 설치한다.
 webpackFinal: async (config) => {
-  // https://dev.to/lico/storybook-plugins-push-of-undefined-error-in-webpackfinal-after-upgrading-from-webpack4-to-webpack5-4280
-  // webpack에서 config.resolve.plugins가 undefined으로 표시됨.
   if (config && config.resolve) {
     config.resolve.plugins = config.resolve?.plugins ?? [];
 
@@ -644,3 +662,86 @@ export const Danger: Story = {
 export default meta;
 
 ```
+
+## 6.5 몰리큘 구현
+기존에 생성한 텍스트 박스, 텍스트 등 여러 아톰을 모아 몰리큘을 만들 수 있다.
+예를 들어 체크박스를 예로 두면, 체크 할 수 있는 체크박스와 라벨값을 표시하는 라벨을 합쳐셔 몰리큘을 구현할 수 있다.
+
+React Hook useEffect has a missing dependency: 'fetchMovieData'. Either include it or remove the dependency array. 해결방법
+=> 리액트 훅을 사용하면서, 의존 배열에 대해서 확인을 해보았음.
+의존 배열의 경우 상태값, props을 등등 지정할 수 있으며, 해당 값들이 변경되었을때, 훅 내 콜백함수를 실행한다.
+만약 의존 배열에 지정한 값이 훅의 콜백에서 사용되지 않으면 경고문이 표시함.
+
+
+## 6.6 오거니즘 구현
+오거니즘은 로그인 폼이나, 헤더보다 구체적인 UI컴포넌트
+도메인 지식에 의존하는 데이터를 받거나, 콘텍스트를 참조하거나, 고유의 작동을 가질 수 있다.
+|컴포넌트|함수 컴포넌트|
+|---|---|
+|카트상품|CartProduct|
+|푸터|Footer|
+|글로벌 스피너|GloalSpinner|
+|헤더|Header|
+|상품 카드|ProductCard|
+|상품 등록 폼|ProductForm|
+|로그인 폼|SigninForm|
+|사용자 프로필|UserProfile|
+
+### Next13의 next/image에서 objectFit이 사라진 이유
+[참고 사이트](https://velog.io/@pixartive/%EC%99%9C-%EC%83%88%EB%A1%9C%EC%9B%8C%EC%A7%84-nextImage%EB%8A%94-%EB%8D%94%EC%9D%B4%EC%83%81-objectFit%EC%9D%84-%ED%95%84%EC%9A%94%EB%A1%9C-%ED%95%98%EC%A7%80-%EC%95%8A%EA%B2%8C-%EB%90%90%EC%9D%84%EA%B9%8C
+)
+72
+next.js13에서 Image컴포넌트의 objectFit 미지원 
+legacy버전에서는 이미지의 크기를 알수 없기에, props로 layout="fill"을 추가했어야함  => 부모요소의 position을 가지고 크기를 결정함.
+layout="fill"은 이미지의 크기를 유동적으로 결정하더라고 비율을 보장하지 않았음
+그래서 이를 해결하기 위해 objectFit가 등장
+defaultProp으로 objectFit을 설정해야했음
+
+다행이도 next13에서는 fill이라는 prop가 추가됨
+이미지가 부모 요소를 채우도록 하는 prop이다
+반드시 부모 요소는 absolute, relative, fixed같은 position이 설정되어야함.
+
+quality속성은 1 ~ 100중에서 최적화된 이미지를 표시할때 사용함
+
+### next/font/google 적용하기
+ - next.js은 google fonts을 자체 호스팅
+ - 구글에 요청을 하지 않음
+ - 레이아웃 쉬프트 없이 폰트 사용 가능
+
+ 사용 방법은 매우 쉽다 먼저 원하는 폰트를 import한다. (export)
+ ```typescript
+  import { Inter } from 'next/font/google';
+ ```
+ 그 다음 변수를 선언하고 함수의 인자로 스타일을 지정한다.
+ ```tsx
+ const inter = Inter( {
+  subsets: ['latin'], //  latin, greek, vietnamese
+  weight: 700
+ })
+ ```
+
+ 그리고 적용할 컴포넌트의 className에 추가한다.
+ ```tsx
+ export default App() {
+  return <div className={inter.className}>
+  </div>
+ }
+ ```
+
+ 물론 className에다만 적용하는 것이 아니라, tailwind.config 또는 css 변수로 사용할 수 있다.
+
+추가로 찾아본 점 next.js의 구글 폰트는 preload한다.
+subsets은 preload시 하위 집합을 설정한다. => 글꼴 파일을 줄이고 성능 향상 => 반드시 사용해야함.
+
+### next/link 적용하기
+HTML의 a태그의 역할과 동등하다고 생각하며 페이지를 이동하기 위한 태그...
+legacy version과 차이점은 실제 dom 렌더링시 다른 결과를 갖는다.
+
+### react 컨텍스트 사용하기
+props의 drilling을 지양하기 위해, 컨텍스트를 사용하여 props을 원하는 컴포넌트에서 사용한다.
+createContext => 컨텍스트 생성
+useContext => 컨텍스트 사용
+
+Context.Provider를 props을 받은 컴포넌트에 감싼다.
+
+[스토리북 사용법](https://velog.io/@juno7803/Storybook-Storybook-200-%ED%99%9C%EC%9A%A9%ED%95%98%EA%B8%B0#parameters)
