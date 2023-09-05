@@ -81,7 +81,7 @@ const CartProduct = (props: ICartProductProps) => {
                   구입
                 </Button>
                 <Button
-                  marginLeft={1}
+                  marginleft={1}
                   width={{ base: '100px', md: '200px' }}
                   display={{ base: 'block', md: 'none' }}
                   variant="danger"

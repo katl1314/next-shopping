@@ -12,30 +12,30 @@ export type ButtonVariant = 'primary' | 'secondary' | 'danger';
 export interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
   fontSize?: Responsive<FontSize>;
-  fontWeight?: Responsive<string>;
-  letterSpacing?: Responsive<LetterSpacings>;
-  lineHeight?: Responsive<LineHeight>;
-  textAlign?: Responsive<string>;
+  fontweight?: Responsive<string>;
+  letterspacing?: Responsive<LetterSpacings>;
+  lineheight?: Responsive<LineHeight>;
+  textalign?: Responsive<string>;
   width?: Responsive<string>;
   height?: Responsive<string>;
-  minWidth?: Responsive<string>;
-  minHeight?: Responsive<string>;
+  minwidth?: Responsive<string>;
+  minheight?: Responsive<string>;
   display?: Responsive<string>;
   border?: Responsive<string>;
   overflow?: Responsive<string>;
-  backgroundColor?: string;
+  backgroundcolor?: string;
   // 바깥 여백
   margin?: Responsive<Space>;
-  marginTop?: Responsive<Space>;
-  marginRight?: Responsive<Space>;
-  marginBottom?: Responsive<Space>;
-  marginLeft?: Responsive<Space>;
+  margintop?: Responsive<Space>;
+  marginright?: Responsive<Space>;
+  marginbottom?: Responsive<Space>;
+  marginleft?: Responsive<Space>;
   // 안쪽 여백
   padding?: Responsive<Space>;
-  paddingTop?: Responsive<Space>;
-  paddingRight?: Responsive<Space>;
-  paddingBottom?: Responsive<Space>;
-  paddingLeft?: Responsive<Space>;
+  paddingtop?: Responsive<Space>;
+  paddingright?: Responsive<Space>;
+  paddingbottom?: Responsive<Space>;
+  paddingleft?: Responsive<Space>;
   // 의사 클래스(가상 클래스)
   pseudoClass?: {
     hover?: { backgroundColor?: Responsive<Color> };
@@ -83,7 +83,7 @@ const variants = {
 };
 
 const Button = styled.button<IButtonProps>`
-  ${({ variant, color, backgroundColor, pseudoClass }) => {
+  ${({ variant, color, backgroundcolor: backgroundColor, pseudoClass }) => {
     // Button이 가진 props을 가지고 처리한다.
     // 변형 스타일 적용
     if (variant && variants[variant]) {
@@ -122,27 +122,27 @@ const Button = styled.button<IButtonProps>`
   }}
 
   ${props => toPropValue('font-size', props.fontSize, theme)}
-  ${props => toPropValue('letter-spacing', props.letterSpacing, theme)}
-  ${props => toPropValue('line-height', props.lineHeight, theme)}
+  ${props => toPropValue('letter-spacing', props.letterspacing, theme)}
+  ${props => toPropValue('line-height', props.lineheight, theme)}
   ${props => toPropValue('color', props.color, theme)}
-  ${props => toPropValue('background-color', props.backgroundColor, theme)}
+  ${props => toPropValue('background-color', props.backgroundcolor, theme)}
   ${props => toPropValue('width', props.width, theme)}
   ${props => toPropValue('height', props.height, theme)}
-  ${props => toPropValue('min-width', props.minWidth, theme)}
-  ${props => toPropValue('min-height', props.minHeight, theme)}
+  ${props => toPropValue('min-width', props.minwidth, theme)}
+  ${props => toPropValue('min-height', props.minheight, theme)}
   ${props => toPropValue('display', props.display, theme)}
   ${props => toPropValue('border', props.border, theme)}
   ${props => toPropValue('overflow', props.overflow, theme)}
   ${props => toPropValue('margin', props.margin, theme)}
-  ${props => toPropValue('margin-top', props.marginTop, theme)}
-  ${props => toPropValue('margin-left', props.marginLeft, theme)}
-  ${props => toPropValue('margin-bottom', props.marginBottom, theme)}
-  ${props => toPropValue('margin-right', props.marginRight, theme)}
+  ${props => toPropValue('margin-top', props.margintop, theme)}
+  ${props => toPropValue('margin-left', props.marginleft, theme)}
+  ${props => toPropValue('margin-bottom', props.marginbottom, theme)}
+  ${props => toPropValue('margin-right', props.marginright, theme)}
   ${props => toPropValue('padding', props.padding, theme)}
-  ${props => toPropValue('padding-top', props.paddingTop, theme)}
-  ${props => toPropValue('padding-left', props.paddingLeft, theme)}
-  ${props => toPropValue('padding-bottom', props.paddingBottom, theme)}
-  ${props => toPropValue('padding-right', props.paddingRight, theme)}
+  ${props => toPropValue('padding-top', props.paddingtop, theme)}
+  ${props => toPropValue('padding-left', props.paddingleft, theme)}
+  ${props => toPropValue('padding-bottom', props.paddingbottom, theme)}
+  ${props => toPropValue('padding-right', props.paddingright, theme)}
   &:hover {
     ${props => toPropValue('background-color', props.pseudoClass?.hover?.backgroundColor, theme)}
   }
@@ -161,14 +161,14 @@ const Button = styled.button<IButtonProps>`
 // Button컴포넌트 기본 props설정
 Button.defaultProps = {
   variant: 'primary',
-  paddingLeft: 2,
-  paddingRight: 2,
-  paddingTop: 1,
-  paddingBottom: 1,
+  paddingleft: 2,
+  paddingright: 2,
+  paddingtop: 1,
+  paddingbottom: 1,
   color: 'white',
   display: 'inline-block',
-  textAlign: 'center',
-  lineHeight: 'inherit',
+  textalign: 'center',
+  lineheight: 'inherit',
   fontSize: 'inherit',
 };
 
