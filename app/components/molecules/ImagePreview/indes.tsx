@@ -54,7 +54,7 @@ const ImagePreview = (props: ImagePreviewProps) => {
   return (
     <ImagePreviewContainer width={`${width}px`} height={`${width}px`} className={inter.className}>
       {typeof src === 'string' && <Image src={src} alt={alt ?? ''} width={width} height={height} />}
-      <CloseBox onClick={handleClose} alignItems="center" justifyContent="center">
+      <CloseBox onClick={handleClose} alignitems="center" justifycontent="center">
         <CloseIcon />
       </CloseBox>
     </ImagePreviewContainer>

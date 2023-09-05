@@ -73,9 +73,7 @@ const DropdownMenu = styled.div`
   background-color: #fff;
   border: ${() => theme.colors.border};
   // 박스 그림자
-  box-shadow:
-    0px 5px 5px -3px rgb(0 0 0 / 20%),
-    0px 8px 10px 1px rgb(0 0 0 / 10%),
+  box-shadow: 0px 5px 5px -3px rgb(0 0 0 / 20%), 0px 8px 10px 1px rgb(0 0 0 / 10%),
     0px 3px 14px 2px rgb(0 0 0 / 12%);
   box-sizing: border-box;
   border-radius: 5px;
@@ -105,7 +103,7 @@ const DropdownItem = (props: DropdownItemProps) => {
   const { item } = props;
   return (
     <>
-      <Flex alignItems="center">
+      <Flex alignitems="center">
         <Text margin={0} variant="small">
           {item?.label ?? item?.value}
         </Text>

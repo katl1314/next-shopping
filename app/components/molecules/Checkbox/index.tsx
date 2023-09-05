@@ -51,7 +51,7 @@ const Checkbox = (props: ICheckboxProps) => {
   }, [checked]);
 
   return (
-    <Flex alignItems="center">
+    <Flex alignitems="center">
       <CheckboxElement
         {...rest}
         ref={ref}
