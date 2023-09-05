@@ -1,4 +1,5 @@
-import React, { useContext, createContext, useState } from 'react';
+import reducer, { ShoppingActionType } from '@/app/reducer/ShoppingCart';
+import React, { createContext, useContext, useReducer, useState } from 'react';
 import type { Product } from '../../types';
 
 interface ShoppingCartProps {
@@ -7,7 +8,7 @@ interface ShoppingCartProps {
   // 제품을 카트에 추가
   addProductToCart: (product: Product) => void;
   // product id를 받아서 cart에서 삭제한다.
-  removeProductToCart: (id: number) => void;
+  removeProductToCart: (product: Product) => void;
 }
 
 // 쇼핑 카트 컨텍스트를 생성한다.
@@ -27,18 +28,23 @@ interface ShoppingCartProviderProps {
 /**
  * 쇼핑 카트 컨텍스트 제공자
  */
-
 const ShoppingCartProvider = ({ children }: ShoppingCartProviderProps) => {
-  const [carts, setCarts] = useState<Product[]>([]);
+  // useReducer(reducer, initState);
+  const [shoppingCarts, dispatch] = useReducer(reducer, { carts: [] });
 
-  const handleAddProductToCart = (product: Product) => {};
+  const handleAddProductToCart = (product: Product) => {
+    // dispatch내 action을 삽입함으로써, reducer에서 action을 분기하여 각각 처리한다.
+    dispatch({ type: ShoppingActionType.ADD_SHOPPING_CART, product });
+  };
 
-  const handleRemoveProductToCart = (id: number) => {};
+  const handleRemoveProductToCart = (product: Product) => {
+    dispatch({ type: ShoppingActionType.REMOVE_SHOPPING_CART, product });
+  };
 
   return (
     <ShoppingCartContext.Provider
       value={{
-        carts,
+        carts: shoppingCarts.carts,
         addProductToCart: handleAddProductToCart,
         removeProductToCart: handleRemoveProductToCart,
       }}
@@ -47,3 +53,5 @@ const ShoppingCartProvider = ({ children }: ShoppingCartProviderProps) => {
     </ShoppingCartContext.Provider>
   );
 };
+
+export default ShoppingCartProvider;
