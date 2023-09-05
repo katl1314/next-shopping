@@ -31,89 +31,60 @@ const NavLink = styled.span`
   display: inline;
 `;
 
-// 앵커 태그
-const Anchor = styled(Text)`
-  cursor: pointer;
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
 const Header = () => {
-  // const { cart } = useShoppingCartContext();
   const { authUser, isLoading } = useAuthContext();
   return (
     <HeaderWrap>
-      <Flex paddingLeft={3} paddingRight={3} justifyContent={'space-between'}>
-        <Nav as="nav" height="56px" alignItems={'center'}>
+      <Flex paddingleft={3} paddingright={3} justifycontent={'space-between'}>
+        <Nav as="nav" height="56px" alignitems={'center'}>
           <NavLink>
             <Link href="/" passHref>
-              <Anchor fontSize={32} fontWeight="700">
-                ShoppingMall
-              </Anchor>
+              ShoppingMall
             </Link>
           </NavLink>
           <NavLink>
             <Box
               display={{ base: 'none', md: 'block' }}
-              paddingLeft={{ base: '5px', md: '10px' }}
-              paddingRight={{ base: '5px', md: '10px' }}
+              paddingleft={{ base: '5px', md: '10px' }}
+              paddingright={{ base: '5px', md: '10px' }}
             >
-              <Link href="/search/all" passHref>
-                <Anchor fontSize={24} fontWeight="700">
-                  모두
-                </Anchor>
-              </Link>
+              <Link href="/search/all">모두</Link>
             </Box>
           </NavLink>
           <NavLink>
             <Box
               display={{ base: 'none', md: 'block' }}
-              paddingLeft={{ base: '5px', md: '10px' }}
-              paddingRight={{ base: '5px', md: '10px' }}
+              paddingleft={{ base: '5px', md: '10px' }}
+              paddingright={{ base: '5px', md: '10px' }}
             >
-              <Link href="/search/clothes" passHref>
-                <Anchor fontSize={24} fontWeight="700">
-                  의류
-                </Anchor>
-              </Link>
+              <Link href="/search/clothes">의류</Link>
             </Box>
           </NavLink>
           <NavLink>
             <Box
               display={{ base: 'none', md: 'block' }}
-              paddingLeft={{ base: '5px', md: '10px' }}
-              paddingRight={{ base: '5px', md: '10px' }}
+              paddingleft={{ base: '5px', md: '10px' }}
+              paddingright={{ base: '5px', md: '10px' }}
             >
               {/* next/link passHref속성은 Link컴포넌트의 속성 href을 자식 컴포넌트에 전달. */}
-              <Link href="/search/books" passHref>
-                <Anchor fontSize={24} fontWeight="700">
-                  책
-                </Anchor>
-              </Link>
+              <Link href="/search/books">책</Link>
             </Box>
           </NavLink>
           <NavLink>
             <Box
               display={{ base: 'none', md: 'block' }}
-              paddingLeft={{ base: '5px', md: '10px' }}
-              paddingRight={{ base: '5px', md: '10px' }}
+              paddingleft={{ base: '5px', md: '10px' }}
+              paddingright={{ base: '5px', md: '10px' }}
             >
-              <Link href="/search/shoes" passHref>
-                <Anchor fontSize={24} fontWeight="700">
-                  신발
-                </Anchor>
-              </Link>
+              <Link href="/search/shoes">신발</Link>
             </Box>
           </NavLink>
         </Nav>
-        <Nav as="nav" height="58px" alignItems="center">
+        <Nav as="nav" height="58px" alignitems="center">
           <NavLink>
             <Box display={{ base: 'block', md: 'none' }}>
               <Link href="/search" passHref>
-                <Anchor fontSize={24} fontWeight="700">
-                  <SearchIcon />
-                </Anchor>
+                <SearchIcon />
               </Link>
             </Box>
           </NavLink>
@@ -123,15 +94,13 @@ const Header = () => {
               if (authUser) {
                 return (
                   <Link href={`/user/${authUser.id}`} passHref>
-                    <Anchor as="a">
-                      <ShapeImage
-                        shape="circle"
-                        alt={authUser.username}
-                        src={authUser.profileImageUrl}
-                        width={24}
-                        height={24}
-                      ></ShapeImage>
-                    </Anchor>
+                    <ShapeImage
+                      shape="circle"
+                      alt={authUser.username}
+                      src={authUser.profileImageUrl}
+                      width={24}
+                      height={24}
+                    ></ShapeImage>
                   </Link>
                 );
               } else if (isLoading) {
@@ -139,11 +108,7 @@ const Header = () => {
                 return <Spinner isLoading={isLoading} color="red" size={24} />;
               } else {
                 // 미로그인 시
-                return (
-                  <Link href="/signin" passHref>
-                    <Anchor as="a">로그인</Anchor>
-                  </Link>
-                );
+                return <Link href="/signin">로그인</Link>;
               }
             })()}
           </NavLink>

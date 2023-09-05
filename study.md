@@ -80,10 +80,12 @@ package.json의 script부분 추가
   "bracketSpacing": true // 중괄호 양 끝에 공백을 표시할지?
 }
 ```
+
 eslint와 prettier를 같이 사용하면 발생할 수 있는 문제점이 있다.
 만약 prettier에 적용한 포맷을 사용하면 저장시 설정된 포맷대로 저장되는데
 eslint은 구문검사를 담당하기 때문에 여기에 설정된 대로 저장되지 않으면 에러를 띄운다.
 그래서 prettier에 설정한 속성을 .eslintrc의 rules에 추가해야한다.
+
 ```json
 "rules": {
   "prettier/prettier": [
@@ -135,6 +137,7 @@ staticDirs속성은 정적 파일을 배치할 디렉터리를 지정한다.
   "staticDirs": ["public"] // 정적 파일을 배치할 디렉터리 정의
 }
 ```
+
 아래 이미지를 .storybook에 public에 넣어놨다면
 추후 스토리 세팅 시 이미지가 필요할 때 staticDirs에 지정한 경로를 기준으로 찾을 수 있다.
 
@@ -175,7 +178,7 @@ const preview: Preview = {
   // storybook7은 @storybook/react에서 지원하는 addDecorator를 지원하지 않는다.
   // decorators에서 직접 설정해도 된다.
   decorators: [
-    (story) => (
+    story => (
       <ThemeProvider theme={theme}>
         {/* 전역 스타일 적용 */}
         <GlobalStyle />
@@ -217,7 +220,7 @@ const OriginalNextImage = NextImage.default;
 
 Object.defineProperty(NextImage, 'default', {
   configurable: true,
-  value: (props) =>
+  value: props =>
     typeof props.src === 'string' ? (
       <OriginalNextImage {...props} unoptimized blurDataURL={props.src} />
     ) : (
@@ -263,7 +266,7 @@ export default function Page() {
     handleSubmit,
     formState: { errors },
   } = useForm<IForm>();
-  const onSubmit: SubmitHandler<IForm> = (data) => {
+  const onSubmit: SubmitHandler<IForm> = data => {
     // submit시 처리한다.
     console.info(data);
   };
@@ -323,7 +326,7 @@ interface IUser {
 
 const githubUrl = 'https://api.github.com';
 
-const fetcher = (url: string) => fetch(`${githubUrl}${url}`).then((res) => res.json());
+const fetcher = (url: string) => fetch(`${githubUrl}${url}`).then(res => res.json());
 
 // useSWR : key와 fetcher함수 인자 2개를 받는다.
 // key는 데이터의 유일한 식별자로 fetcher의 인자로 전달한다.
@@ -424,7 +427,7 @@ test/test.t(j)s파일이 있는지 확인해보자.
   - 범용적으로 처리할 수 있도록 제네릭 타입을 지정함. (any타입을 되도록 사용을 지양)
 
 ```typescript
-export const fetcher = async <T,>(resource: RequestInfo, init?: RequestInit): Promise<T> => {
+export const fetcher = async <T>(resource: RequestInfo, init?: RequestInit): Promise<T> => {
   const res = await fetch(resource, init);
 
   // 응답 상태 체크
@@ -542,9 +545,11 @@ compilerOptions: {
 ```
 
 ### storybook에서 tsconfig에 적용한 paths을 사용하는 방법
+
 그 다음 .storybook/main.ts에서 추가로 설정해줘야함.
 웹팩 설정을 커스터마이징을 해주어야함.
 // https://dev.to/lico/storybook-plugins-push-of-undefined-error-in-webpackfinal-after-upgrading-from-webpack4-to-webpack5-4280
+
 ```ts
 webpackFinal: async (config) => {
   if (config && config.resolve) {
@@ -582,6 +587,7 @@ npm i --save-dev eslint-import-resolver-typescript
 위 모듈을 설치하면 에러가 발생하지 않는다.
 
 Button컴포넌트의 storybook을 위한 styles.tsx파일 작성
+
 ```tsx
 import type { Meta, StoryObj } from '@storybook/react'; // d.ts내 타입 불러오기 Meta, StoryObj
 import React from 'react';
@@ -660,10 +666,10 @@ export const Danger: Story = {
 };
 
 export default meta;
-
 ```
 
 ## 6.5 몰리큘 구현
+
 기존에 생성한 텍스트 박스, 텍스트 등 여러 아톰을 모아 몰리큘을 만들 수 있다.
 예를 들어 체크박스를 예로 두면, 체크 할 수 있는 체크박스와 라벨값을 표시하는 라벨을 합쳐셔 몰리큘을 구현할 수 있다.
 
@@ -672,8 +678,8 @@ React Hook useEffect has a missing dependency: 'fetchMovieData'. Either include 
 의존 배열의 경우 상태값, props을 등등 지정할 수 있으며, 해당 값들이 변경되었을때, 훅 내 콜백함수를 실행한다.
 만약 의존 배열에 지정한 값이 훅의 콜백에서 사용되지 않으면 경고문이 표시함.
 
-
 ## 6.6 오거니즘 구현
+
 오거니즘은 로그인 폼이나, 헤더보다 구체적인 UI컴포넌트
 도메인 지식에 의존하는 데이터를 받거나, 콘텍스트를 참조하거나, 고유의 작동을 가질 수 있다.
 |컴포넌트|함수 컴포넌트|
@@ -688,11 +694,11 @@ React Hook useEffect has a missing dependency: 'fetchMovieData'. Either include 
 |사용자 프로필|UserProfile|
 
 ### Next13의 next/image에서 objectFit이 사라진 이유
-[참고 사이트](https://velog.io/@pixartive/%EC%99%9C-%EC%83%88%EB%A1%9C%EC%9B%8C%EC%A7%84-nextImage%EB%8A%94-%EB%8D%94%EC%9D%B4%EC%83%81-objectFit%EC%9D%84-%ED%95%84%EC%9A%94%EB%A1%9C-%ED%95%98%EC%A7%80-%EC%95%8A%EA%B2%8C-%EB%90%90%EC%9D%84%EA%B9%8C
-)
+
+[참고 사이트](https://velog.io/@pixartive/%EC%99%9C-%EC%83%88%EB%A1%9C%EC%9B%8C%EC%A7%84-nextImage%EB%8A%94-%EB%8D%94%EC%9D%B4%EC%83%81-objectFit%EC%9D%84-%ED%95%84%EC%9A%94%EB%A1%9C-%ED%95%98%EC%A7%80-%EC%95%8A%EA%B2%8C-%EB%90%90%EC%9D%84%EA%B9%8C)
 72
-next.js13에서 Image컴포넌트의 objectFit 미지원 
-legacy버전에서는 이미지의 크기를 알수 없기에, props로 layout="fill"을 추가했어야함  => 부모요소의 position을 가지고 크기를 결정함.
+next.js13에서 Image컴포넌트의 objectFit 미지원
+legacy버전에서는 이미지의 크기를 알수 없기에, props로 layout="fill"을 추가했어야함 => 부모요소의 position을 가지고 크기를 결정함.
 layout="fill"은 이미지의 크기를 유동적으로 결정하더라고 비율을 보장하지 않았음
 그래서 이를 해결하기 위해 objectFit가 등장
 defaultProp으로 objectFit을 설정해야했음
@@ -704,40 +710,47 @@ defaultProp으로 objectFit을 설정해야했음
 quality속성은 1 ~ 100중에서 최적화된 이미지를 표시할때 사용함
 
 ### next/font/google 적용하기
- - next.js은 google fonts을 자체 호스팅
- - 구글에 요청을 하지 않음
- - 레이아웃 쉬프트 없이 폰트 사용 가능
 
- 사용 방법은 매우 쉽다 먼저 원하는 폰트를 import한다. (export)
- ```typescript
-  import { Inter } from 'next/font/google';
- ```
- 그 다음 변수를 선언하고 함수의 인자로 스타일을 지정한다.
- ```tsx
- const inter = Inter( {
+- next.js은 google fonts을 자체 호스팅
+- 구글에 요청을 하지 않음
+- 레이아웃 쉬프트 없이 폰트 사용 가능
+
+사용 방법은 매우 쉽다 먼저 원하는 폰트를 import한다. (export)
+
+```typescript
+import { Inter } from 'next/font/google';
+```
+
+그 다음 변수를 선언하고 함수의 인자로 스타일을 지정한다.
+
+```tsx
+const inter = Inter({
   subsets: ['latin'], //  latin, greek, vietnamese
-  weight: 700
- })
- ```
+  weight: 700,
+});
+```
 
- 그리고 적용할 컴포넌트의 className에 추가한다.
- ```tsx
- export default App() {
-  return <div className={inter.className}>
-  </div>
- }
- ```
+그리고 적용할 컴포넌트의 className에 추가한다.
 
- 물론 className에다만 적용하는 것이 아니라, tailwind.config 또는 css 변수로 사용할 수 있다.
+```tsx
+export default App() {
+ return <div className={inter.className}>
+ </div>
+}
+```
+
+물론 className에다만 적용하는 것이 아니라, tailwind.config 또는 css 변수로 사용할 수 있다.
 
 추가로 찾아본 점 next.js의 구글 폰트는 preload한다.
 subsets은 preload시 하위 집합을 설정한다. => 글꼴 파일을 줄이고 성능 향상 => 반드시 사용해야함.
 
 ### next/link 적용하기
+
 HTML의 a태그의 역할과 동등하다고 생각하며 페이지를 이동하기 위한 태그...
 legacy version과 차이점은 실제 dom 렌더링시 다른 결과를 갖는다.
 
 ### react 컨텍스트 사용하기
+
 props의 drilling을 지양하기 위해, 컨텍스트를 사용하여 props을 원하는 컴포넌트에서 사용한다.
 createContext => 컨텍스트 생성
 useContext => 컨텍스트 사용
@@ -745,3 +758,33 @@ useContext => 컨텍스트 사용
 Context.Provider를 props을 받은 컴포넌트에 감싼다.
 
 [스토리북 사용법](https://velog.io/@juno7803/Storybook-Storybook-200-%ED%99%9C%EC%9A%A9%ED%95%98%EA%B8%B0#parameters)
+
+### React does not recognize the `alignItems1` prop on a DOM element. 에러 해결 방법
+
+- props을 직접 Dom Element에 직접 전달해서 발생하는 문제.
+  styled-components을 사용하여 작업 시 자주 발생하는 문제로 보임.
+
+커스텀 속성 으로써 DOM에 나타내고 싶다면 lower case로 attributes name을 바꿔 사용하거나,
+의도치 않게 위에서 내려온 prop이면 제거하라
+
+=> 접두사로 $을 추가하는 방법이 있다.
+<ImageWithText 
+  $imageData={data.headerBackgroundImage.childImageSharp.fluid} // notice the '$'
+minHeight='50vh'>
+
+### next/link사용 방법
+
+next12와 next13의 next/link사용 방법은 약간 다르다.
+next12의 경우 next/link를 통해 Link컴포넌트를 불러올 수 있는데(next13도 마찬가지)
+next12의 경우 Link컴포넌트의 자식으로 a태그가 반드시 사용되어야하나,
+next13의 경우 a태그를 자식 컴포넌트로 사용하지 않아도 된다.
+
+next12
+
+```tsx
+<Link href="/" passHref>
+  <a>테스트</a>
+</Link>
+```
+
+next13에서는 a태그를 자식컴포넌트로 사용할 필요가 없다.
