@@ -1,11 +1,14 @@
-// app/search/[id]/page.tsx
+// ssg 생성되지 않은 페이지 접근시 작업 여부를 제어.
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   return [{ id: '1' }, { id: '2' }, { id: '3' }, { id: '4' }];
 }
 
 async function fetchData(params: { id: string }) {
-  const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${params.id}`);
+  const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${params.id}`, {
+    cache: 'force-cache', // 한번 조회하면 이후에는 캐시된 데이터를 재사용한다.
+  });
   const data = await res.json();
   return data;
 }
