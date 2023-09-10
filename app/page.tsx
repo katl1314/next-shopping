@@ -1,7 +1,7 @@
 'use client';
+// import ProductCard from './components/organisms/ProductCard';
+import ProductForm, { IProductFormData } from './components/organisms/ProductForm';
 import Header from '@components/organisms/Header';
-import ProductCard from './components/organisms/ProductCard';
-import { IProductFormData, ProductForm } from './components/organisms/ProductForm';
 export default function Home() {
   const handleProductSave = (data: IProductFormData) => {
     console.info(data);
