@@ -87,7 +87,7 @@ const meta: Meta<typeof Text> = {
         type: { summary: 'string' },
       },
     },
-    lineHeight: {
+    lineheight: {
       control: { type: 'text' },
       description: '줄 높이',
       table: {
@@ -101,7 +101,7 @@ const meta: Meta<typeof Text> = {
         type: { summary: 'string' },
       },
     },
-    backgroundColor: {
+    backgroundcolor: {
       control: { type: 'color' },
       description: '배경 색상',
       table: {

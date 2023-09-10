@@ -29,9 +29,11 @@ interface IFlexProps extends IBoxProps {
   justifyself?: Responsive<CSSPropertyJustifySelf>;
   alignself?: Responsive<CSSPropertyAlignSelf>;
   order?: Responsive<string>;
+  children?: React.ReactElement[] | React.ReactElement;
 }
 
-const Flex = styled(Box)<IFlexProps>`
+export const FlexLayout = styled(Box)<IFlexProps>`
+  display: flex;
   ${props => toPropValue('align-items', props.alignitems, theme)}
   ${props => toPropValue('align-content', props.aligncontent, theme)}
   ${props => toPropValue('justify-item', props.justifyitems, theme)}
@@ -43,11 +45,16 @@ const Flex = styled(Box)<IFlexProps>`
   ${props => toPropValue('flex-shrink', props.flexshrink, theme)}
   ${props => toPropValue('justify-self', props.justifyself, theme)}
   ${props => toPropValue('align-self', props.alignself, theme)}
-  ${props => toPropValue('order', props.order, theme)}
+  ${props => toPropValue('order', props.order, theme)};
 `;
-// 리액트 컴포넌트 defaultProps설정 (따로 설정하지 않아도 기본값으로 전달하는 props)
-Flex.defaultProps = {
-  display: 'flex',
+
+const Flex = (props: IFlexProps) => {
+  const { display, children, ...rest } = props;
+  return (
+    <FlexLayout {...rest} display={display}>
+      {children}
+    </FlexLayout>
+  );
 };
 
 export default Flex;

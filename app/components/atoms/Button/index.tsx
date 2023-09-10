@@ -82,7 +82,7 @@ const variants = {
   },
 };
 
-const Button = styled.button<IButtonProps>`
+const StyledButton = styled.button<IButtonProps>`
   ${({ variant, color, backgroundcolor: backgroundColor, pseudoClass }) => {
     // Button이 가진 props을 가지고 처리한다.
     // 변형 스타일 적용
@@ -158,18 +158,39 @@ const Button = styled.button<IButtonProps>`
   border-radius: 4px;
 `;
 
-// Button컴포넌트 기본 props설정
-Button.defaultProps = {
-  variant: 'primary',
-  paddingleft: 2,
-  paddingright: 2,
-  paddingtop: 1,
-  paddingbottom: 1,
-  color: 'white',
-  display: 'inline-block',
-  textalign: 'center',
-  lineheight: 'inherit',
-  fontSize: 'inherit',
+// variant: 'primary',
+// paddingleft: 2,
+// paddingright: 2,
+// paddingtop: 1,
+// paddingbottom: 1,
+// color: 'white',
+// display: 'inline-block',
+// textalign: 'center',
+// lineheight: 'inherit',
+// fontSize: 'inherit',
+
+const Button = (props: IButtonProps) => {
+  const {
+    variant = 'primary',
+    color = 'white',
+    display = 'inline-block',
+    textalign = 'center',
+    lineheight = 'inherit',
+    fontSize = 'inherit',
+    ...rest
+  } = props;
+
+  return (
+    <StyledButton
+      {...rest}
+      variant={variant}
+      color={color}
+      display={display}
+      textalign={textalign}
+      lineheight={lineheight}
+      fontSize={fontSize}
+    />
+  );
 };
 
 export default Button;

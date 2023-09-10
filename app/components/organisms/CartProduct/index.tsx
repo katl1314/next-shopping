@@ -63,7 +63,7 @@ const CartProduct = (props: ICartProductProps) => {
             paddingleft="2%"
           >
             <Box>
-              <Text fontWeight="bold" variant="mediumLarge" marginTop={0} marginBottom={1}>
+              <Text fontWeight="bold" variant="mediumLarge" margintop={0} marginBottom={1}>
                 {title}
               </Text>
             </Box>

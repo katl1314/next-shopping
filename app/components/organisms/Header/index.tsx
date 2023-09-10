@@ -2,14 +2,14 @@
 
 import Link from 'next/link';
 import styled from 'styled-components';
+import AppLogo from '../../atoms/AppLogo';
+import { SearchIcon, ShoppingCartIcon } from '../../atoms/IconButton';
+import { useAuthContext } from '@/app/context/AuthContext';
 import Button from '@components/atoms/Button';
 import ShapeImage from '@components/atoms/ShapeImage';
 import Spinner from '@components/atoms/Spinner';
 import Box from '@components/layout/Box';
-import Flex from '@components/layout/Flex';
-import { SearchIcon, ShoppingCartIcon } from '../../atoms/IconButton';
-import { useAuthContext } from '@/app/context/AuthContext';
-import AppLogo from '../../atoms/AppLogo';
+import Flex, { FlexLayout } from '@components/layout/Flex';
 
 // 헤더
 const HeaderWrap = styled.header`
@@ -20,7 +20,7 @@ const HeaderWrap = styled.header`
 `;
 
 // 네비게이션
-const Nav = styled(Flex)`
+const Nav = styled(FlexLayout)`
   & > span:not(:first-child) {
     margin: 0 10px;
   }
@@ -106,7 +106,7 @@ const Header = () => {
                 return (
                   <Link href={`/user/${authUser.id}`} passHref>
                     <ShapeImage
-                      shape='circle'
+                      shape="circle"
                       alt={authUser.username}
                       src={authUser.profileImageUrl}
                       width={32}
@@ -129,7 +129,7 @@ const Header = () => {
           </NavLink>
           <NavLink>
             <Link href="/sell">
-              <Button padding="10px 20px">등록</Button>
+              <Button padding="5px 20px">등록</Button>
             </Link>
           </NavLink>
         </Nav>

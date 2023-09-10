@@ -19,6 +19,7 @@ interface DropdownProps {
   hasError?: boolean;
   items?: DropdownItemType[]; // { value: 'usa', label: '미국' }
   placeholder?: string;
+  value?: string;
   onChange?: (selected?: DropdownItemType | undefined) => void;
   onMouseDown?: (evnet: React.SyntheticEvent) => void;
 }
@@ -73,7 +74,9 @@ const DropdownMenu = styled.div`
   background-color: #fff;
   border: ${() => theme.colors.border};
   // 박스 그림자
-  box-shadow: 0px 5px 5px -3px rgb(0 0 0 / 20%), 0px 8px 10px 1px rgb(0 0 0 / 10%),
+  box-shadow:
+    0px 5px 5px -3px rgb(0 0 0 / 20%),
+    0px 8px 10px 1px rgb(0 0 0 / 10%),
     0px 3px 14px 2px rgb(0 0 0 / 12%);
   box-sizing: border-box;
   border-radius: 5px;
@@ -199,7 +202,4 @@ const Dropdown = (props: DropdownProps) => {
   );
 };
 
-Dropdown.defaultProps = {
-  variant: 'normal',
-};
 export default Dropdown;

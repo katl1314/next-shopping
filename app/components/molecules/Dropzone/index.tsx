@@ -14,13 +14,14 @@ type FileType =
   | 'text/plain'
   | 'application/pdf';
 
-interface IDropzoneProps {
+export interface IDropzoneProps {
   id: string; // 고유 이름
   accept?: FileType[]; // 파일 타입
   files?: File[]; // 입력 파일
   width?: number | string; // 드롭존 너비 number타입이면 px, string타입이면 %도 사용할 수 있다.
   height?: number | string; // 드롭존 높이
   onChange?: (file: File[]) => void;
+  hasError?: boolean;
 }
 
 type SizeType = { width: number | string; height: number | string };
@@ -137,7 +138,7 @@ const Dropzone = (props: IDropzoneProps) => {
         onChange={handleChange}
       ></DropzoneInputFile>
       <DropdownContent width={width} height={height}>
-        <Text textAlign="center">기기에서 업로드</Text>
+        <Text textalign="center">기기에서 업로드</Text>
       </DropdownContent>
     </DropzoneRoot>
   );
