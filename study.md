@@ -427,7 +427,7 @@ test/test.t(j)s파일이 있는지 확인해보자.
   - 범용적으로 처리할 수 있도록 제네릭 타입을 지정함. (any타입을 되도록 사용을 지양)
 
 ```typescript
-export const fetcher = async <T>(resource: RequestInfo, init?: RequestInit): Promise<T> => {
+export const fetcher = async <T,>(resource: RequestInfo, init?: RequestInit): Promise<T> => {
   const res = await fetch(resource, init);
 
   // 응답 상태 체크
@@ -799,3 +799,47 @@ react-hook-form은 useForm훅을 제공한다.
 쉽게 form을 관리해준다.
 
 값 변경, submit, 조회, 오류 검출 등 여러 작업을 useForm이 한번에 처리가 가능하다
+
+제품 등록, 로그인 등등 react-hook-form을 이용하여 유효성 검사를 실시한다.
+
+설치 : npm i -D react-hook-form
+
+사용하기 1.불러오기 import { useForm } from 'react-hook-form';
+
+useForm을 통해 기본값과, 유효성 검사 관련 옵션등을 설정한다.
+그러면 객체를 반환하고 객체 내부에는 register, handleSubmit, reset, errors, ... 다양한 기능들이 포함됨.
+
+유효성 검사 옵션으로 mode가 자주 사용되며 유효성 검사를 언제 실시할지 설정한다.
+all, onSubmit, onBlur, onChange등등이 있으나, onChange의 경우 값이 변경할때마다 리렌더링이 발생하기에 비추천함.
+defaultValues는 form의 기본값을 지정할 때 사용한다.
+
+shouldFocusError => 유효성 검사에서 실패되었을때, 실패한 요소에 focus를 지정할지 여부를 설정한다.
+
+반환값 객체
+
+- register : 유효성 검사를 위한 Dom요소을 등록한다. 이름과 유효성 검사 옵션을 지정한다.
+  {...register('이름', {
+  required: true, // 반드시 입력해야할지 설정
+  message: string, // error 메시지 설정함.,
+  maxLength: {
+  value: 2, // 최대 입력 가능한 수 지정
+  message: '' // 에러 발생시 메시지
+  },
+  minLenght: {
+  value: 10, // 최소 입력해야할 수 지정
+  message: ''
+  },
+  max: {
+  value: 1000, // 만약 number타입일 때 최대 수를 지정, (min과 동일)
+  message: ''
+  },
+  pattern: {
+  value: RegExp, // 정규식을 이용하여 유효성 검사
+  message: ''
+  }
+  ...
+  })}
+
+error.message의 경우 javascript은 p태그로 감싸져서 반환되나, typescript는 string이다.
+
+(react-hook-form참고)[https://2mojurmoyang.tistory.com/221#8.10.%20register%20Options%C2%A0:%20onChange]
