@@ -1,3 +1,23 @@
+# 개요
+
+## Next.js v13
+
+Next.js v13 이전과 다르게 v13에는 많은 부분이 추가되거나 변경되었음.
+Next.js v13의 모든 컴포넌트들은 서버 사이드 렌더링이며,
+클라이언트 렌더링을 원할 경우 코드 상단에 'use client'를 반드시 추가해야한다.
+
+기존의 경우 src/page 폴더에서 페이지에 관련된 코드를 작성하여야 했으나, next.js13의 경우 app디렉터리 내에서 라우팅이 가능함(파일 시스템 라우팅)
+page.tsx : 페이징 처리를 위한 컴포넌트 실제로 해당 파일을 기준으로 라우팅이 이루어짐
+
+not-found.tsx : 404(파일이 없을 경우) 표시할 컴포넌트
+layout.tsx : 레이아웃 관련 컴포넌트
+
+등등 다양한 파일에서 각각에 대한 기능을 처리해야한다.
+
+만약 next.js13에서 리액트 기능 (훅)을 사용할 경우 반드시 클라이언트 사이드 렌더링으로 처리해야함.
+
+layout.tsx의 경우 해당 파일을 기준으로 하위에도 동일하게 적용되므로, 각각 다른 레이아웃을 구성할때는 layout.tsx을 추가한다.
+
 # Chapter 5 프로젝트 환경 세팅
 
 ## 1. 프로젝트 목표
@@ -918,4 +938,84 @@ const SigninForm = ({ onSignin }: ISigninFormProps) => {
 };
 
 export default SigninForm;
+```
+
+## 템플릿 구현
+
+템플릿은 페이지의 레이아웃을 구현한다.
+Layout컴포넌트은 Header, Footer, children컴포넌트로 구성된다.
+템플릿은 보통 1개만 존재하나, 여러 템플릿이 필요할땐 여러 템플릿을 만든다.
+
+next13의 경우 layout.tsx파일을 통해 레이아웃을 구성할 수 있다.
+
+### 페이지 설계 구현
+
+next13이전의 경우 src/pages내에서 페이지 컴포넌트를 구현하였으나,
+next13에서는 app디렉터리 모든 곳에서 page.tsx를 통해 페이지를 구성할 수 있다.
+
+### 6.9.1
+
+현재 샘플을 확인하면 next/router의 useRouter훅을 사용하여 리다이렉트 처리하도록 구성되어있음.
+
+정적인 메타데이터를 생성하기 위해서는
+generateMetadata를 호출하여 Metadata객체를 반환하거나, metadata라는 이름의 객체를 만든 후 export한다.
+
+```tsx
+import { Metadata } from 'next';
+
+export function generateMetadata(): Metadata {
+  return {
+    title: '123',
+  };
+}
+
+// or
+export const metadata: Metadata = {
+  title: '123',
+};
+```
+
+### You have a Server Component that imports next/router. Use next/navigation instead.
+
+-> next/navigation의 useRouter를 사용한다.
+
+### next/navigation의 useRouter
+
+```tsx
+'use client';
+
+import { useRouter } from 'next/navigation';
+import SigninFormController from '@/app/controllers/SigninFormController';
+
+const SigninLayout = () => {
+  const router = useRouter();
+
+  // 인증 후 이벤트 핸들러
+  const handleSignin = async (err?: Error) => {
+    if (!err) {
+      const redirectTo = '/';
+      await router.push(redirectTo);
+      // const redirectTo = (router.query['redirect_to'] as string) ?? '/';
+      // console.log('Redirecting', redirectTo);
+      // await router.push(redirectTo);
+    }
+  };
+  return <SigninFormController onSignin={handleSignin} />;
+};
+
+export default SigninLayout;
+```
+
+useRouter를 사용하기 위해서는 반드시 'use client'을 추가하여 클라이언트 렌더링으로 처리되어야함.
+
+next.js 13이전에는 useRouter를 호출하면 push, query, pathname을 포함한 객체가 반환되다보니 원하는 형태로 쿼리스트링을 조작하였는데,
+next/navigation에서 처리하는 useRouter는 제약조건이 있어 불편함.
+
+next/navigation에는 다양한 훅을 제공하는데
+usePathname, useSearchParams훅을 추가로 제공함
+
+useParams : 현재 url로 채워진 경로의 동적 매개변수를 확인함.
+
+```tsx
+const { params } = useParams(); // 현 url의 파라미터를 반환한다.
 ```

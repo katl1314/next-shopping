@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
 import { StoryObj, Meta } from '@storybook/react';
+import { useEffect } from 'react';
+import type { User, ApiContext } from '@/app/types';
 import Header from '@components/organisms/Header';
 import { AuthContextProvider } from '@context/AuthContext';
-import type { User, ApiContext } from '@/app/types';
 import ShoppingCartProvider, { useShoppingCartContext } from '@context/ShoppingCartContext';
 type Story = StoryObj<typeof Header>;
 
@@ -24,11 +24,13 @@ export const Login: Story = {
       description: '반갑습니다',
     };
 
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const { addProductToCart } = useShoppingCartContext();
     const context: ApiContext = {
       apiRootUrl: 'https://dummy',
     };
 
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
       addProductToCart({
         id: 0,
