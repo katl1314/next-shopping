@@ -45,11 +45,11 @@ const SigninForm = ({ onSignin }: ISigninFormProps) => {
           hasError={!!errors.password}
           {...register('password', {
             required: '비밀번호 입력은 필수입니다.',
-            min: {
+            minLength: {
               value: 5,
               message: '최소 5글자 입력합니다.',
             },
-            max: {
+            maxLength: {
               value: 15,
               message: '최대 15글자 이내로 입력합니다.',
             },
