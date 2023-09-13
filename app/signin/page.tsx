@@ -1,5 +1,9 @@
+'use client';
+
 import type { NextPage, Metadata } from 'next';
-import SigninLayout from '../views/SigninLayout';
+// import { useRouter, useSearchParams, useParams, usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
+import SigninFormController from '@/app/controllers/SigninFormController';
 import AppLogo from '@components/atoms/AppLogo';
 import Box from '@components/layout/Box';
 import Flex from '@components/layout/Flex';
@@ -12,6 +16,17 @@ export function generateMetadata(): Metadata {
 }
 
 const SigninPage: NextPage = () => {
+  const router = useRouter();
+
+  // 인증 후 이벤트 핸들러
+  const handleSignin = async (err?: Error) => {
+    // error가 undefined이면 루트로 리다이렉트한다...
+    // 이전에 접속한곳에서 로그인을 성공하면 이전에 접속한 루트를 아느것이 중요할듯...
+    if (!err) {
+      const redirectTo = '/';
+      await router.push(redirectTo);
+    }
+  };
   return (
     <Box>
       <Flex
@@ -27,7 +42,7 @@ const SigninPage: NextPage = () => {
           </Box>
           <Box width="100%">
             {/* SigninForm의 username, password를 받아 signin함수에서 username, password를 통해 api를 호출한다. 인증 결과는 props의 onSignin을 통해 이벤트에 전파. */}
-            <SigninLayout />
+            <SigninFormController onSignin={handleSignin} />
           </Box>
         </Flex>
       </Flex>
