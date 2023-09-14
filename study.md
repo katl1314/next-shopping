@@ -1019,3 +1019,18 @@ useParams : 현재 url로 채워진 경로의 동적 매개변수를 확인함.
 ```tsx
 const { params } = useParams(); // 현 url의 파라미터를 반환한다.
 ```
+
+
+// Next13에서는 getStaticProps, getStaticParams, getServerSideProps을 지원하지 않는다.
+// Next.js13이전의 getStaticPaths와 비슷함.
+// getStaticPaths => generateStaticParams
+// generateMetadata => 정적 메타데이터 설정
+// getStaticProps => fetch의 catch force-cache를 사용해야함. (강제 캐시)
+// getServerSideProps => fetch catch no-cache 캐시 사용안함.
+// ISR의 경우 revalidate: ms지정한다.
+/**
+ * fetch(url, { revalidate: 10 })
+ */
+
+ ## A required parameter (id) was not provided as a string received number in generateStaticParams for /users/[id]
+ [id]처럼 generateStaticParams통해 동적으로 경로를 생성할 때 반드시 문자열로?

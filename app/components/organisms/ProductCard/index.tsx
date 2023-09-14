@@ -1,8 +1,8 @@
 'use client';
-import Box from '@components/layout/Box';
+import Image from 'next/image';
 import styled from 'styled-components';
 import Text from '@components/atoms/Text';
-import Image from 'next/image';
+import Box from '@components/layout/Box';
 
 interface IProductCardProps {
   /**
@@ -56,7 +56,7 @@ const ProductCard = (props: IProductCardProps) => {
 
   type SizeType = Record<'md' | 'base', string>;
 
-  const { size, imgSize }: { size?: SizeType; imgSize?: number } = (() => {
+  const { imgSize }: { size?: SizeType; imgSize?: number } = (() => {
     switch (variant) {
       case 'detail':
         return { size: { md: '540px', base: '320px' }, imgSize: 540 };

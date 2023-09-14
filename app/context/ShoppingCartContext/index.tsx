@@ -1,6 +1,6 @@
-import reducer, { ShoppingActionType } from '@/app/reducer/ShoppingCart';
-import React, { createContext, useContext, useReducer, useState } from 'react';
+import React, { createContext, useContext, useReducer } from 'react';
 import type { Product } from '../../types';
+import reducer, { ShoppingActionType } from '@/app/reducer/ShoppingCart';
 
 interface ShoppingCartProps {
   // 카트 리스트

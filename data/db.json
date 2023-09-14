@@ -1,0 +1,11 @@
+{
+  "users": [
+    {"id": 1, "username": "최민혁", "displayName": "최고짱짱", "email": "choi123@naver.com", "profileImageUrl" : "", "description": "반갑습니다"},
+    {"id": 2, "username": "김민수", "displayName": "민수황제", "email": "minsu@naver.com", "profileImageUrl" : "", "description": "반갑습니다"},
+    {"id": 3, "username": "이철수", "displayName": "멋쟁이", "email": "chulsu123@naver.com", "profileImageUrl" : "", "description": "반갑습니다"},
+    {"id": 4, "username": "홍길동", "displayName": "훌륭한사나이", "email": "gildonHong@naver.com", "profileImageUrl" : "", "description": "반갑습니다"},
+    {"id": 5, "username": "임꺽정", "displayName": "동화책남자", "email": "Lim123@naver.com", "profileImageUrl" : "", "description": "반갑습니다"},
+    {"id": 6, "username": "박명수", "displayName": "연애인", "email": "pack123@naver.com", "profileImageUrl" : "", "description": "반갑습니다"},
+    {"id": 7, "username": "김철수", "displayName": "철수철수", "email": "chulSuKim1@naver.com", "profileImageUrl" : "", "description": "반갑습니다"}
+  ]
+}
