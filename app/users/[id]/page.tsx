@@ -34,7 +34,7 @@ export async function generateStaticParams() {
  * @param id 사용자 아이디
  */
 function getProductList(id: string) {
-  return getAllProducts({ apiRootUrl: 'http://127.0.0.1:5000' }, { id: Number(id) });
+  return getAllProducts({ apiRootUrl: 'http://127.0.0.1:5000' }, { id: Number(id) }); // throw Promise or Product[]
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -1,4 +1,4 @@
-import { HTTPMethod, PromiseState } from '..';
+import { HTTPMethod, promiseResolver } from '..';
 import type { ApiContext, Product } from '@/app/types';
 
 const getAllProducts = (context: ApiContext, params: { id: number }) => {
@@ -16,37 +16,7 @@ const getAllProducts = (context: ApiContext, params: { id: number }) => {
     .then(response => response.json())
     .then(response => response);
 
-  return wrapPromise<Product>(promise);
+  return promiseResolver<Product>(promise);
 };
-
-function wrapPromise<T>(promise: Promise<T>) {
-  let status = PromiseState.Pending;
-  let response: T | null = null;
-
-  const suspense = promise.then(
-    res => {
-      // success
-      status = PromiseState.Success;
-      response = res;
-    },
-    err => {
-      status = PromiseState.Fail;
-      response = err;
-    },
-  );
-
-  const read = () => {
-    switch (status) {
-      case PromiseState.Pending:
-        throw suspense;
-      case PromiseState.Fail:
-        throw response;
-      case PromiseState.Success:
-        return response;
-    }
-  };
-
-  return { read };
-}
 
 export default getAllProducts;
