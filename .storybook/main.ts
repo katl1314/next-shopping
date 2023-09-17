@@ -17,6 +17,7 @@ const config: StorybookConfig = {
   },
   docs: {
     autodocs: 'tag',
+    defaultName: 'Documentation',
   },
   // 스토리북에서 tsconfig.json에 정의한 paths를 사용하기 위해서 추가로 설정해야한다.
   webpackFinal: async (config) => {

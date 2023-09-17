@@ -47,7 +47,7 @@ const RemoveText = styled(Text)<{ color: ButtonVariant }>`
 const CartProduct = (props: ICartProductProps) => {
   const { id, imageUrl, title, price, onBuyButtonClick, onRemoveButtonClick } = props;
   return (
-    <Flex width="100%" justifyContent="space-between" padding="1% 5%">
+    <Flex width="100%" justifycontent="space-between" padding="1% 5%">
       <Flex>
         <Box width="120px" height="120px">
           {/* passHref는 href속성을 자식 컴포넌트에도 전달한다. */}
@@ -58,12 +58,12 @@ const CartProduct = (props: ICartProductProps) => {
         <Box padding={1}>
           <Flex
             height="100%"
-            flexDirection="column"
-            justifyContent="space-between"
-            paddingLeft="2%"
+            flexdirection="column"
+            justifycontent="space-between"
+            paddingleft="2%"
           >
             <Box>
-              <Text fontWeight="bold" variant="mediumLarge" marginTop={0} marginBottom={1}>
+              <Text fontWeight="bold" variant="mediumLarge" margintop="5px" marginbottom="10px">
                 {title}
               </Text>
             </Box>
@@ -81,7 +81,7 @@ const CartProduct = (props: ICartProductProps) => {
                   구입
                 </Button>
                 <Button
-                  marginLeft={1}
+                  marginleft={1}
                   width={{ base: '100px', md: '200px' }}
                   display={{ base: 'block', md: 'none' }}
                   variant="danger"

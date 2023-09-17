@@ -1,4 +1,4 @@
-import { HTTPMethod } from '..';
+import { HTTPMethod } from '../..';
 import { ApiContext, User } from '@/app/types/data';
 import { fetcher } from '@/app/utils/fetcher';
 

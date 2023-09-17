@@ -34,9 +34,9 @@ export interface Product {
   description: string;
   imageUrl: string;
   blurDataUrl: string;
-  price: numer;
+  price: number;
   condition: Condition;
-  owner: User;
+  owner: number; // User.id
 }
 
 /**

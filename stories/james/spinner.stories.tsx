@@ -1,9 +1,9 @@
 import { StoryObj, Meta } from '@storybook/react';
+import { useEffect } from 'react';
 import GlobalSpinner from '@components/organisms/GlobalSpinner';
 import GlobalSpinnerContextProvider, {
   useGlobalSpinnerActionsContext,
 } from '@context/GlobalSpinnerContext';
-import { useEffect } from 'react';
 
 type Story = StoryObj<typeof GlobalSpinner>;
 

@@ -19,6 +19,7 @@ interface DropdownProps {
   hasError?: boolean;
   items?: DropdownItemType[]; // { value: 'usa', label: '미국' }
   placeholder?: string;
+  value?: string;
   onChange?: (selected?: DropdownItemType | undefined) => void;
   onMouseDown?: (evnet: React.SyntheticEvent) => void;
 }
@@ -105,7 +106,7 @@ const DropdownItem = (props: DropdownItemProps) => {
   const { item } = props;
   return (
     <>
-      <Flex alignItems="center">
+      <Flex alignitems="center">
         <Text margin={0} variant="small">
           {item?.label ?? item?.value}
         </Text>
@@ -201,7 +202,4 @@ const Dropdown = (props: DropdownProps) => {
   );
 };
 
-Dropdown.defaultProps = {
-  variant: 'normal',
-};
 export default Dropdown;

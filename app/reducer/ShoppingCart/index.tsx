@@ -1,4 +1,4 @@
-import type { Product } from "../../types";
+import type { Product } from '../../types';
 
 export enum ShoppingActionType {
   ADD_SHOPPING_CART = 'add_shopping_cart',
@@ -6,8 +6,8 @@ export enum ShoppingActionType {
 }
 
 interface Action {
-  type: ShoppingActionType,
-  product: Product,
+  type: ShoppingActionType;
+  product: Product;
 }
 
 interface IState {
@@ -18,14 +18,15 @@ function reducer(state: IState, action: Action) {
   switch (action.type) {
     case ShoppingActionType.ADD_SHOPPING_CART:
       return {
-        carts: [...state.carts, action.product]
-      }
-    case ShoppingActionType.REMOVE_SHOPPING_CART:
+        carts: [...state.carts, action.product],
+      };
+    case ShoppingActionType.REMOVE_SHOPPING_CART: {
       const id = action.product.id;
       const carts = state.carts.filter(cart => cart.id !== id);
       return {
-        carts
-      }
+        carts,
+      };
+    }
     default:
       throw new Error(`${action.type} is not define`);
   }

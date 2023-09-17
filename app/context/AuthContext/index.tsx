@@ -1,8 +1,8 @@
 import React, { useContext, createContext } from 'react';
 import useSWR from 'swr';
+import type { ApiContext, User } from '../../types';
 import signIn from '@services/auth/signIn';
 import signOut from '@services/auth/signOut';
-import type { ApiContext, User } from '../../types';
 
 /**
  * 인증 컨텍스트를 위한 타입

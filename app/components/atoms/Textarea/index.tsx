@@ -3,7 +3,6 @@
 import { useCallback, useState } from 'react';
 import styled from 'styled-components';
 import theme from '@/app/theme';
-
 /**
  * React.TextareaHTMLAttributes => textarea에 사용되는 attributes 타입이 정의되어 있음.
  */
@@ -14,6 +13,7 @@ export interface ITextAreaProps extends React.TextareaHTMLAttributes<HTMLTextAre
   maxRows?: number;
   // 변형 에러 플래그
   hasError?: boolean;
+  theme?: typeof theme;
 }
 
 const StyledTextArea = styled.textarea<ITextAreaProps>`
@@ -26,11 +26,10 @@ const StyledTextArea = styled.textarea<ITextAreaProps>`
   resize: none;
   overflow: auto;
   height: auto;
-  border: 1px solid
-    ${({ theme, hasError }) => (hasError ? theme.colors.danger : theme.colors.border)};
+  border: 1px solid ${({ hasError }) => (hasError ? 'red' : 'black')};
 
   &::placeholder {
-    color: ${({ theme }) => theme.colors.placeholder};
+    color: blue;
   }
 `;
 
@@ -39,11 +38,8 @@ const TextArea = (props: ITextAreaProps) => {
 
   const [textareaRows, setTextAreaRows] = useState(Math.min(rows, minRows)); // rows와 minRows중 가장 작은 수를 textareaRow의 초기값으로...
 
-  console.info(minRows, maxRows, rows, children, hasError, onChange, rest);
-
   // console.assert => 조건식이 false이면 로그를 표시한다.
   // rows은 minRows보다 작을 수 없다.
-  console.assert(!(rows < minRows), `rows는 minRows보다 작을 수 없다.`);
 
   // 값 변경 이벤트 => useCallback으로 감싸서, 메모이제이션을 유지한다.
   // 만약 의존 리스트에 지정된 값이 변화가 발생하지 않으면, 메모이제이션된 함수를 사용한다.
@@ -92,11 +88,6 @@ const TextArea = (props: ITextAreaProps) => {
 };
 
 // 컴포넌트 props 기본값 설정
-TextArea.defaultProps = {
-  theme,
-  rows: 5,
-  minRows: 5,
-  maxRows: 10,
-};
+// React의 최신 버전부터 defaultProps을 사용하지 않습니다.
 
 export default TextArea;

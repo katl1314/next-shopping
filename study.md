@@ -1,3 +1,23 @@
+# 개요
+
+## Next.js v13
+
+Next.js v13 이전과 다르게 v13에는 많은 부분이 추가되거나 변경되었음.
+Next.js v13의 모든 컴포넌트들은 서버 사이드 렌더링이며,
+클라이언트 렌더링을 원할 경우 코드 상단에 'use client'를 반드시 추가해야한다.
+
+기존의 경우 src/page 폴더에서 페이지에 관련된 코드를 작성하여야 했으나, next.js13의 경우 app디렉터리 내에서 라우팅이 가능함(파일 시스템 라우팅)
+page.tsx : 페이징 처리를 위한 컴포넌트 실제로 해당 파일을 기준으로 라우팅이 이루어짐
+
+not-found.tsx : 404(파일이 없을 경우) 표시할 컴포넌트
+layout.tsx : 레이아웃 관련 컴포넌트
+
+등등 다양한 파일에서 각각에 대한 기능을 처리해야한다.
+
+만약 next.js13에서 리액트 기능 (훅)을 사용할 경우 반드시 클라이언트 사이드 렌더링으로 처리해야함.
+
+layout.tsx의 경우 해당 파일을 기준으로 하위에도 동일하게 적용되므로, 각각 다른 레이아웃을 구성할때는 layout.tsx을 추가한다.
+
 # Chapter 5 프로젝트 환경 세팅
 
 ## 1. 프로젝트 목표
@@ -80,10 +100,12 @@ package.json의 script부분 추가
   "bracketSpacing": true // 중괄호 양 끝에 공백을 표시할지?
 }
 ```
+
 eslint와 prettier를 같이 사용하면 발생할 수 있는 문제점이 있다.
 만약 prettier에 적용한 포맷을 사용하면 저장시 설정된 포맷대로 저장되는데
 eslint은 구문검사를 담당하기 때문에 여기에 설정된 대로 저장되지 않으면 에러를 띄운다.
 그래서 prettier에 설정한 속성을 .eslintrc의 rules에 추가해야한다.
+
 ```json
 "rules": {
   "prettier/prettier": [
@@ -135,6 +157,7 @@ staticDirs속성은 정적 파일을 배치할 디렉터리를 지정한다.
   "staticDirs": ["public"] // 정적 파일을 배치할 디렉터리 정의
 }
 ```
+
 아래 이미지를 .storybook에 public에 넣어놨다면
 추후 스토리 세팅 시 이미지가 필요할 때 staticDirs에 지정한 경로를 기준으로 찾을 수 있다.
 
@@ -175,7 +198,7 @@ const preview: Preview = {
   // storybook7은 @storybook/react에서 지원하는 addDecorator를 지원하지 않는다.
   // decorators에서 직접 설정해도 된다.
   decorators: [
-    (story) => (
+    story => (
       <ThemeProvider theme={theme}>
         {/* 전역 스타일 적용 */}
         <GlobalStyle />
@@ -217,7 +240,7 @@ const OriginalNextImage = NextImage.default;
 
 Object.defineProperty(NextImage, 'default', {
   configurable: true,
-  value: (props) =>
+  value: props =>
     typeof props.src === 'string' ? (
       <OriginalNextImage {...props} unoptimized blurDataURL={props.src} />
     ) : (
@@ -263,7 +286,7 @@ export default function Page() {
     handleSubmit,
     formState: { errors },
   } = useForm<IForm>();
-  const onSubmit: SubmitHandler<IForm> = (data) => {
+  const onSubmit: SubmitHandler<IForm> = data => {
     // submit시 처리한다.
     console.info(data);
   };
@@ -323,7 +346,7 @@ interface IUser {
 
 const githubUrl = 'https://api.github.com';
 
-const fetcher = (url: string) => fetch(`${githubUrl}${url}`).then((res) => res.json());
+const fetcher = (url: string) => fetch(`${githubUrl}${url}`).then(res => res.json());
 
 // useSWR : key와 fetcher함수 인자 2개를 받는다.
 // key는 데이터의 유일한 식별자로 fetcher의 인자로 전달한다.
@@ -542,9 +565,11 @@ compilerOptions: {
 ```
 
 ### storybook에서 tsconfig에 적용한 paths을 사용하는 방법
+
 그 다음 .storybook/main.ts에서 추가로 설정해줘야함.
 웹팩 설정을 커스터마이징을 해주어야함.
 // https://dev.to/lico/storybook-plugins-push-of-undefined-error-in-webpackfinal-after-upgrading-from-webpack4-to-webpack5-4280
+
 ```ts
 webpackFinal: async (config) => {
   if (config && config.resolve) {
@@ -582,6 +607,7 @@ npm i --save-dev eslint-import-resolver-typescript
 위 모듈을 설치하면 에러가 발생하지 않는다.
 
 Button컴포넌트의 storybook을 위한 styles.tsx파일 작성
+
 ```tsx
 import type { Meta, StoryObj } from '@storybook/react'; // d.ts내 타입 불러오기 Meta, StoryObj
 import React from 'react';
@@ -660,10 +686,10 @@ export const Danger: Story = {
 };
 
 export default meta;
-
 ```
 
 ## 6.5 몰리큘 구현
+
 기존에 생성한 텍스트 박스, 텍스트 등 여러 아톰을 모아 몰리큘을 만들 수 있다.
 예를 들어 체크박스를 예로 두면, 체크 할 수 있는 체크박스와 라벨값을 표시하는 라벨을 합쳐셔 몰리큘을 구현할 수 있다.
 
@@ -672,8 +698,8 @@ React Hook useEffect has a missing dependency: 'fetchMovieData'. Either include 
 의존 배열의 경우 상태값, props을 등등 지정할 수 있으며, 해당 값들이 변경되었을때, 훅 내 콜백함수를 실행한다.
 만약 의존 배열에 지정한 값이 훅의 콜백에서 사용되지 않으면 경고문이 표시함.
 
-
 ## 6.6 오거니즘 구현
+
 오거니즘은 로그인 폼이나, 헤더보다 구체적인 UI컴포넌트
 도메인 지식에 의존하는 데이터를 받거나, 콘텍스트를 참조하거나, 고유의 작동을 가질 수 있다.
 |컴포넌트|함수 컴포넌트|
@@ -688,11 +714,11 @@ React Hook useEffect has a missing dependency: 'fetchMovieData'. Either include 
 |사용자 프로필|UserProfile|
 
 ### Next13의 next/image에서 objectFit이 사라진 이유
-[참고 사이트](https://velog.io/@pixartive/%EC%99%9C-%EC%83%88%EB%A1%9C%EC%9B%8C%EC%A7%84-nextImage%EB%8A%94-%EB%8D%94%EC%9D%B4%EC%83%81-objectFit%EC%9D%84-%ED%95%84%EC%9A%94%EB%A1%9C-%ED%95%98%EC%A7%80-%EC%95%8A%EA%B2%8C-%EB%90%90%EC%9D%84%EA%B9%8C
-)
+
+[참고 사이트](https://velog.io/@pixartive/%EC%99%9C-%EC%83%88%EB%A1%9C%EC%9B%8C%EC%A7%84-nextImage%EB%8A%94-%EB%8D%94%EC%9D%B4%EC%83%81-objectFit%EC%9D%84-%ED%95%84%EC%9A%94%EB%A1%9C-%ED%95%98%EC%A7%80-%EC%95%8A%EA%B2%8C-%EB%90%90%EC%9D%84%EA%B9%8C)
 72
-next.js13에서 Image컴포넌트의 objectFit 미지원 
-legacy버전에서는 이미지의 크기를 알수 없기에, props로 layout="fill"을 추가했어야함  => 부모요소의 position을 가지고 크기를 결정함.
+next.js13에서 Image컴포넌트의 objectFit 미지원
+legacy버전에서는 이미지의 크기를 알수 없기에, props로 layout="fill"을 추가했어야함 => 부모요소의 position을 가지고 크기를 결정함.
 layout="fill"은 이미지의 크기를 유동적으로 결정하더라고 비율을 보장하지 않았음
 그래서 이를 해결하기 위해 objectFit가 등장
 defaultProp으로 objectFit을 설정해야했음
@@ -704,40 +730,47 @@ defaultProp으로 objectFit을 설정해야했음
 quality속성은 1 ~ 100중에서 최적화된 이미지를 표시할때 사용함
 
 ### next/font/google 적용하기
- - next.js은 google fonts을 자체 호스팅
- - 구글에 요청을 하지 않음
- - 레이아웃 쉬프트 없이 폰트 사용 가능
 
- 사용 방법은 매우 쉽다 먼저 원하는 폰트를 import한다. (export)
- ```typescript
-  import { Inter } from 'next/font/google';
- ```
- 그 다음 변수를 선언하고 함수의 인자로 스타일을 지정한다.
- ```tsx
- const inter = Inter( {
+- next.js은 google fonts을 자체 호스팅
+- 구글에 요청을 하지 않음
+- 레이아웃 쉬프트 없이 폰트 사용 가능
+
+사용 방법은 매우 쉽다 먼저 원하는 폰트를 import한다. (export)
+
+```typescript
+import { Inter } from 'next/font/google';
+```
+
+그 다음 변수를 선언하고 함수의 인자로 스타일을 지정한다.
+
+```tsx
+const inter = Inter({
   subsets: ['latin'], //  latin, greek, vietnamese
-  weight: 700
- })
- ```
+  weight: 700,
+});
+```
 
- 그리고 적용할 컴포넌트의 className에 추가한다.
- ```tsx
- export default App() {
-  return <div className={inter.className}>
-  </div>
- }
- ```
+그리고 적용할 컴포넌트의 className에 추가한다.
 
- 물론 className에다만 적용하는 것이 아니라, tailwind.config 또는 css 변수로 사용할 수 있다.
+```tsx
+export default App() {
+ return <div className={inter.className}>
+ </div>
+}
+```
+
+물론 className에다만 적용하는 것이 아니라, tailwind.config 또는 css 변수로 사용할 수 있다.
 
 추가로 찾아본 점 next.js의 구글 폰트는 preload한다.
 subsets은 preload시 하위 집합을 설정한다. => 글꼴 파일을 줄이고 성능 향상 => 반드시 사용해야함.
 
 ### next/link 적용하기
+
 HTML의 a태그의 역할과 동등하다고 생각하며 페이지를 이동하기 위한 태그...
 legacy version과 차이점은 실제 dom 렌더링시 다른 결과를 갖는다.
 
 ### react 컨텍스트 사용하기
+
 props의 drilling을 지양하기 위해, 컨텍스트를 사용하여 props을 원하는 컴포넌트에서 사용한다.
 createContext => 컨텍스트 생성
 useContext => 컨텍스트 사용
@@ -745,3 +778,322 @@ useContext => 컨텍스트 사용
 Context.Provider를 props을 받은 컴포넌트에 감싼다.
 
 [스토리북 사용법](https://velog.io/@juno7803/Storybook-Storybook-200-%ED%99%9C%EC%9A%A9%ED%95%98%EA%B8%B0#parameters)
+
+### React does not recognize the `alignItems1` prop on a DOM element. 에러 해결 방법
+
+- props을 직접 Dom Element에 직접 전달해서 발생하는 문제.
+  styled-components을 사용하여 작업 시 자주 발생하는 문제로 보임.
+
+커스텀 속성 으로써 DOM에 나타내고 싶다면 lower case로 attributes name을 바꿔 사용하거나,
+의도치 않게 위에서 내려온 prop이면 제거하라
+
+=> 접두사로 $을 추가하는 방법이 있다.
+<ImageWithText 
+  $imageData={data.headerBackgroundImage.childImageSharp.fluid} // notice the '$'
+minHeight='50vh'>
+
+### next/link사용 방법
+
+next12와 next13의 next/link사용 방법은 약간 다르다.
+next12의 경우 next/link를 통해 Link컴포넌트를 불러올 수 있는데(next13도 마찬가지)
+next12의 경우 Link컴포넌트의 자식으로 a태그가 반드시 사용되어야하나,
+next13의 경우 a태그를 자식 컴포넌트로 사용하지 않아도 된다.
+
+next12
+
+```tsx
+<Link href="/" passHref>
+  <a>테스트</a>
+</Link>
+```
+
+next13에서는 a태그를 자식컴포넌트로 사용할 필요가 없다.
+
+### react-hook-form 적용기
+
+form형식의 페이지에 상태를 관리하는 것을 매우 귀찮은 작업
+예를 들어 여러 form이 있고 해당 개수에 맞춰 state를 만들어주고, reset이 필요한 경우 모든 state를 초기화 해줘야한다.
+또한 상태값이 변경될때 리렌더링이 발생하므로 이 부분도 문제이다.
+
+react-hook-form은 useForm훅을 제공한다.
+쉽게 form을 관리해준다.
+
+값 변경, submit, 조회, 오류 검출 등 여러 작업을 useForm이 한번에 처리가 가능하다
+
+제품 등록, 로그인 등등 react-hook-form을 이용하여 유효성 검사를 실시한다.
+
+설치 : npm i -D react-hook-form
+
+사용하기 1.불러오기 import { useForm } from 'react-hook-form';
+
+useForm을 통해 기본값과, 유효성 검사 관련 옵션등을 설정한다.
+그러면 객체를 반환하고 객체 내부에는 register, handleSubmit, reset, errors, ... 다양한 기능들이 포함됨.
+
+유효성 검사 옵션으로 mode가 자주 사용되며 유효성 검사를 언제 실시할지 설정한다.
+all, onSubmit, onBlur, onChange등등이 있으나, onChange의 경우 값이 변경할때마다 리렌더링이 발생하기에 비추천함.
+defaultValues는 form의 기본값을 지정할 때 사용한다.
+
+shouldFocusError => 유효성 검사에서 실패되었을때, 실패한 요소에 focus를 지정할지 여부를 설정한다.
+
+반환값 객체
+
+- register : 유효성 검사를 위한 Dom요소을 등록한다. 이름과 유효성 검사 옵션을 지정한다.
+  {...register('이름', {
+  required: true, // 반드시 입력해야할지 설정
+  message: string, // error 메시지 설정함.,
+  maxLength: {
+  value: 2, // 최대 입력 가능한 수 지정
+  message: '' // 에러 발생시 메시지
+  },
+  minLenght: {
+  value: 10, // 최소 입력해야할 수 지정
+  message: ''
+  },
+  max: {
+  value: 1000, // 만약 number타입일 때 최대 수를 지정, (min과 동일)
+  message: ''
+  },
+  pattern: {
+  value: RegExp, // 정규식을 이용하여 유효성 검사
+  message: ''
+  }
+  ...
+  })}
+
+error.message의 경우 javascript은 p태그로 감싸져서 반환되나, typescript는 string이다.
+
+(react-hook-form참고)[https://2mojurmoyang.tistory.com/221#8.10.%20register%20Options%C2%A0:%20onChange]
+
+로그인 화면에 useForm을 사용하여 처리한 예시이다.
+
+```tsx
+'use client';
+import { useForm } from 'react-hook-form';
+import Button from '@components/atoms/Button';
+import Input from '@components/atoms/Input';
+import Text from '@components/atoms/Text';
+import Box from '@components/layout/Box';
+
+interface ISigninFormProps {
+  onSignin: (username: string, password: string) => void;
+}
+
+interface ISigninFormData {
+  username: string;
+  password: string;
+}
+
+const SigninForm = ({ onSignin }: ISigninFormProps) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ISigninFormData>({ mode: 'onSubmit' });
+  return (
+    <form onSubmit={handleSubmit(({ username, password }) => onSignin(username, password))}>
+      <Box>
+        <Input
+          type="text"
+          id="username"
+          placeholder="아이디"
+          {...register('username', { required: '아이디는 필수입니다.' })}
+          hasError={!!errors.username}
+        ></Input>
+        {/* validation에 체크될 경우... */}
+        {errors.username && (
+          <Text color="danger" variant="small">
+            {errors.username.message}
+          </Text>
+        )}
+      </Box>
+      <Box>
+        <Input
+          type="password"
+          id="password"
+          placeholder="비밀번호"
+          hasError={!!errors.password}
+          {...register('password', {
+            required: '비밀번호 입력은 필수입니다.',
+            minLength: {
+              value: 5,
+              message: '최소 5글자 입력합니다.',
+            },
+            maxLength: {
+              value: 15,
+              message: '최대 15글자 이내로 입력합니다.',
+            },
+          })}
+        ></Input>
+        {errors.password && (
+          <Text color="danger" variant="small">
+            {errors.password.message}
+          </Text>
+        )}
+      </Box>
+      <Box>
+        <Button type="submit">로그인</Button>
+      </Box>
+    </form>
+  );
+};
+
+export default SigninForm;
+```
+
+## 템플릿 구현
+
+템플릿은 페이지의 레이아웃을 구현한다.
+Layout컴포넌트은 Header, Footer, children컴포넌트로 구성된다.
+템플릿은 보통 1개만 존재하나, 여러 템플릿이 필요할땐 여러 템플릿을 만든다.
+
+next13의 경우 layout.tsx파일을 통해 레이아웃을 구성할 수 있다.
+
+### 페이지 설계 구현
+
+next13이전의 경우 src/pages내에서 페이지 컴포넌트를 구현하였으나,
+next13에서는 app디렉터리 모든 곳에서 page.tsx를 통해 페이지를 구성할 수 있다.
+
+### 6.9.1
+
+현재 샘플을 확인하면 next/router의 useRouter훅을 사용하여 리다이렉트 처리하도록 구성되어있음.
+
+정적인 메타데이터를 생성하기 위해서는
+generateMetadata를 호출하여 Metadata객체를 반환하거나, metadata라는 이름의 객체를 만든 후 export한다.
+
+```tsx
+import { Metadata } from 'next';
+
+export function generateMetadata(): Metadata {
+  return {
+    title: '123',
+  };
+}
+
+// or
+export const metadata: Metadata = {
+  title: '123',
+};
+```
+
+### You have a Server Component that imports next/router. Use next/navigation instead.
+
+-> next/navigation의 useRouter를 사용한다.
+
+### next/navigation의 useRouter
+
+```tsx
+'use client';
+
+import { useRouter } from 'next/navigation';
+import SigninFormController from '@/app/controllers/SigninFormController';
+
+const SigninLayout = () => {
+  const router = useRouter();
+
+  // 인증 후 이벤트 핸들러
+  const handleSignin = async (err?: Error) => {
+    if (!err) {
+      const redirectTo = '/';
+      await router.push(redirectTo);
+      // const redirectTo = (router.query['redirect_to'] as string) ?? '/';
+      // console.log('Redirecting', redirectTo);
+      // await router.push(redirectTo);
+    }
+  };
+  return <SigninFormController onSignin={handleSignin} />;
+};
+
+export default SigninLayout;
+```
+
+
+// Next13에서는 getStaticProps, getStaticParams, getServerSideProps을 지원하지 않는다.
+// Next.js13이전의 getStaticPaths와 비슷함.
+// getStaticPaths => generateStaticParams
+// generateMetadata => 정적 메타데이터 설정
+// getStaticProps => fetch의 catch force-cache를 사용해야함. (강제 캐시)
+// getServerSideProps => fetch catch no-cache 캐시 사용안함.
+// ISR의 경우 revalidate: ms지정한다.
+/**
+ * fetch(url, { revalidate: 10 })
+ */
+
+ ## A required parameter (id) was not provided as a string received number in generateStaticParams for /users/[id]
+ [id]처럼 generateStaticParams통해 동적으로 경로를 생성할 때 반드시 문자열로?
+
+ 
+ ## styled-components 와 SSR(Server Side rendering)
+ 현재 next.js13을 사용하여 서버사이드 렌더링을 구현하고 있음. 다만 styled-components는 클라이언트 사이드 렌더링만 제공됨.
+ 그래서 처음 렌더링될 때 styled-components가 적용되지 않은  순수 html이 보여줬다가, 클라이언트 사이드 렌더링 되었을때, 스타일이 적용됨
+
+ServerStyleSheet
+다행히도 Styled-Component는 stylesheet rehydration을 통한 concurrent server side rendering을 지원한다.
+
+[Next.js v13 + Styled-Components](https://dev.to/rashidshamloo/using-styled-components-with-nextjs-v13-typescript-2l6m)
+
+1. next.config.js에 styledComponents를 추가한다.
+```js
+ compiler: (() => {
+    // styledcomponent활성화
+    let compilerConfig = {
+      styledComponents: true,
+    };
+    ...
+ }
+```
+
+2. 글로벌 스타일 레지스트리
+next.js모든 스타일을 수집하여, 태그에 적용하는 전역 스타일 레지스트리를 구현한다.
+lib/registry.tsx을 생성하고 아래 코드를 추가한다.
+```tsx
+'use client'
+
+import React, { useState } from 'react'
+import { useServerInsertedHTML } from 'next/navigation'
+import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
+
+export default function StyledComponentsRegistry({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  // Only create stylesheet once with lazy initial state
+  // x-ref: https://reactjs.org/docs/hooks-reference.html#lazy-initial-state
+  const [styledComponentsStyleSheet] = useState(() => new ServerStyleSheet())
+
+  useServerInsertedHTML(() => {
+    const styles = styledComponentsStyleSheet.getStyleElement()
+    styledComponentsStyleSheet.instance.clearTag()
+    return <>{styles}</>
+  })
+
+  if (typeof window !== 'undefined') return <>{children}</>
+
+  return (
+    <StyleSheetManager sheet={styledComponentsStyleSheet.instance}>
+      {children}
+    </StyleSheetManager>
+  )
+}
+```
+
+styled-components는 스타일시트 리하이드레이션과 함께 동시 서버 측 렌더링을 제공함.
+ServerStyleSheet 콘텍스트 API와 함께
+
+## Next13의 next/navigation
+useRouter를 사용하기 위해서는 반드시 'use client'을 추가하여 클라이언트 렌더링으로 처리되어야함.
+Next13이전에는 useRouter를 사용하여 쿼리스틑링을 수정하여 데이터를 패칭하였음.
+Next13이 추가되면서 app디렉터리에서 사용할 경우 next/router을 import하는 것을 사용되지 않으며,
+next/navigation을 import할 경우 useParam, useRouter, useSearchParams, ... 등등 방법으로 사용하도록 하였다.
+
+### usePathname: 현 url을 문자열로 변환한다.
+
+
+## json-server사용법
+
+더미 데이터를 생성하여 서버로 띄울 수 있음.
+
+npm i -D json-server
+
+package.json의 script에 추가한다.
+json-server --host 192.168.1.XXX my_file.json

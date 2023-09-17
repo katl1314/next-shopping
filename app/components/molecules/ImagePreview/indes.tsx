@@ -46,15 +46,18 @@ interface ImagePreviewProps {
 const ImagePreview = (props: ImagePreviewProps) => {
   const { width, height, src, alt, onRemove } = props;
 
-  const handleClose = useCallback((event: React.MouseEvent) => {
-    event.preventDefault();
-    event.stopPropagation();
-    onRemove && src && onRemove(src);
-  }, []);
+  const handleClose = useCallback(
+    (event: React.MouseEvent) => {
+      event.preventDefault();
+      event.stopPropagation();
+      onRemove && src && onRemove(src);
+    },
+    [src, onRemove],
+  );
   return (
     <ImagePreviewContainer width={`${width}px`} height={`${width}px`} className={inter.className}>
       {typeof src === 'string' && <Image src={src} alt={alt ?? ''} width={width} height={height} />}
-      <CloseBox onClick={handleClose} alignItems="center" justifyContent="center">
+      <CloseBox onClick={event => handleClose(event)} alignitems="center" justifycontent="center">
         <CloseIcon />
       </CloseBox>
     </ImagePreviewContainer>
