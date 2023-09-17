@@ -1034,3 +1034,59 @@ const { params } = useParams(); // 현 url의 파라미터를 반환한다.
 
  ## A required parameter (id) was not provided as a string received number in generateStaticParams for /users/[id]
  [id]처럼 generateStaticParams통해 동적으로 경로를 생성할 때 반드시 문자열로?
+
+ 
+ ## styled-components 와 SSR(Server Side rendering)
+ 현재 next.js13을 사용하여 서버사이드 렌더링을 구현하고 있음. 다만 styled-components는 클라이언트 사이드 렌더링만 제공됨.
+ 그래서 처음 렌더링될 때 styled-components가 적용되지 않은  순수 html이 보여줬다가, 클라이언트 사이드 렌더링 되었을때, 스타일이 적용됨
+
+ServerStyleSheet
+다행히도 Styled-Component는 stylesheet rehydration을 통한 concurrent server side rendering을 지원한다.
+
+[Next.js v13 + Styled-Components](https://dev.to/rashidshamloo/using-styled-components-with-nextjs-v13-typescript-2l6m)
+
+1. next.config.js에 styledComponents를 추가한다.
+```js
+ compiler: (() => {
+    // styledcomponent활성화
+    let compilerConfig = {
+      styledComponents: true,
+    };
+    ...
+ }
+```
+
+2. 글로벌 스타일 레지스트리
+next.js모든 스타일을 수집하여, 태그에 적용하는 전역 스타일 레지스트리를 구현한다.
+lib/registry.tsx을 생성하고 아래 코드를 추가한다.
+```tsx
+'use client'
+
+import React, { useState } from 'react'
+import { useServerInsertedHTML } from 'next/navigation'
+import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
+
+export default function StyledComponentsRegistry({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  // Only create stylesheet once with lazy initial state
+  // x-ref: https://reactjs.org/docs/hooks-reference.html#lazy-initial-state
+  const [styledComponentsStyleSheet] = useState(() => new ServerStyleSheet())
+
+  useServerInsertedHTML(() => {
+    const styles = styledComponentsStyleSheet.getStyleElement()
+    styledComponentsStyleSheet.instance.clearTag()
+    return <>{styles}</>
+  })
+
+  if (typeof window !== 'undefined') return <>{children}</>
+
+  return (
+    <StyleSheetManager sheet={styledComponentsStyleSheet.instance}>
+      {children}
+    </StyleSheetManager>
+  )
+}
+```
