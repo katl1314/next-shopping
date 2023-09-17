@@ -1009,7 +1009,7 @@ export default SigninLayout;
 
 // Next13에서는 getStaticProps, getStaticParams, getServerSideProps을 지원하지 않는다.
 // Next.js13이전의 getStaticPaths와 비슷함.
-// getStaticPaths => generateStaticParams
+// getStaticPaths => generateStaticParams => 빌드시 경로를 정적으로 생성한다.
 // generateMetadata => 정적 메타데이터 설정
 // getStaticProps => fetch의 catch force-cache를 사용해야함. (강제 캐시)
 // getServerSideProps => fetch catch no-cache 캐시 사용안함.

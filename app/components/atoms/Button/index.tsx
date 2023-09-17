@@ -13,7 +13,7 @@ export interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEleme
   variant?: ButtonVariant;
   fontSize?: Responsive<FontSize>;
   fontweight?: Responsive<string>;
-  letterspacing?: Responsive<LetterSpacings>;
+  letterSpacing?: Responsive<LetterSpacings>;
   lineheight?: Responsive<LineHeight>;
   textalign?: Responsive<string>;
   width?: Responsive<string>;
@@ -122,7 +122,7 @@ const StyledButton = styled.button<IButtonProps>`
   }}
 
   ${props => toPropValue('font-size', props.fontSize, theme)}
-  ${props => toPropValue('letter-spacing', props.letterspacing, theme)}
+  ${props => toPropValue('letter-spacing', props.letterSpacing, theme)}
   ${props => toPropValue('line-height', props.lineheight, theme)}
   ${props => toPropValue('color', props.color, theme)}
   ${props => toPropValue('background-color', props.backgroundcolor, theme)}

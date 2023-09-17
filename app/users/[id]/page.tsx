@@ -1,8 +1,7 @@
 'use client';
 
-// import { usePathname } from 'next/navigation';
 import { Suspense } from 'react';
-// import getAllProducts from '../../services/get-all-products';
+import ProductCard from '@/app/components/organisms/ProductCard';
 import getAllProducts from '@/app/services/get-all-products';
 import type { Product, User, ApiContext } from '@/app/types';
 import getAllUser from '@services/users/get-all-users';
@@ -39,8 +38,16 @@ function getProductList(id: string) {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Product = ({ products }: any) => {
-  const product = products.read();
-  return <div>데이터 불러옴. {product.length}</div>;
+  const productList = products.read();
+  // products.read호출 시 pending상태이면 fallback을 실행한다.
+  // return <div>데이터 불러옴. {product.length}</div>;
+  return (
+    <div>
+      {productList.map(({ id, ...props }: Product) => {
+        return <ProductCard {...props} key={id} />;
+      })}
+    </div>
+  );
 };
 
 export default function Page({ params }: { params: IUserParams }) {

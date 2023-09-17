@@ -75,7 +75,7 @@ const ProductCard = (props: IProductCardProps) => {
           <Box>
             <Text
               fontSize={{ base: 'small', md: 'mediumLarge' }}
-              letterspacing={{ base: 2, md: 3 }} // letter-spacing 글자 사이 간격
+              letterSpacing={{ base: 2, md: 3 }} // letter-spacing 글자 사이 간격
               lineheight={{ base: '32px', md: '48px' }}
               backgroundcolor="white"
               margin={0}
