@@ -7,5 +7,10 @@
     {"id": 5, "username": "임꺽정", "displayName": "동화책남자", "email": "Lim123@naver.com", "profileImageUrl" : "", "description": "반갑습니다"},
     {"id": 6, "username": "박명수", "displayName": "연애인", "email": "pack123@naver.com", "profileImageUrl" : "", "description": "반갑습니다"},
     {"id": 7, "username": "김철수", "displayName": "철수철수", "email": "chulSuKim1@naver.com", "profileImageUrl" : "", "description": "반갑습니다"}
+  ],
+  "products": [
+    { "id": 1, "category": "book", "title": "자바의 정석", "description": "자바의정석책이다.", "imageUrl":"", "blurDataUrl":"", "condition": "new", "owner": 1},
+    { "id": 2, "category": "book", "title": "스포츠의 정석", "description": "스포츠의 정석이다.", "imageUrl":"", "blurDataUrl":"", "condition": "new", "owner": 1},
+    { "id": 3, "category": "book", "title": "골프의 정석", "description": "골프의 정석 이다.", "imageUrl":"", "blurDataUrl":"", "condition": "new", "owner": 1}
   ]
 }

@@ -36,7 +36,7 @@ export interface Product {
   blurDataUrl: string;
   price: number;
   condition: Condition;
-  owner: User;
+  owner: number; // User.id
 }
 
 /**

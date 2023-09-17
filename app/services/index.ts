@@ -5,3 +5,9 @@ export enum HTTPMethod {
   Put = 'PUT', // api서버의 데이터의 모든 것을 업데이트
   Delete = 'Delete', // api서버의 데이터를 삭제
 }
+
+export enum PromiseState {
+  Pending = 'pending',
+  Success = 'success',
+  Fail = 'fail',
+}

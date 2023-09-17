@@ -1006,20 +1006,6 @@ const SigninLayout = () => {
 export default SigninLayout;
 ```
 
-useRouter를 사용하기 위해서는 반드시 'use client'을 추가하여 클라이언트 렌더링으로 처리되어야함.
-
-next.js 13이전에는 useRouter를 호출하면 push, query, pathname을 포함한 객체가 반환되다보니 원하는 형태로 쿼리스트링을 조작하였는데,
-next/navigation에서 처리하는 useRouter는 제약조건이 있어 불편함.
-
-next/navigation에는 다양한 훅을 제공하는데
-usePathname, useSearchParams훅을 추가로 제공함
-
-useParams : 현재 url로 채워진 경로의 동적 매개변수를 확인함.
-
-```tsx
-const { params } = useParams(); // 현 url의 파라미터를 반환한다.
-```
-
 
 // Next13에서는 getStaticProps, getStaticParams, getServerSideProps을 지원하지 않는다.
 // Next.js13이전의 getStaticPaths와 비슷함.
@@ -1090,3 +1076,24 @@ export default function StyledComponentsRegistry({
   )
 }
 ```
+
+styled-components는 스타일시트 리하이드레이션과 함께 동시 서버 측 렌더링을 제공함.
+ServerStyleSheet 콘텍스트 API와 함께
+
+## Next13의 next/navigation
+useRouter를 사용하기 위해서는 반드시 'use client'을 추가하여 클라이언트 렌더링으로 처리되어야함.
+Next13이전에는 useRouter를 사용하여 쿼리스틑링을 수정하여 데이터를 패칭하였음.
+Next13이 추가되면서 app디렉터리에서 사용할 경우 next/router을 import하는 것을 사용되지 않으며,
+next/navigation을 import할 경우 useParam, useRouter, useSearchParams, ... 등등 방법으로 사용하도록 하였다.
+
+### usePathname: 현 url을 문자열로 변환한다.
+
+
+## json-server사용법
+
+더미 데이터를 생성하여 서버로 띄울 수 있음.
+
+npm i -D json-server
+
+package.json의 script에 추가한다.
+json-server --host 192.168.1.XXX my_file.json
