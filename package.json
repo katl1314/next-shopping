@@ -11,7 +11,7 @@
     "build-storybook": "storybook build",
     "test": "jest",
     "cypress": "cypress open",
-    "jsonserver": "json-server --host 127.0.0.1 --watch ./data/db.json --port 5000"
+    "json": "json-server --host 127.0.0.1 --watch ./data/db.json --port 5000"
   },
   "dependencies": {
     "@types/node": "20.4.9",

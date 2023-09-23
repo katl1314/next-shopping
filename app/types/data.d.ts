@@ -21,6 +21,7 @@ export interface User {
   email: string; // 이메일
   profileImageUrl: string; // 프로필 이미지
   description: string; // 자기소개
+  numberOfProducts: number;
 }
 
 /**
@@ -36,7 +37,7 @@ export interface Product {
   blurDataUrl: string;
   price: number;
   condition: Condition;
-  owner: number; // User.id
+  owner: User; // User.id
 }
 
 /**

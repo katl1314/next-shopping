@@ -18,9 +18,11 @@ export function promiseResolver<T>(promise: Promise<T>) {
 
   const suspense = promise.then(
     res => {
-      // success
-      status = PromiseState.Success;
-      response = res;
+      // 1초 뒤에 success처리한다. Suspense의 fallback을 보여주기 위함.
+      setTimeout(() => {
+        status = PromiseState.Success;
+        response = res;
+      }, 1000);
     },
     err => {
       status = PromiseState.Fail;
