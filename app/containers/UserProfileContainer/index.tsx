@@ -1,15 +1,16 @@
 import UserProfile from '@/app/components/organisms/UserProfile';
+// import { IUseUser } from '@/app/services/users/use-user';
+import { User } from '@/app/types';
+import { isNull } from '@/app/utils/utils';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const UserProfileContainer = ({ user }: any) => {
-  const userInfo = user.read();
-
+const UserProfileContainer = ({ user }: { user: User }) => {
+  if (isNull(user)) return <></>;
   return (
     <UserProfile
-      username={`${userInfo.username} (${userInfo.displayName})`}
-      profileImageUrl={userInfo.profileImageUrl}
-      numberOfProducts={userInfo.numberOfProducts ?? 0}
-      description={userInfo.description}
+      username={`${user.username} (${user.displayName})`}
+      profileImageUrl={user.profileImageUrl}
+      numberOfProducts={user.numberOfProducts ?? 0}
+      description={user.description}
     />
   );
 };

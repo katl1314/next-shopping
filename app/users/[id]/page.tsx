@@ -5,8 +5,10 @@ import Box from '@/app/components/layout/Box';
 import Flex from '@/app/components/layout/Flex';
 import UserProfileContainer from '@/app/containers/UserProfileContainer';
 import getAllProducts from '@/app/services/get-all-products';
-import getUser from '@/app/services/users/getUser';
+// import getUser from '@/app/services/users/getUser';
+import useUser from '@/app/services/users/use-user';
 import type { Product, User, ApiContext } from '@/app/types';
+// import { isNotNull } from '@/app/utils/utils';
 import getAllUser from '@services/users/get-all-users';
 
 // React.lazy 컴포넌트를 지연로딩한다.
@@ -38,29 +40,30 @@ function getProductList(id: string) {
   return getAllProducts({ apiRootUrl: url }, id); // throw Promise or Product[]
 }
 
-function getUserInfo(id: string) {
-  return getUser({ apiRootUrl: url }, id);
-}
-
 export default function Page({ params }: { params: IUserParams }) {
-  return (
-    <Flex
-      paddingtop="16px"
-      paddingbottom="16px"
-      paddingleft={{ base: '16px', md: '4px' }}
-      paddingright={{ base: '16px', md: '4px' }}
-      justifycontent="center"
-    >
-      <Box width="1180px">
-        <Suspense fallback={<p>데이터 가져온다굿...</p>}>
+  // 훅은 컴포넌트 내 최상위에서 사용해야함.
+  const { user } = useUser({ apiRootUrl: url }, { id: params.id });
+
+  if (user !== undefined) {
+    return (
+      <Flex
+        paddingtop="16px"
+        paddingbottom="16px"
+        paddingleft={{ base: '16px', md: '4px' }}
+        paddingright={{ base: '16px', md: '4px' }}
+        justifycontent="center"
+      >
+        <Box width="1180px">
           <Box marginbottom="8px">
-            <UserProfileContainer user={getUserInfo(params.id)} />
+            <UserProfileContainer user={user} />
           </Box>
-          <Box marginbottom="8px">
-            <ProductView products={getProductList(params.id)} />
-          </Box>
-        </Suspense>
-      </Box>
-    </Flex>
-  );
+          <Suspense fallback={<p>데이터 가져온다굿...</p>}>
+            <Box marginbottom="8px">
+              <ProductView products={getProductList(params.id)} />
+            </Box>
+          </Suspense>
+        </Box>
+      </Flex>
+    );
+  }
 }
