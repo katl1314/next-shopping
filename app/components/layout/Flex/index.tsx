@@ -29,7 +29,7 @@ interface IFlexProps extends IBoxProps {
   justifyself?: Responsive<CSSPropertyJustifySelf>;
   alignself?: Responsive<CSSPropertyAlignSelf>;
   order?: Responsive<string>;
-  children?: React.ReactElement[] | React.ReactElement;
+  children?: React.ReactNode[] | React.ReactNode;
 }
 
 export const FlexLayout = styled(Box)<IFlexProps>`
