@@ -4,12 +4,12 @@ import { fetcher } from '@/app/utils/fetcher';
 
 export interface IUseProductProps {
   category: Category;
-  limit: number;
-  page: number;
+  limit?: number;
+  page?: number;
 }
 
 export const useProducts = (context: ApiContext, props: IUseProductProps) => {
-  const { data, error } = useSWR<Product>(`${context}/${props.category}`, fetcher);
+  const { data, error } = useSWR<Product[]>(`${context.apiRootUrl}/${props.category}`, fetcher);
 
   return {
     data: data ?? [],

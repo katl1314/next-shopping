@@ -12,5 +12,22 @@
     { "id": 1, "category": "book", "price": 12000,"title": "자바의 정석", "description": "자바의정석책이다.", "imageUrl":"/images/1.jpg", "blurDataUrl":"", "condition": "new", "owner": 1},
     { "id": 2, "category": "book", "price": 12000,"title": "스포츠의 정석", "description": "스포츠의 정석이다.", "imageUrl":"/images/2.jpg", "blurDataUrl":"", "condition": "new", "owner": 1},
     { "id": 3, "category": "book", "price": 12000,"title": "골프의 정석", "description": "골프의 정석 이다.", "imageUrl":"/images/3.jpg", "blurDataUrl":"", "condition": "new", "owner": 1}
+  ],
+  "book": [
+    { "id": 1, "category": "book", "price": 12000,"title": "자바의 정석", "description": "자바의정석책이다.", "imageUrl":"/images/1.jpg", "blurDataUrl":"", "condition": "new", "owner": 1},
+    { "id": 2, "category": "book", "price": 12000,"title": "스포츠의 정석", "description": "스포츠의 정석이다.", "imageUrl":"/images/2.jpg", "blurDataUrl":"", "condition": "new", "owner": 1},
+    { "id": 3, "category": "book", "price": 12000,"title": "골프의 정석", "description": "골프의 정석 이다.", "imageUrl":"/images/3.jpg", "blurDataUrl":"", "condition": "new", "owner": 1}
+  ],
+  "shoes": [
+    { "id": 1, "category": "shoes", "price": 12000,"title": "자바의 정석", "description": "자바의정석책이다.", "imageUrl":"/images/1.jpg", "blurDataUrl":"", "condition": "new", "owner": 1},
+    { "id": 2, "category": "shoes", "price": 12000,"title": "스포츠의 정석", "description": "스포츠의 정석이다.", "imageUrl":"/images/2.jpg", "blurDataUrl":"", "condition": "new", "owner": 1},
+    { "id": 3, "category": "shoes", "price": 12000,"title": "골프의 정석", "description": "골프의 정석 이다.", "imageUrl":"/images/3.jpg", "blurDataUrl":"", "condition": "new", "owner": 1}
+  
+  ],
+  "clothes": [
+    { "id": 1, "category": "clothes", "price": 12000,"title": "자바의 정석", "description": "자바의정석책이다.", "imageUrl":"/images/1.jpg", "blurDataUrl":"", "condition": "new", "owner": 1},
+    { "id": 2, "category": "clothes", "price": 12000,"title": "스포츠의 정석", "description": "스포츠의 정석이다.", "imageUrl":"/images/2.jpg", "blurDataUrl":"", "condition": "new", "owner": 1},
+    { "id": 3, "category": "clothes", "price": 12000,"title": "골프의 정석", "description": "골프의 정석 이다.", "imageUrl":"/images/3.jpg", "blurDataUrl":"", "condition": "new", "owner": 1}
+  
   ]
 }

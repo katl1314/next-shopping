@@ -1,10 +1,14 @@
-/* eslint-disable react-hooks/rules-of-hooks */
+'use client';
+
 import { NextPage } from 'next';
+import Link from 'next/link';
 import Text from './components/atoms/Text';
 import Box from './components/layout/Box';
 import Flex from './components/layout/Flex';
-// import { useProducts } from './services/products/use-product';
-import type { Product } from './types';
+import ProductCard from './components/organisms/ProductCard';
+import ProductCardCarousel from './components/organisms/ProductCardCarousel';
+import { useProducts } from './services/products/use-product';
+import type { Product, ApiContext } from './types';
 
 interface IHomePageProps {
   bookProducts: Product[];
@@ -12,19 +16,31 @@ interface IHomePageProps {
   shoesProducts: Product[];
 }
 
-const HomePage: NextPage<IHomePageProps> = async () => {
+const HomePage: NextPage<IHomePageProps> = () => {
   // 상품 카드 캐러셀 => getStaticProps을 호출하여 미리 생성해두는 방식 => next13에서는 fetch로 처리한다. (next: { revalidate: 10})
-  // const renderProductCardCarousel = (products: Product[]) => {};
+  const renderProductCardCarousel = (products: Product[]) => (
+    <ProductCardCarousel>
+      {products.map(product => (
+        <Box paddingleft="8px" key={product.id}>
+          <Link href={`/products/${product.id}`}>
+            <ProductCard
+              variant="small"
+              title={product.title}
+              price={product.price}
+              imageUrl={product.imageUrl}
+            />
+          </Link>
+        </Box>
+      ))}
+    </ProductCardCarousel>
+  );
 
-  // const context: ApiContext = { apiRootUrl: 'http://127.0.0.1:5000' };
+  const context: ApiContext = { apiRootUrl: 'http://127.0.0.1:5000' };
 
-  // const [clothesProducts, bookProducts, shoesProducts] = await Promise.all([
-  //   useProducts(context, { category: 'clothes', limit: 6, page: 1 }),
-  //   useProducts(context, { category: 'book', limit: 6, page: 1 }),
-  //   useProducts(context, { category: 'shoes', limit: 6, page: 1 }),
-  // ]);
+  const clothesProducts = useProducts(context, { category: 'clothes' });
+  const bookProducts = useProducts(context, { category: 'book' });
+  const shoesProducts = useProducts(context, { category: 'shoes' });
 
-  // console.info(bookProducts, clothesProducts, shoesProducts);
   return (
     <>
       <Flex padding="16px" justifycontent="center" backgroundcolor="primary">
@@ -48,16 +64,15 @@ const HomePage: NextPage<IHomePageProps> = async () => {
       <Flex paddingbottom="16px" justifycontent="center">
         <Box paddingleft="16px" paddingright="16px" width="100%">
           <Text variant="large">의류</Text>
+          {renderProductCardCarousel(clothesProducts.data)}
         </Box>
-      </Flex>
-      <Flex paddingbottom="16px" justifycontent="center">
         <Box paddingleft="16px" paddingright="16px" width="100%">
           <Text variant="large">도서</Text>
+          {renderProductCardCarousel(bookProducts.data)}
         </Box>
-      </Flex>
-      <Flex paddingbottom="16px" justifycontent="center">
         <Box paddingleft="16px" paddingright="16px" width="100%">
           <Text variant="large">신발</Text>
+          {renderProductCardCarousel(shoesProducts.data)}
         </Box>
       </Flex>
     </>
