@@ -1,7 +1,9 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { NextPage } from 'next';
 import Text from './components/atoms/Text';
 import Box from './components/layout/Box';
 import Flex from './components/layout/Flex';
+// import { useProducts } from './services/products/use-product';
 import type { Product } from './types';
 
 interface IHomePageProps {
@@ -10,15 +12,19 @@ interface IHomePageProps {
   shoesProducts: Product[];
 }
 
-const HomePage: NextPage<IHomePageProps> = ({
-  bookProducts,
-  clothesProducts,
-  shoesProducts,
-}: IHomePageProps) => {
+const HomePage: NextPage<IHomePageProps> = async () => {
   // 상품 카드 캐러셀 => getStaticProps을 호출하여 미리 생성해두는 방식 => next13에서는 fetch로 처리한다. (next: { revalidate: 10})
-  console.info(bookProducts, clothesProducts, shoesProducts);
   // const renderProductCardCarousel = (products: Product[]) => {};
 
+  // const context: ApiContext = { apiRootUrl: 'http://127.0.0.1:5000' };
+
+  // const [clothesProducts, bookProducts, shoesProducts] = await Promise.all([
+  //   useProducts(context, { category: 'clothes', limit: 6, page: 1 }),
+  //   useProducts(context, { category: 'book', limit: 6, page: 1 }),
+  //   useProducts(context, { category: 'shoes', limit: 6, page: 1 }),
+  // ]);
+
+  // console.info(bookProducts, clothesProducts, shoesProducts);
   return (
     <>
       <Flex padding="16px" justifycontent="center" backgroundcolor="primary">
