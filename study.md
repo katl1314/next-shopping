@@ -1097,3 +1097,19 @@ npm i -D json-server
 
 package.json의 script에 추가한다.
 json-server --host 192.168.1.XXX my_file.json
+
+
+## 검색 화면 구성
+검색화면은 특정 쿼리에 해당하는 상품 리스트를 표시한다.
+클라이언트 사이드에서 검색 결과를 얻는다.
+pages/search/[...slug].tsx의 파일명은 search안에 모든 요청을 받기 위해서 작성한다.
+next13의 경우 router.query를 갖기 위해서는 next/navigation의 useSearchParams을 호출하여 얻을 수 있다.
+
+### Next.js의 Dynamic Routing으로 보임.
+동적 데이터에서 경로로 생성할 경우, 요청시 채워지거나, 빌드시 미리 렌더링되는 동적 세그먼트가 있음.
+
+사용법
+1) 폴더 이름을 [id]라고 한다.
+2) 그리고 해당 폴더에 page.tsx을 추가한다.
+3) [id]의 경우 해당 url으로 들어오면 page.tsx를 브라우저에 렌더링한다.
+4) 만약 [id]에 지정한 id를 Next.js컴포넌트에서 사용할 경우 인자 params으로 확인 하거나, next/navigation의 useParams을 통해 확인 가능함.

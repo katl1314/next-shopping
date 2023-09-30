@@ -10,13 +10,13 @@ const BreadcrumbItem = styled.li`
   &:not(:first-child) {
     &::before {
       content: '/';
-      color: ${({ theme }) => theme.colors.gray};
+      color: #8d8d8d;
       padding: 0px 8px;
     }
   }
 
   a {
-    color: ${({ theme }) => theme.colors.gray};
+    color: #8d8d8d;
     &:hover {
       text-decoration: underline;
     }
