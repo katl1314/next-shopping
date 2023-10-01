@@ -39,19 +39,20 @@ const nextConfig = {
     }
     return { ...compilerConfig, removeConsole: true };
   })(),
+  // Proxy처리 관련해서 추가함.
   // rewrites : 재작성
   // 재작성을 사용시 요청 경로를 다른 대상 경로에 매핑할 수 있다.
   // source형태로 들어온 경로를 destination경로로 매핑하는것?
   // - source : 들어오는 경로
   // - destination : 라우팅할 경로
-  // async rewrites() {
-  //   return [
-  //     {
-  //       source: `${process.env.NEXT_PUBLIC_API_BASE_PATH}/:match*`,
-  //       destination: `${process.env.API_BASE_URL}/:match*`,
-  //     },
-  //   ];
-  // },
+  async rewrites() {
+    return [
+      {
+        source: `${process.env.NEXT_PUBLIC_API_BASE_PATH}/:path*`,
+        destination: `${process.env.API_BASE_URL}/:path*`,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;

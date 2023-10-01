@@ -23,14 +23,7 @@ const SearchPage: NextPage = () => {
   // uri중 params을 반환한다.
   const { slug } = useParams() as { slug: Category }; // path
   const query = useSearchParams(); // condition
-
-  const conditions = (() => {
-    const condition = query.get('condition') as Condition | Condition[];
-
-    if (Array.isArray(condition)) return condition;
-    else if (condition) return [condition];
-    else return [];
-  })();
+  const conditions = query.getAll('conditions') as Condition[]; // query[]
 
   return (
     <Box
@@ -67,7 +60,7 @@ const SearchPage: NextPage = () => {
               카테고리
             </Text>
             <Box>
-              <Link href="/search/">모두</Link>
+              <Link href="/search/all">모두</Link>
             </Box>
             {Object.keys(categoryNameDist).map((category: string, index: number) => (
               <Box key={index} margintop="4px">
