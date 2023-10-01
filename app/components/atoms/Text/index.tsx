@@ -29,7 +29,7 @@ export interface ITextProps {
   variant?: TextVariant;
   fontSize?: Responsive<FontSize>;
   fontWeight?: Responsive<string>;
-  letterspacing?: Responsive<LetterSpacings>;
+  letterSpacing?: Responsive<LetterSpacings>;
   lineheight?: Responsive<LineHeight>;
   textalign?: Responsive<string>;
   color?: Responsive<Color>;
@@ -71,7 +71,7 @@ const variants = {
 };
 
 const Text = styled.span<ITextProps>`
-  ${({ variant, fontSize, letterspacing: letterSpacing, lineheight: lineHeight, theme }) => {
+  ${({ variant, fontSize, letterSpacing: letterSpacing, lineheight: lineHeight, theme }) => {
     if (variant && variants[variant]) {
       const styles = [];
       // 폰트 크기
@@ -94,7 +94,7 @@ const Text = styled.span<ITextProps>`
   }}
   ${props => toPropValue('font-weight', props.fontWeight, props.theme)}
   ${props => toPropValue('font-size', props.fontSize, props.theme)}
-  ${props => toPropValue('letter-spacing', props.letterspacing, props.theme)}
+  ${props => toPropValue('letter-spacing', props.letterSpacing, props.theme)}
   ${props => toPropValue('line-height', props.lineheight, props.theme)}
   ${props => toPropValue('color', props.color, props.theme)}
   ${props => toPropValue('background-color', props.backgroundcolor, props.theme)}

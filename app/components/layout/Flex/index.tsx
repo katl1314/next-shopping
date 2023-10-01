@@ -19,17 +19,17 @@ import Box, { IBoxProps } from '@components/layout/Box';
 interface IFlexProps extends IBoxProps {
   alignitems?: Responsive<CSSPropertyAlignItems>;
   aligncontent?: Responsive<CSSPropertyAlignContent>;
-  justifycontent?: Responsive<CSSPropertyJustifyContent>;
-  justifyitems?: Responsive<CSSPropertyJustifyItems>;
+  justifycontent?: Responsive<CSSPropertyJustifyContent>; // flex-direction기준으로 정렬
+  justifyitems?: Responsive<CSSPropertyJustifyItems>; // flex-direction의 반대로 기준 정렬
   flexwrap?: Responsive<CSSPropertyFlexWrap>;
   flexbasis?: Responsive<string>;
-  flexdirection?: Responsive<CSSPropertyFlexDirection>;
-  flexgrow?: Responsive<string>;
-  flexshrink?: Responsive<string>;
+  flexdirection?: Responsive<CSSPropertyFlexDirection>; // 아이템 배치 방향 (column, row)
+  flexgrow?: Responsive<string>; // flex 컨테이너의 남은 영역을 얼마나 차지할지... (비율로...)
+  flexshrink?: Responsive<string>; // flex 컨테이너에 아이템이 벗어날 경우 벗어난 아이템 너비만큼 분배해서 줄인다.
   justifyself?: Responsive<CSSPropertyJustifySelf>;
   alignself?: Responsive<CSSPropertyAlignSelf>;
-  order?: Responsive<string>;
-  children?: React.ReactElement[] | React.ReactElement;
+  order?: Responsive<string>; // 순서 배치 dom에 영향 X
+  children?: React.ReactNode[] | React.ReactNode;
 }
 
 export const FlexLayout = styled(Box)<IFlexProps>`

@@ -22,6 +22,7 @@ export const Login: Story = {
       email: 'choi1997@naver.com',
       profileImageUrl: '/images/1.jpg',
       description: '반갑습니다',
+      numberOfProducts: 0,
     };
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
