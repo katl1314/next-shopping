@@ -48,8 +48,8 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: `${process.env.NEXT_PUBLIC_API_BASE_PATH}/:path*`,
-        destination: `${process.env.API_BASE_URL}/:path*`,
+        source: `${process.env.NEXT_PUBLIC_API_BASE_PATH}/:path*`, // /api/proxy/:path*
+        destination: `${process.env.API_BASE_URL}/:path*`, // https://127.0.0.1:5000/:path*
       },
     ];
   },
