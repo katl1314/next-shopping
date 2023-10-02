@@ -73,7 +73,7 @@ const Header = () => {
               paddingright={{ base: '5px', md: '10px' }}
             >
               {/* next/link passHref속성은 Link컴포넌트의 속성 href을 자식 컴포넌트에 전달. */}
-              <Link href="/search/books">책</Link>
+              <Link href="/search/book">책</Link>
             </Box>
           </NavLink>
           <NavLink>

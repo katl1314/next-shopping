@@ -1113,3 +1113,9 @@ next13의 경우 router.query를 갖기 위해서는 next/navigation의 useSearc
 2) 그리고 해당 폴더에 page.tsx을 추가한다.
 3) [id]의 경우 해당 url으로 들어오면 page.tsx를 브라우저에 렌더링한다.
 4) 만약 [id]에 지정한 id를 Next.js컴포넌트에서 사용할 경우 인자 params으로 확인 하거나, next/navigation의 useParams을 통해 확인 가능함.
+
+## Next.js getStaticProps와 getStaticPaths
+getStaticProps와 getStaticPaths는 ssg방식에서 동적으로 static페이지를 생성하는 것으로
+빌드 시 데이터를 fetch한 다음 static페이지를 생성한다.
+- getStaticProps : 빌드 시 데이터를 fetch한 다음 정적 페이지 생성
+- getStaticPaths는 [id]과 같이 동적 라우팅 페이지 중 빌드 시 static페이지를 생성한다.

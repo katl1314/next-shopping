@@ -7,7 +7,7 @@ import BreadcrumbItem from '@/app/components/atoms/BreadcrumbItem';
 import Text from '@/app/components/atoms/Text';
 import Box from '@/app/components/layout/Box';
 import Flex from '@/app/components/layout/Flex';
-import Breadcrumb from '@/app/components/molecules/BreadCrumb';
+import Breadcrumb from '@/app/components/molecules/Breadcrumb';
 import ProductCardListContainer from '@/app/containers/ProductCardListContainer';
 import { Category, Condition } from '@/app/types';
 

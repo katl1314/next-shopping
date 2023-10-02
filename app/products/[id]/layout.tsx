@@ -17,15 +17,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }
 
 type Props = {
-  params: { slug: string };
+  params: { id: string };
 };
 
 export const generateMetadata = async (props: Props): Promise<Metadata> => {
   const {
-    params: { slug },
+    params: { id },
   } = props;
   return {
-    title: `${slug} 검색`,
+    title: `${id} 검색`,
     description: '설명',
   };
 };

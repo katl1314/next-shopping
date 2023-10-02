@@ -9,7 +9,7 @@ interface ProductCardCarouselProps {
  */
 const ProductCardCarousel = ({ children }: ProductCardCarouselProps) => {
   return (
-    <Flex overflow={{ base: 'scroll', md: 'hidden' }} width="100%">
+    <Flex overflow={{ base: 'scroll', md: 'hidden' }} width="100%" justifycontent="center">
       {children}
     </Flex>
   );
