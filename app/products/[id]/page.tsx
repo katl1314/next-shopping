@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
 import ProductCard from '@/app/components/organisms/ProductCard';
 import UserProfile from '@/app/components/organisms/UserProfile';
+import AddToCartButtonContainer from '@/app/containers/AddToCartButtonContainer';
+import ShoppingCartProvider from '@/app/context/ShoppingCartContext';
 import getAllProducts from '@/app/services/get-all-products';
 import { useProduct } from '@/app/services/products/use-product';
 import useUser from '@/app/services/users/use-user';
@@ -86,11 +88,12 @@ const ProductPage: NextPage<ProductPageProps> = () => {
               </Text>
             ))}
           </Box>
-          {/* <AddToCartButtonContainer
-            product={product}
-            onAddToCartButtonClick={handleAddToCartButtonClick}
-          /> */}
-          <button onClick={handleAddToCartButtonClick}>임시버튼</button>
+          <ShoppingCartProvider>
+            <AddToCartButtonContainer
+              product={product}
+              onAddToCartButtonClick={handleAddToCartButtonClick}
+            />
+          </ShoppingCartProvider>
         </Flex>
       </Box>
     </Flex>

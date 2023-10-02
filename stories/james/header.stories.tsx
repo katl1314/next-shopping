@@ -42,7 +42,7 @@ export const Login: Story = {
         blurDataUrl: '',
         price: 12000,
         condition: 'new',
-        owner: authUser,
+        owner: authUser.id,
       });
     }, []);
     return (
