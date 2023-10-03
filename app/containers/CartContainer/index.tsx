@@ -1,3 +1,4 @@
+import EmptyArea from '@/app/components/molecules/EmptyArea';
 import purchase from '@/app/services/purchase';
 import type { ApiContext, Product } from '@/app/types';
 import CartProduct from '@components/organisms/CartProduct';
@@ -35,14 +36,18 @@ const CartContainer = () => {
 
   return (
     <>
-      {carts.map((cart: Product, index: number) => (
-        <CartProduct
-          product={cart}
-          key={index}
-          onBuyButtonClick={handleBuyButtonClick}
-          onRemoveButtonClick={handleRemoveButtonClick}
-        />
-      ))}
+      {carts.length > 0 ? (
+        carts.map((cart: Product, index: number) => (
+          <CartProduct
+            product={cart}
+            key={index}
+            onBuyButtonClick={handleBuyButtonClick}
+            onRemoveButtonClick={handleRemoveButtonClick}
+          />
+        ))
+      ) : (
+        <EmptyArea />
+      )}
     </>
   );
 };
