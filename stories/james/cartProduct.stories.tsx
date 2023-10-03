@@ -1,16 +1,25 @@
 import { StoryObj, Meta } from '@storybook/react';
 import CartProduct, { ICartProductProps } from '@/app/components/organisms/CartProduct';
+import type { Product } from '@/app/types';
 
 type Story = StoryObj<typeof CartProduct>;
+const product: Product = {
+  id: 1,
+  imageUrl: 'images/1.jpg',
+  title: '멋진 신발',
+  price: 32000,
+  category: 'shoes',
+  condition: 'new',
+  description: '멋진 멋진 신발',
+  blurDataUrl: 'images/1.jpg',
+  owner: 1,
+};
 
 export const NiceShoes: Story = {
   render: (props: ICartProductProps) => <CartProduct {...props}></CartProduct>,
   // args : 컴포넌트에 전달할 props
   args: {
-    id: 1,
-    imageUrl: 'images/1.jpg', // staticPath가 .storybook/public이므로...
-    title: '멋진 신발',
-    price: 32000,
+    product,
   },
 };
 

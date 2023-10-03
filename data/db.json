@@ -26,6 +26,7 @@
     { "id": 15, "category": "clothes", "price": 12000,"title": "정장", "description": "정장 이다.", "imageUrl":"/images/3.jpg", "blurDataUrl":"", "condition": "new", "owner": 1},
     { "id": 16, "category": "shoes", "price": 12000,"title": "운동화", "description": "운동화 이다.", "imageUrl":"/images/3.jpg", "blurDataUrl":"", "condition": "new", "owner": 2},
     { "id": 17, "category": "shoes", "price": 12000,"title": "런닝화", "description": "런닝화 이다.", "imageUrl":"/images/3.jpg", "blurDataUrl":"", "condition": "used", "owner": 3},
-    { "id": 18, "category": "shoes", "price": 12000,"title": "구두", "description": "구두 이다.", "imageUrl":"/images/3.jpg", "blurDataUrl":"", "condition": "new", "owner": 4}
+    { "id": 18, "category": "shoes", "price": 12000,"title": "구두", "description": "구두 이다.", "imageUrl":"/images/3.jpg", "blurDataUrl":"", "condition": "new", "owner": 4},
+    { "id": 19, "category": "shoes", "price": 12000,"title": "구두123", "description": "구두 이다.", "imageUrl":"/images/3.jpg", "blurDataUrl":"", "condition": "new", "owner": 3}
   ]
 }

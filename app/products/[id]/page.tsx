@@ -6,7 +6,6 @@ import { useParams, useRouter } from 'next/navigation';
 import ProductCard from '@/app/components/organisms/ProductCard';
 import UserProfile from '@/app/components/organisms/UserProfile';
 import AddToCartButtonContainer from '@/app/containers/AddToCartButtonContainer';
-import ShoppingCartProvider from '@/app/context/ShoppingCartContext';
 import getAllProducts from '@/app/services/get-all-products';
 import { useProduct } from '@/app/services/products/use-product';
 import useUser from '@/app/services/users/use-user';
@@ -88,12 +87,10 @@ const ProductPage: NextPage<ProductPageProps> = () => {
               </Text>
             ))}
           </Box>
-          <ShoppingCartProvider>
-            <AddToCartButtonContainer
-              product={product}
-              onAddToCartButtonClick={handleAddToCartButtonClick}
-            />
-          </ShoppingCartProvider>
+          <AddToCartButtonContainer
+            product={product}
+            onAddToCartButtonClick={handleAddToCartButtonClick}
+          />
         </Flex>
       </Box>
     </Flex>
