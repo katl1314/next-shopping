@@ -15,10 +15,10 @@ const addProduct = async (
   const result = await fetcher<Product>(`${context.apiRootUrl.replace(/\/$/g, '')}/products`, {
     headers: {
       Accept: 'application/json',
-      'Content-Type': 'applicaiton/json',
+      'Content-Type': 'application/json',
     },
     method: HTTPMethod.Post, // 서버 HTTP 메서드
-    body: JSON.stringify(params), // post방식으로 전달되는 데이터
+    body: JSON.stringify(params.product), // post방식으로 전달되는 데이터
   });
 
   return result;

@@ -272,6 +272,21 @@
     },
     {
       "id": 21
+    },
+    {
+      "category": "shoes",
+      "id": 22
+    },
+    {
+      "category": "clothes",
+      "title": "12321312",
+      "description": "asdasdad",
+      "imageUrl": "/images/6.jpg",
+      "blurDataUrl": "",
+      "price": "123",
+      "condition": "used",
+      "owner": 1,
+      "id": 23
     }
   ]
 }
