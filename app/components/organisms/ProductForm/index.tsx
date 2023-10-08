@@ -195,7 +195,7 @@ const ProductForm = (props: IProductFormProps) => {
           <Box>
             <Text variant="medium">가격</Text>
             <Input
-              {...register('price', { required: true })}
+              {...register('price', { required: true, min: 0 })}
               name="price"
               type="number"
               placeholder="가격을 입력하세요."
