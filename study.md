@@ -1119,3 +1119,11 @@ getStaticProps와 getStaticPaths는 ssg방식에서 동적으로 static페이지
 빌드 시 데이터를 fetch한 다음 static페이지를 생성한다.
 - getStaticProps : 빌드 시 데이터를 fetch한 다음 정적 페이지 생성
 - getStaticPaths는 [id]과 같이 동적 라우팅 페이지 중 빌드 시 static페이지를 생성한다.
+
+## 컴포넌트 단위 테스트
+기존에 만든 아톰, 몰리클, 오거니즘에 대한 단위 테스트를 작성한다.
+컴포넌트에 대한 단위 테스트는 '컴포넌트명.spec.tsx'의 파일을 생성한다.
+그 다음 @testing-library/react를 불러온다.
+jest와 마찬가지로 테스트는 describe을 통해 테스트를 정의한다.
+테스트 케이스는 descript의 콜백함수 안에 it 또는 test라는 이름의 함수를 정의하여 테스트 케이스를 지정한다.
+beforeEach의 경우 렌더링 이전에 호출하는 함수, afterEach 테스트가 종료되었을때 호출하는 함수.
