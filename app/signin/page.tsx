@@ -1,8 +1,8 @@
 'use client';
 
 import type { NextPage, Metadata } from 'next';
-// import { useRouter, useSearchParams, useParams, usePathname } from 'next/navigation';
-import { useRouter } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
+
 import SigninFormController from '@/app/controllers/SigninFormController';
 import AppLogo from '@components/atoms/AppLogo';
 import Box from '@components/layout/Box';
@@ -17,14 +17,18 @@ export function generateMetadata(): Metadata {
 
 const SigninPage: NextPage = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   // 인증 후 이벤트 핸들러
-  const handleSignin = async (err?: Error) => {
+  const handleSignin = (err?: Error) => {
     // error가 undefined이면 루트로 리다이렉트한다...
     // 이전에 접속한곳에서 로그인을 성공하면 이전에 접속한 루트를 아느것이 중요할듯...
+
     if (!err) {
-      const redirectTo = '/';
-      await router.push(redirectTo);
+      const redirectTo = searchParams.has('redirect_to')
+        ? `${searchParams.get('redirect_to')}`
+        : '/';
+      router.push(redirectTo);
     }
   };
   return (
