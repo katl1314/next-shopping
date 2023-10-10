@@ -25,9 +25,9 @@ export default function RootLayout({ children }: { children: React.ReactElement 
     <html lang="en">
       <body className={inter.className}>
         <StyledComponentsRegistry>
-          <Header />
           {/* _app.tsx대신 최상위 layout.tsx에서 Provider를 감싼다. */}
           <AuthContextProvider context={context}>
+            <Header />
             <ShoppingCartProvider>{children}</ShoppingCartProvider>
           </AuthContextProvider>
         </StyledComponentsRegistry>

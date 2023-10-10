@@ -5,7 +5,7 @@
 import type { NextPage } from 'next';
 import Link from 'next/link';
 import CartContainer from '../containers/CartContainer';
-// import useAuthGuard from '../hook/UseAuthGuard';
+import useAuthGuard from '../hook/UseAuthGuard';
 import BreadcrumbItem from '@components/atoms/BreadcrumbItem';
 import Text from '@components/atoms/Text';
 import Box from '@components/layout/Box';
@@ -13,7 +13,7 @@ import Flex from '@components/layout/Flex';
 import Breadcrumb from '@components/molecules/Breadcrumb';
 
 const CartPage: NextPage = () => {
-  // useAuthGuard(); 로그인 처리에 대한 미흡
+  useAuthGuard();
 
   return (
     <Flex
@@ -42,5 +42,11 @@ const CartPage: NextPage = () => {
     </Flex>
   );
 };
+
+// export function generateMetadata() {
+//   return {
+//     title: '카트',
+//   };
+// }
 
 export default CartPage;

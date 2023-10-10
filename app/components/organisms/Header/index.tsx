@@ -7,7 +7,6 @@ import { SearchIcon, ShoppingCartIcon } from '../../atoms/IconButton';
 import { useAuthContext } from '@/app/context/AuthContext';
 import Button from '@components/atoms/Button';
 import ShapeImage from '@components/atoms/ShapeImage';
-import Spinner from '@components/atoms/Spinner';
 import Box from '@components/layout/Box';
 import Flex, { FlexLayout } from '@components/layout/Flex';
 
@@ -32,7 +31,7 @@ const NavLink = styled.span`
 `;
 
 const Header = () => {
-  const { authUser, isLoading } = useAuthContext();
+  const { authUser } = useAuthContext();
   return (
     <HeaderWrap>
       <Flex
@@ -114,9 +113,6 @@ const Header = () => {
                     ></ShapeImage>
                   </Link>
                 );
-              } else if (isLoading) {
-                // 로그인 중
-                return <Spinner isLoading={isLoading} color="red" size={24} />;
               } else {
                 // 미로그인 시
                 return (
