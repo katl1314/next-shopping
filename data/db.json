@@ -287,6 +287,17 @@
       "condition": "used",
       "owner": 1,
       "id": 23
+    },
+    {
+      "category": "shoes",
+      "title": "12312312",
+      "description": "3123212",
+      "imageUrl": "/images/6.jpg",
+      "blurDataUrl": "",
+      "price": "12312",
+      "condition": "used",
+      "owner": 1,
+      "id": 24
     }
   ],
   "signin": [
