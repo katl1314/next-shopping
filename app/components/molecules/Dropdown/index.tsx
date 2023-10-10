@@ -25,12 +25,12 @@ interface DropdownProps {
 }
 
 // 드롭다운 형태
-const DropdownControl = styled.div<{ hasError?: boolean }>`
+const DropdownControl = styled.div<{ $hasError?: boolean }>`
   position: absolute; // 부모 요소가 relative이므로 부모 요소를 기준으로 위치를 잡는다.
   overflow: hidden;
   background-color: #fff;
   // 테두리 hasError props에 따라 다르게 표시한다.
-  border: ${({ hasError }) => (hasError ? css`1px solid red` : css`1px solid black`)};
+  border: ${props => (props.$hasError ? css`1px solid red` : css`1px solid black`)};
   border-radius: 5px; // 테두리 둥굴게 만들 수 있음.
   box-sizing: border-box; // 너비 높이를 border까지 영역을 기준으로 잡는다.
   cursor: default;
@@ -52,12 +52,12 @@ const DropdownPlaceholder = styled.div<Pick<DropdownProps, 'variant'>>`
 `;
 
 // 드롭다운 화살표
-const DropdownArrow = styled.div<{ isOpen: boolean }>`
+const DropdownArrow = styled.div<{ $isOpen: boolean }>`
   // 테두리 색상
-  border-color: ${({ isOpen }) =>
-    isOpen ? css`transparent transparent #222` : css`#222 transparent transparent`};
+  border-color: ${props =>
+    props.$isOpen ? css`transparent transparent #222` : css`#222 transparent transparent`};
   // 테두리 두깨
-  border-width: ${({ isOpen }) => (isOpen ? '0 5px 5px' : '5px 5px 0')};
+  border-width: ${props => (props.$isOpen ? '0 5px 5px' : '5px 5px 0')};
   border-style: solid;
   content: ' ';
   display: block;
@@ -171,7 +171,11 @@ const Dropdown = (props: DropdownProps) => {
   return (
     <>
       <DropdownWrapper ref={dropdownRef}>
-        <DropdownControl hasError={false} onMouseDown={handleMouseDown}>
+        <DropdownControl
+          $hasError={false}
+          onMouseDown={handleMouseDown}
+          data-testid="dropdown-control"
+        >
           {selectItem ? (
             <DropdownValue>
               <DropdownItem item={selectItem} />
@@ -186,12 +190,16 @@ const Dropdown = (props: DropdownProps) => {
             id={id}
             onChange={() => onChange && onChange(selectItem)}
           />
-          <DropdownArrow isOpen={isOpen} />
+          <DropdownArrow $isOpen={isOpen} />
         </DropdownControl>
         {isOpen && (
           <DropdownMenu>
             {items?.map((item, index) => (
-              <DropdownOption key={index} onMouseDown={e => handleSelectValue(e, item)}>
+              <DropdownOption
+                key={index}
+                onMouseDown={e => handleSelectValue(e, item)}
+                data-testid="dropdown-option"
+              >
                 <DropdownItem item={item}></DropdownItem>
               </DropdownOption>
             ))}

@@ -1127,3 +1127,41 @@ getStaticProps와 getStaticPaths는 ssg방식에서 동적으로 static페이지
 jest와 마찬가지로 테스트는 describe을 통해 테스트를 정의한다.
 테스트 케이스는 descript의 콜백함수 안에 it 또는 test라는 이름의 함수를 정의하여 테스트 케이스를 지정한다.
 beforeEach의 경우 렌더링 이전에 호출하는 함수, afterEach 테스트가 종료되었을때 호출하는 함수.
+
+```
+import { render, screen, fireEvent, RenderResult } from '@testing-library/react';
+import Button from '.';
+
+describe('Button', () => {
+  let renderResult: RenderResult;
+  let handleClick: jest.Mock;
+
+  beforeEach(() => {
+    // 테스트 이전에 이벤트 핸들러 정의하고, render함수를 통해 컴포넌트를 마운트
+    handleClick = jest.fn();
+    renderResult = render(
+      <Button variant="primary" onClick={handleClick}>
+        Button
+      </Button>,
+    );
+  });
+
+  afterEach(() => {
+    renderResult.unmount(); // 렌더링된 컴포넌트 언마운트
+  });
+
+  it('버튼 클릭 시 onClick 호출', () => {
+    fireEvent.click(screen.getByText('Button')); // 특정 text를 가진 요소를 클릭한다.
+    // 테스트 시 특정 조건을 충족하는지 확인한다.
+    expect(handleClick).toHaveBeenCalledTimes(1); // 버튼이 지정된 횟수만큼 클릭되었늕 확인한다.
+  });
+});
+```
+
+### Warning: Received `false` for a non-boolean attribute `isopen`. 해결법
+styled-components을 사용하다보면 다음과 같은 warning을 경험할 수 있다.
+나는 styled-components의 prop로 전달한것이지만, React나 HTML의 경우 attribute로 dom을 조작하는 것으로 희망하는 것으로 에러가 발생함.
+
+다만 5.1부터 지원하는 transient props을 사용하여 해결 가능하다.
+
+간단히, 내가 사용할 속성 명 앞에 $기호를 붙여서 DOM요소로 전달되지 않게 하는 방법이다.
