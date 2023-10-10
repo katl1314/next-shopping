@@ -1165,3 +1165,6 @@ styled-components을 사용하다보면 다음과 같은 warning을 경험할 �
 다만 5.1부터 지원하는 transient props을 사용하여 해결 가능하다.
 
 간단히, 내가 사용할 속성 명 앞에 $기호를 붙여서 DOM요소로 전달되지 않게 하는 방법이다.
+
+### styled-component ThemeProvider
+ThemeProvider는 react context api를 사용하여 만들어진 것으로 Context Api방식대로 Provider로 감싸진 자식 컴포넌트에 props을 전달받아서 사용할 수 있다.
