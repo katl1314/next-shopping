@@ -1,6 +1,5 @@
 import '../../globals.css';
 import type { Metadata } from 'next';
-import { Category } from '@/app/types';
 import Box from '@components/layout/Box';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -18,22 +17,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }
 
 type Props = {
-  params: { slug: string };
-};
-
-const categoryNameDict: Record<Category, string> = {
-  shoes: '신발',
-  book: '책',
-  clothes: '의류',
+  params: { id: string };
 };
 
 export const generateMetadata = async (props: Props): Promise<Metadata> => {
   const {
-    params: { slug },
+    params: { id },
   } = props;
-  const category = slug as Category;
   return {
-    title: `${categoryNameDict[category] ?? '전체'} 검색`,
+    title: `${id} 검색`,
     description: '설명',
   };
 };

@@ -3,30 +3,16 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import styled from 'styled-components';
+import type { Product } from '@/app/types';
 import Button, { ButtonVariant } from '@components/atoms/Button';
 import Text from '@components/atoms/Text';
 import Box from '@components/layout/Box';
 import Flex from '@components/layout/Flex';
 
-type ButtonClickFunc = (id: number) => void;
+type ButtonClickFunc = (product: Product) => void;
 
 export interface ICartProductProps {
-  /**
-   * 상품 고유 아이디
-   */
-  id: number;
-  /**
-   * 상품 이미지
-   */
-  imageUrl: string;
-  /**
-   * 상품 제목
-   */
-  title: string;
-  /**
-   * 상품 가격
-   */
-  price: number;
+  product: Product;
   /**
    * 구입 버튼 클릭 시 이벤트 핸들러
    */
@@ -45,7 +31,9 @@ const RemoveText = styled(Text)<{ color: ButtonVariant }>`
 `;
 
 const CartProduct = (props: ICartProductProps) => {
-  const { id, imageUrl, title, price, onBuyButtonClick, onRemoveButtonClick } = props;
+  const { product, onBuyButtonClick, onRemoveButtonClick } = props;
+  const { id, imageUrl, title, price } = product;
+
   return (
     <Flex width="100%" justifycontent="space-between" padding="1% 5%">
       <Flex>
@@ -76,7 +64,7 @@ const CartProduct = (props: ICartProductProps) => {
               <Flex>
                 <Button
                   width={{ base: '100px', md: '200px' }}
-                  onClick={() => onBuyButtonClick && onBuyButtonClick(id)}
+                  onClick={() => onBuyButtonClick && onBuyButtonClick(product)}
                 >
                   구입
                 </Button>
@@ -85,7 +73,7 @@ const CartProduct = (props: ICartProductProps) => {
                   width={{ base: '100px', md: '200px' }}
                   display={{ base: 'block', md: 'none' }}
                   variant="danger"
-                  onClick={() => onRemoveButtonClick && onRemoveButtonClick(id)}
+                  onClick={() => onRemoveButtonClick && onRemoveButtonClick(product)}
                 >
                   삭제
                 </Button>
@@ -96,7 +84,10 @@ const CartProduct = (props: ICartProductProps) => {
       </Flex>
       <Flex>
         <Box display={{ base: 'none', md: 'block' }}>
-          <RemoveText color="danger" onClick={() => onRemoveButtonClick && onRemoveButtonClick(id)}>
+          <RemoveText
+            color="danger"
+            onClick={() => onRemoveButtonClick && onRemoveButtonClick(product)}
+          >
             카트에서 삭제
           </RemoveText>
         </Box>

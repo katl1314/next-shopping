@@ -22,7 +22,7 @@ export interface ISigninParams {
  * @return 로그인 사용자
  */
 const signIn = async (context: ApiContext, params: ISigninParams): Promise<User> =>
-  await fetcher(`${context.apiRootUrl.replace(/\/$/g, '')}/auth/signin`, {
+  await fetcher(`${context.apiRootUrl.replace(/\/$/g, '')}/signin`, {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'applicaiton/json',

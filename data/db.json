@@ -1,33 +1,359 @@
 {
   "users": [
-    {"id": 1, "username": "최민혁", "displayName": "최고짱짱", "email": "choi123@naver.com", "profileImageUrl" : "/images/1.jpg", "description": "반갑습니다"},
-    {"id": 2, "username": "김민수", "displayName": "민수황제", "email": "minsu@naver.com", "profileImageUrl" : "", "description": "반갑습니다"},
-    {"id": 3, "username": "이철수", "displayName": "멋쟁이", "email": "chulsu123@naver.com", "profileImageUrl" : "", "description": "반갑습니다"},
-    {"id": 4, "username": "홍길동", "displayName": "훌륭한사나이", "email": "gildonHong@naver.com", "profileImageUrl" : "", "description": "반갑습니다"},
-    {"id": 5, "username": "임꺽정", "displayName": "동화책남자", "email": "Lim123@naver.com", "profileImageUrl" : "", "description": "반갑습니다"},
-    {"id": 6, "username": "박명수", "displayName": "연애인", "email": "pack123@naver.com", "profileImageUrl" : "", "description": "반갑습니다"},
-    {"id": 7, "username": "김철수", "displayName": "철수철수", "email": "chulSuKim1@naver.com", "profileImageUrl" : "", "description": "반갑습니다"}
+    {
+      "id": 1,
+      "username": "최민혁",
+      "displayName": "최고짱짱",
+      "email": "choi123@naver.com",
+      "profileImageUrl": "/images/1.jpg",
+      "description": "반갑습니다"
+    },
+    {
+      "id": 2,
+      "username": "김민수",
+      "displayName": "민수황제",
+      "email": "minsu@naver.com",
+      "profileImageUrl": "/images/2.jpg",
+      "description": "반갑습니다"
+    },
+    {
+      "id": 3,
+      "username": "이철수",
+      "displayName": "멋쟁이",
+      "email": "chulsu123@naver.com",
+      "profileImageUrl": "/images/3.jpg",
+      "description": "반갑습니다"
+    },
+    {
+      "id": 4,
+      "username": "홍길동",
+      "displayName": "훌륭한사나이",
+      "email": "gildonHong@naver.com",
+      "profileImageUrl": "/images/4.jpg",
+      "description": "반갑습니다"
+    },
+    {
+      "id": 5,
+      "username": "임꺽정",
+      "displayName": "동화책남자",
+      "email": "Lim123@naver.com",
+      "profileImageUrl": "/images/5.jpg",
+      "description": "반갑습니다"
+    },
+    {
+      "id": 6,
+      "username": "박명수",
+      "displayName": "연애인",
+      "email": "pack123@naver.com",
+      "profileImageUrl": "/images/6.jpg",
+      "description": "반갑습니다"
+    },
+    {
+      "id": 7,
+      "username": "김철수",
+      "displayName": "철수철수",
+      "email": "chulSuKim1@naver.com",
+      "profileImageUrl": "",
+      "description": "반갑습니다"
+    }
   ],
   "products": [
-    { "id": 1, "category": "book", "price": 12000,"title": "자바의 정석", "description": "자바의정석책이다.", "imageUrl":"/images/1.jpg", "blurDataUrl":"", "condition": "new", "owner": 1},
-    { "id": 2, "category": "book", "price": 12000,"title": "스포츠의 정석", "description": "스포츠의 정석이다.", "imageUrl":"/images/2.jpg", "blurDataUrl":"", "condition": "new", "owner": 1},
-    { "id": 3, "category": "book", "price": 12000,"title": "골프의 정석", "description": "골프의 정석 이다.", "imageUrl":"/images/3.jpg", "blurDataUrl":"", "condition": "new", "owner": 1}
+    {
+      "id": 1,
+      "category": "book",
+      "price": 12000,
+      "title": "자바의 정석",
+      "description": "자바의정석책이다.",
+      "imageUrl": "/images/1.jpg",
+      "blurDataUrl": "",
+      "condition": "new",
+      "owner": 1
+    },
+    {
+      "id": 2,
+      "category": "book",
+      "price": 12000,
+      "title": "스포츠의 정석",
+      "description": "스포츠의 정석이다.",
+      "imageUrl": "/images/2.jpg",
+      "blurDataUrl": "",
+      "condition": "new",
+      "owner": 2
+    },
+    {
+      "id": 3,
+      "category": "book",
+      "price": 12000,
+      "title": "골프의 정석",
+      "description": "골프의 정석 이다.",
+      "imageUrl": "/images/3.jpg",
+      "blurDataUrl": "",
+      "condition": "used",
+      "owner": 3
+    },
+    {
+      "id": 4,
+      "category": "book",
+      "price": 12000,
+      "title": "자바의 정석",
+      "description": "자바의정석책이다.",
+      "imageUrl": "/images/1.jpg",
+      "blurDataUrl": "",
+      "condition": "used",
+      "owner": 4
+    },
+    {
+      "id": 5,
+      "category": "book",
+      "price": 12000,
+      "title": "스포츠의 정석",
+      "description": "스포츠의 정석이다.",
+      "imageUrl": "/images/2.jpg",
+      "blurDataUrl": "",
+      "condition": "new",
+      "owner": 5
+    },
+    {
+      "id": 6,
+      "category": "book",
+      "price": 12000,
+      "title": "골프의 정석",
+      "description": "골프의 정석 이다.",
+      "imageUrl": "/images/3.jpg",
+      "blurDataUrl": "",
+      "condition": "used",
+      "owner": 6
+    },
+    {
+      "id": 7,
+      "category": "book",
+      "price": 12000,
+      "title": "자바의 정석",
+      "description": "자바의정석책이다.",
+      "imageUrl": "/images/1.jpg",
+      "blurDataUrl": "",
+      "condition": "new",
+      "owner": 7
+    },
+    {
+      "id": 8,
+      "category": "book",
+      "price": 12000,
+      "title": "스포츠의 정석",
+      "description": "스포츠의 정석이다.",
+      "imageUrl": "/images/2.jpg",
+      "blurDataUrl": "",
+      "condition": "new",
+      "owner": 1
+    },
+    {
+      "id": 9,
+      "category": "book",
+      "price": 12000,
+      "title": "골프의 정석",
+      "description": "골프의 정석 이다.",
+      "imageUrl": "/images/3.jpg",
+      "blurDataUrl": "",
+      "condition": "new",
+      "owner": 2
+    },
+    {
+      "id": 10,
+      "category": "book",
+      "price": 12000,
+      "title": "골프의 정석",
+      "description": "골프의 정석 이다.",
+      "imageUrl": "/images/3.jpg",
+      "blurDataUrl": "",
+      "condition": "new",
+      "owner": 3
+    },
+    {
+      "id": 11,
+      "category": "clothes",
+      "price": 12000,
+      "title": "치마",
+      "description": "치마 이다.",
+      "imageUrl": "/images/3.jpg",
+      "blurDataUrl": "",
+      "condition": "new",
+      "owner": 4
+    },
+    {
+      "id": 12,
+      "category": "clothes",
+      "price": 12000,
+      "title": "셔츠",
+      "description": "셔츠 이다.",
+      "imageUrl": "/images/3.jpg",
+      "blurDataUrl": "",
+      "condition": "used",
+      "owner": 5
+    },
+    {
+      "id": 13,
+      "category": "clothes",
+      "price": 12000,
+      "title": "바지",
+      "description": "바지 이다.",
+      "imageUrl": "/images/3.jpg",
+      "blurDataUrl": "",
+      "condition": "new",
+      "owner": 6
+    },
+    {
+      "id": 14,
+      "category": "clothes",
+      "price": 12000,
+      "title": "운동복",
+      "description": "운동복 이다.",
+      "imageUrl": "/images/3.jpg",
+      "blurDataUrl": "",
+      "condition": "used",
+      "owner": 7
+    },
+    {
+      "id": 15,
+      "category": "clothes",
+      "price": 12000,
+      "title": "정장",
+      "description": "정장 이다.",
+      "imageUrl": "/images/3.jpg",
+      "blurDataUrl": "",
+      "condition": "new",
+      "owner": 1
+    },
+    {
+      "id": 16,
+      "category": "shoes",
+      "price": 12000,
+      "title": "운동화",
+      "description": "운동화 이다.",
+      "imageUrl": "/images/3.jpg",
+      "blurDataUrl": "",
+      "condition": "new",
+      "owner": 2
+    },
+    {
+      "id": 17,
+      "category": "shoes",
+      "price": 12000,
+      "title": "런닝화",
+      "description": "런닝화 이다.",
+      "imageUrl": "/images/3.jpg",
+      "blurDataUrl": "",
+      "condition": "used",
+      "owner": 3
+    },
+    {
+      "id": 18,
+      "category": "shoes",
+      "price": 12000,
+      "title": "구두",
+      "description": "구두 이다.",
+      "imageUrl": "/images/3.jpg",
+      "blurDataUrl": "",
+      "condition": "new",
+      "owner": 4
+    },
+    {
+      "id": 19,
+      "category": "shoes",
+      "price": 12000,
+      "title": "구두123",
+      "description": "구두 이다.",
+      "imageUrl": "/images/3.jpg",
+      "blurDataUrl": "",
+      "condition": "new",
+      "owner": 3
+    },
+    {
+      "id": 20
+    },
+    {
+      "id": 21
+    },
+    {
+      "category": "shoes",
+      "id": 22
+    },
+    {
+      "category": "clothes",
+      "title": "12321312",
+      "description": "asdasdad",
+      "imageUrl": "/images/6.jpg",
+      "blurDataUrl": "",
+      "price": "123",
+      "condition": "used",
+      "owner": 1,
+      "id": 23
+    },
+    {
+      "category": "shoes",
+      "title": "12312312",
+      "description": "3123212",
+      "imageUrl": "/images/6.jpg",
+      "blurDataUrl": "",
+      "price": "12312",
+      "condition": "used",
+      "owner": 1,
+      "id": 24
+    }
   ],
-  "book": [
-    { "id": 1, "category": "book", "price": 12000,"title": "자바의 정석", "description": "자바의정석책이다.", "imageUrl":"/images/1.jpg", "blurDataUrl":"", "condition": "new", "owner": 1},
-    { "id": 2, "category": "book", "price": 12000,"title": "스포츠의 정석", "description": "스포츠의 정석이다.", "imageUrl":"/images/2.jpg", "blurDataUrl":"", "condition": "new", "owner": 1},
-    { "id": 3, "category": "book", "price": 12000,"title": "골프의 정석", "description": "골프의 정석 이다.", "imageUrl":"/images/3.jpg", "blurDataUrl":"", "condition": "new", "owner": 1}
-  ],
-  "shoes": [
-    { "id": 1, "category": "shoes", "price": 12000,"title": "자바의 정석", "description": "자바의정석책이다.", "imageUrl":"/images/1.jpg", "blurDataUrl":"", "condition": "new", "owner": 1},
-    { "id": 2, "category": "shoes", "price": 12000,"title": "스포츠의 정석", "description": "스포츠의 정석이다.", "imageUrl":"/images/2.jpg", "blurDataUrl":"", "condition": "new", "owner": 1},
-    { "id": 3, "category": "shoes", "price": 12000,"title": "골프의 정석", "description": "골프의 정석 이다.", "imageUrl":"/images/3.jpg", "blurDataUrl":"", "condition": "new", "owner": 1}
-  
-  ],
-  "clothes": [
-    { "id": 1, "category": "clothes", "price": 12000,"title": "자바의 정석", "description": "자바의정석책이다.", "imageUrl":"/images/1.jpg", "blurDataUrl":"", "condition": "new", "owner": 1},
-    { "id": 2, "category": "clothes", "price": 12000,"title": "스포츠의 정석", "description": "스포츠의 정석이다.", "imageUrl":"/images/2.jpg", "blurDataUrl":"", "condition": "new", "owner": 1},
-    { "id": 3, "category": "clothes", "price": 12000,"title": "골프의 정석", "description": "골프의 정석 이다.", "imageUrl":"/images/3.jpg", "blurDataUrl":"", "condition": "new", "owner": 1}
-  
+  "signin": [
+    {
+      "id": 1
+    },
+    {
+      "id": 2
+    },
+    {
+      "id": 3
+    },
+    {
+      "id": 4
+    },
+    {
+      "id": 5
+    },
+    {
+      "id": 6
+    },
+    {
+      "id": 7
+    },
+    {
+      "id": 8
+    },
+    {
+      "id": 9
+    },
+    {
+      "id": 10
+    },
+    {
+      "id": 11
+    },
+    {
+      "id": 12
+    },
+    {
+      "id": 13
+    },
+    {
+      "id": 14
+    },
+    {
+      "id": 15
+    },
+    {
+      "id": 16
+    },
+    {
+      "id": 17
+    },
+    {
+      "id": 18
+    }
   ]
 }

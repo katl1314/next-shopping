@@ -61,16 +61,22 @@ const HomePage: NextPage<IHomePageProps> = () => {
         </Flex>
       </Flex>
       {/* 상품 소개 */}
-      <Flex paddingbottom="16px" justifycontent="center">
-        <Box paddingleft="16px" paddingright="16px" width="100%">
+      <Flex
+        paddingbottom="16px"
+        paddingleft="16px"
+        paddingright="16px"
+        justifycontent="center"
+        flexdirection="column"
+      >
+        <Box width="100%">
           <Text variant="large">의류</Text>
           {renderProductCardCarousel(clothesProducts.data)}
         </Box>
-        <Box paddingleft="16px" paddingright="16px" width="100%">
+        <Box width="100%">
           <Text variant="large">도서</Text>
           {renderProductCardCarousel(bookProducts.data)}
         </Box>
-        <Box paddingleft="16px" paddingright="16px" width="100%">
+        <Box width="100%">
           <Text variant="large">신발</Text>
           {renderProductCardCarousel(shoesProducts.data)}
         </Box>

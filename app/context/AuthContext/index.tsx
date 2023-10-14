@@ -45,17 +45,14 @@ export const AuthContextProvider = ({
   authUser,
   children,
 }: React.PropsWithChildren<IAutoContextProviderProps>) => {
-  // const { data, error, isValidating, mutate } = useSWR(key, fetcher, option)
-  const { data, error, mutate } = useSWR<User>(
-    `${context.apiRootUrl.replace(/\/$/g, '')}/users/me`,
-  );
+  const { data, error, mutate } = useSWR<User>(`${context.apiRootUrl.replace(/\/$/g, '')}/users`);
 
   const isLoading = !data && !error; // data가 undefined이면서 error도 undefined일때
 
   // 로그인
   const signinInternal = async (username: string, password: string): Promise<boolean> => {
     await signIn(context, { username, password });
-    await mutate();
+    await mutate({ username, password });
     return true;
   };
 

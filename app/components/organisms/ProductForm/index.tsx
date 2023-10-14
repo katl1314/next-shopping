@@ -126,18 +126,25 @@ const ProductForm = (props: IProductFormProps) => {
               rules={{ required: true }}
               name="description"
               render={({ field: { onChange, value }, fieldState: { error } }) => {
+                console.info(error);
                 return (
-                  <TextArea placeholder="최고의 상품입니다." hasError={!!error} onChange={onChange}>
-                    {value}
-                  </TextArea>
+                  <>
+                    <TextArea
+                      placeholder="최고의 상품입니다."
+                      hasError={!!error}
+                      onChange={onChange}
+                    >
+                      {value}
+                    </TextArea>
+                    {!!error && (
+                      <Text variant="small" color="danger">
+                        개요 입력은 필수입니다.
+                      </Text>
+                    )}
+                  </>
                 );
               }}
             />
-            {errors.description && (
-              <Text variant="small" color="danger">
-                개요 입력은 필수입니다.
-              </Text>
-            )}
           </Box>
           {/* 카테고리 */}
           <Box>
@@ -148,22 +155,24 @@ const ProductForm = (props: IProductFormProps) => {
               rules={{ required: true }}
               defaultValue="shoes"
               render={({ field: { value, onChange }, fieldState: { error } }) => (
-                <Dropdown
-                  id="category"
-                  variant="medium"
-                  hasError={!!error}
-                  items={categoryItems}
-                  placeholder="카테고리를 선택하세요"
-                  onChange={v => onChange(v?.value)}
-                  value={value}
-                />
+                <>
+                  <Dropdown
+                    id="category"
+                    variant="medium"
+                    hasError={!!error}
+                    items={categoryItems}
+                    placeholder="카테고리를 선택하세요"
+                    onChange={v => onChange(v?.value)}
+                    value={value}
+                  />
+                  {!!error && (
+                    <Text variant="small" color="danger">
+                      카테고리를 선택하세요.
+                    </Text>
+                  )}
+                </>
               )}
             />
-            {errors.category && (
-              <Text variant="small" color="danger">
-                카테고리를 선택하세요.
-              </Text>
-            )}
           </Box>
           {/* 상품 상태 */}
           <Box>
@@ -174,28 +183,30 @@ const ProductForm = (props: IProductFormProps) => {
               rules={{ required: true }}
               defaultValue="used"
               render={({ field: { value, onChange }, fieldState: { error } }) => (
-                <Dropdown
-                  id="condition"
-                  variant="medium"
-                  items={conditionItems}
-                  hasError={!!error}
-                  placeholder="상품 상태를 선택하세요"
-                  onChange={v => onChange(v?.value)}
-                  value={value}
-                />
+                <>
+                  <Dropdown
+                    id="condition"
+                    variant="medium"
+                    items={conditionItems}
+                    hasError={!!error}
+                    placeholder="상품 상태를 선택하세요"
+                    onChange={v => onChange(v?.value)}
+                    value={value}
+                  />
+                  {error && (
+                    <Text variant="small" color="danger">
+                      상품 상태를 선택하세요.
+                    </Text>
+                  )}
+                </>
               )}
             />
-            {errors.condition && (
-              <Text variant="small" color="danger">
-                상품 상태를 선택하세요.
-              </Text>
-            )}
           </Box>
           {/* 가격 */}
           <Box>
             <Text variant="medium">가격</Text>
             <Input
-              {...register('price', { required: true })}
+              {...register('price', { required: true, min: 0 })}
               name="price"
               type="number"
               placeholder="가격을 입력하세요."

@@ -7,7 +7,6 @@ import { SearchIcon, ShoppingCartIcon } from '../../atoms/IconButton';
 import { useAuthContext } from '@/app/context/AuthContext';
 import Button from '@components/atoms/Button';
 import ShapeImage from '@components/atoms/ShapeImage';
-import Spinner from '@components/atoms/Spinner';
 import Box from '@components/layout/Box';
 import Flex, { FlexLayout } from '@components/layout/Flex';
 
@@ -32,7 +31,7 @@ const NavLink = styled.span`
 `;
 
 const Header = () => {
-  const { authUser, isLoading } = useAuthContext();
+  const { authUser } = useAuthContext();
   return (
     <HeaderWrap>
       <Flex
@@ -73,7 +72,7 @@ const Header = () => {
               paddingright={{ base: '5px', md: '10px' }}
             >
               {/* next/link passHref속성은 Link컴포넌트의 속성 href을 자식 컴포넌트에 전달. */}
-              <Link href="/search/books">책</Link>
+              <Link href="/search/book">책</Link>
             </Box>
           </NavLink>
           <NavLink>
@@ -114,9 +113,6 @@ const Header = () => {
                     ></ShapeImage>
                   </Link>
                 );
-              } else if (isLoading) {
-                // 로그인 중
-                return <Spinner isLoading={isLoading} color="red" size={24} />;
               } else {
                 // 미로그인 시
                 return (
