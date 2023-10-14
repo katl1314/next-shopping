@@ -35,8 +35,9 @@ const HomePage: NextPage<IHomePageProps> = () => {
     </ProductCardCarousel>
   );
 
+  // const context: ApiContext = { apiRootUrl: process.env.NEXT_PUBLIC_API_BASE_PATH ?? 'http://127.0.0.1:5000' };
   const context: ApiContext = { apiRootUrl: 'http://127.0.0.1:5000' };
-
+  
   const clothesProducts = useProducts(context, { category: 'clothes' });
   const bookProducts = useProducts(context, { category: 'book' });
   const shoesProducts = useProducts(context, { category: 'shoes' });

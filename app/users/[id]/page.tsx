@@ -10,6 +10,7 @@ import getUser from '@/app/services/users/getUser';
 import type { Product, User, ApiContext } from '@/app/types';
 import getAllUser from '@services/users/get-all-users';
 
+//const url = process.env.NEXT_PUBLIC_API_BASE_PATH ?? 'http://127.0.0.1:5000';
 const url = process.env.API_BASE_URL || 'http://127.0.0.1:5000';
 
 interface IUserParams {
