@@ -23,6 +23,7 @@ const SigninForm = ({ onSignin }: ISigninFormProps) => {
   return (
     <form onSubmit={handleSubmit(({ username, password }) => onSignin(username, password))}>
       <Box>
+        <label htmlFor='username'>아이디</label>
         <Input
           type="text"
           id="username"
@@ -38,6 +39,7 @@ const SigninForm = ({ onSignin }: ISigninFormProps) => {
         )}
       </Box>
       <Box>
+      <label htmlFor='password'>비밀번호</label>
         <Input
           type="password"
           id="password"
