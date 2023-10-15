@@ -110,7 +110,7 @@ const ProductCard = (props: IProductCardProps) => {
         {!blurDataUrl && (
           <Image
             src={imageUrl}
-            alt={title}
+            alt={title} // alt 대체 텍스트 => 스크린 리더는 url대신 alt속성을 읽는다.
             width={imgSize ?? 240}
             height={imgSize ?? 240}
             objectFit="cover"
