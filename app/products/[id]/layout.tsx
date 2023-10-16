@@ -25,8 +25,8 @@ export const generateMetadata = async (props: Props): Promise<Metadata> => {
     params: { id },
   } = props;
   return {
-    // title: `${id} 검색`,
-    // description: '설명',
+    title: `${id} 검색`,
+    description: '설명',
     // 오픈 그래프 지정 => 콘텐츠를 url로 공유한다, 콘텐츠가 표시되는 방식을 관리하기 위한 목적임.
     openGraph: {
       title: id,
