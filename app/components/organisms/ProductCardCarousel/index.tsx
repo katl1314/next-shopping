@@ -1,6 +1,6 @@
 'use client';
 import ItemsCarousel from 'react-items-carousel';
-import { useState } from 'react';
+import { useState, useRef, useMemo, useEffect } from 'react';
 import Box from '@components/layout/Box';
 
 interface ProductCardCarouselProps {
@@ -12,18 +12,40 @@ interface ProductCardCarouselProps {
  */
 const ProductCardCarousel = ({ children }: ProductCardCarouselProps) => {
   const [activeItemIndex, setActiveItemIndex] = useState(0);
+  const [gutter, setGutter] = useState<number>(globalThis.innerWidth < 500 ? 2 : 5);
   const chevronWidth = 40;
+
+  useEffect(() => {
+    // 브라우저 resize이벤트
+    window.addEventListener('resize', resize);
+    return () => {
+      // resize이벤트 삭제
+      window.removeEventListener('resize', resize);
+    }
+  }, []);
+
+  const resize = () => {
+    const width = window.innerWidth; // 브라우저 너비
+
+    if (width < 500) {
+      setGutter(2);
+    }
+    else {
+      setGutter(5);
+    }
+  }
+
   return (
     <Box 
-      maxwidth={{ md : '1024px', base: '800px'}} 
-      paddingleft={{ md : '60px', base : '0px'}} 
-      paddingright={{ md : '60px', base : '0px'}}
+      maxwidth={{ md : '100%', base: '800px'}} 
+      paddingleft={{ md : '100px', base : '20px'}} 
+      paddingright={{ md : '100px', base : '20px'}}
     >
       <ItemsCarousel
         requestToChangeActive={setActiveItemIndex}
         activeItemIndex={activeItemIndex}
-        numberOfCards={5}
-        gutter={20}
+        numberOfCards={gutter}
+        gutter={10}
         leftChevron={<button>{'<'}</button>}
         rightChevron={<button>{'>'}</button>}
         outsideChevron
