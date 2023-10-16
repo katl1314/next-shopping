@@ -11,6 +11,8 @@ export interface IBoxProps {
   height?: Responsive<string>; // 컨테이너 높이
   minwidth?: Responsive<string>; // 컨테이너 최소 너비
   minheight?: Responsive<string>; // 컨테이너 최소 높이
+  maxwidth?: Responsive<string>; // 컨테이너 최대 너비
+  maxheight?: Responsive<string>; // 컨테이너 최대 높이
   display?: Responsive<string>; // 컨테이너 레이아웃 설정 flex, grid, ...
   border?: Responsive<string>; // 컨테이너 테두리
   overflow?: Responsive<string>; // 컨테이너내 내용이 영역에 벗어날 경우 표시할 방법
@@ -38,6 +40,8 @@ const Box = styled.div<IBoxProps>`
   ${props => toPropValue('height', props.height, theme)}
   ${props => toPropValue('min-width', props.minwidth, theme)}
   ${props => toPropValue('min-height', props.minheight, theme)}
+  ${props => toPropValue('max-width', props.maxwidth, theme)}
+  ${props => toPropValue('max-height', props.maxheight, theme)}
   ${props => toPropValue('display', props.display, theme)}
   ${props => toPropValue('border', props.border, theme)}
   ${props => toPropValue('overflow', props.overflow, theme)}

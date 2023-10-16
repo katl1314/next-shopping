@@ -1,8 +1,6 @@
 import '../../globals.css';
 import type { Metadata } from 'next';
 import Box from '@components/layout/Box';
-import { useProduct } from '@/app/services/products/use-product';
-import { ApiContext } from '@/app/types';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -20,10 +18,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
 type Props = {
   params: { id: string };
-};
-
-const context: ApiContext = {
-  apiRootUrl: process.env.NEXT_PUBLIC_API_BASE_PATH ?? '/api/proxy',
 };
 
 export const generateMetadata = async (props: Props): Promise<Metadata> => {
