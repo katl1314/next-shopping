@@ -1,3 +1,5 @@
+'use client';
+
 import type { NextPage } from 'next';
 import { useSearchParams, useRouter } from 'next/navigation';
 
