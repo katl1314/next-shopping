@@ -1,19 +1,10 @@
-'use client';
-
-import type { NextPage, Metadata } from 'next';
+import type { NextPage } from 'next';
 import { useSearchParams, useRouter } from 'next/navigation';
 
 import SigninFormController from '@/app/controllers/SigninFormController';
 import AppLogo from '@components/atoms/AppLogo';
 import Box from '@components/layout/Box';
 import Flex from '@components/layout/Flex';
-
-// 정적인 메타데이터 객체를 만든다.
-export function generateMetadata(): Metadata {
-  return {
-    title: '로그인',
-  };
-}
 
 const SigninPage: NextPage = () => {
   const router = useRouter();
