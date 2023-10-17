@@ -1387,3 +1387,9 @@ next.config.js에서 설정 가능함.
 그래서 협업하는 경우 줄 개행 처리 방식을 통일화 해야한다. 주로 LF로 변경하는 것을 권장하는듯.
 
 1. .eslintrc.js에서 endOfline속성을 추가한다. 'auto'
+
+## vercel 서버 deploy
+1. env파일 관련 등록
+vercel사이트에서 setting페이지 들어간다.
+
+https://velog.io/@yena1025/vercel%EB%A1%9C-%EB%B0%B0%ED%8F%AC%ED%95%9C-%EC%95%B1%EC%97%90-.env%ED%99%98%EA%B2%BD-%EB%B3%80%EC%88%98-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0

@@ -36,7 +36,8 @@ const HomePage: NextPage<IHomePageProps> = () => {
   );
 
   const context: ApiContext = {
-    apiRootUrl: process.env.NEXT_PUBLIC_API_BASE_PATH ?? 'http://127.0.0.1:5000',
+    apiRootUrl:
+      process.env.NEXT_PUBLIC_API_BASE_PATH ?? 'https://varied-valene-choiminhyeok.koyeb.app',
   };
 
   const clothesProducts = useProducts(context, { category: 'clothes' });
