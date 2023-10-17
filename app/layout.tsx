@@ -1,31 +1,32 @@
-'use client';
-
 import './globals.css';
+import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { AuthContextProvider } from './context/AuthContext';
-import ShoppingCartProvider from './context/ShoppingCartContext';
-import StyledComponentsRegistry from './lib/registry';
-import { ApiContext } from './types';
-import Header from '@components/organisms/Header';
+import Main from './main';
 
 const inter = Inter({ subsets: ['latin'] });
-
-const context: ApiContext = {
-  apiRootUrl: process.env.NEXT_PUBLIC_API_BASE_PATH ?? '/api/proxy',
-};
 
 export default function RootLayout({ children }: { children: React.ReactElement }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <StyledComponentsRegistry>
-          {/* _app.tsx대신 최상위 layout.tsx에서 Provider를 감싼다. */}
-          <AuthContextProvider context={context}>
-            <Header />
-            <ShoppingCartProvider>{children}</ShoppingCartProvider>
-          </AuthContextProvider>
-        </StyledComponentsRegistry>
+        <Main>{children}</Main>
       </body>
     </html>
   );
 }
+
+export const metadata: Metadata = {
+  title: 'Next13 쇼핑몰',
+  description: 'Next13으로 구현된 쇼핑몰입니다',
+  openGraph: {
+    title: 'Next13 쇼핑몰',
+    description: 'Next13으로 구현된 쇼핑몰입니다',
+    images: [
+      {
+        url: '/images/1.jpg',
+        width: 800,
+        height: 600,
+      },
+    ],
+  },
+};
