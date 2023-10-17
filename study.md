@@ -1,5 +1,27 @@
 # 개요
 
+## 프로젝트 준비 앞서 
+github repository 생성
+
+터미널에 다음 입력
+git init // git 초기화 
+git config --global user.name 'new name' // 계정 등록
+git config --global user.email 'new email'
+
+git clone <레포지토리 url>
+
+git remote add origin <레포지토리 url>
+
+git switch -c main // master -> main branch
+git add . // 모든 수정 사항 스태이지로 올린다.
+git commit -m "커밋 메시지" // 스태이지에 올라가있는 파일을 원격 저장소에 올린다.
+
+// 처음 push할 때는 -u을 추가한다.
+git push -u origin main
+
+
+
+
 ## Next.js v13
 
 Next.js v13 이전과 다르게 v13에는 많은 부분이 추가되거나 변경되었음.

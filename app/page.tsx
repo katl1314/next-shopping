@@ -35,8 +35,10 @@ const HomePage: NextPage<IHomePageProps> = () => {
     </ProductCardCarousel>
   );
 
-  const context: ApiContext = { apiRootUrl: process.env.NEXT_PUBLIC_API_BASE_PATH ?? 'http://127.0.0.1:5000' };
-  
+  const context: ApiContext = {
+    apiRootUrl: process.env.NEXT_PUBLIC_API_BASE_PATH ?? 'http://127.0.0.1:5000',
+  };
+
   const clothesProducts = useProducts(context, { category: 'clothes' });
   const bookProducts = useProducts(context, { category: 'book' });
   const shoesProducts = useProducts(context, { category: 'shoes' });
@@ -46,15 +48,25 @@ const HomePage: NextPage<IHomePageProps> = () => {
       <Flex padding="16px" justifycontent="center" backgroundcolor="primary">
         <Flex width="100%" justifycontent="center" alignitems="center" flexdirection="column">
           <Box width="100%">
-            <Text marginbottom="4px" lineheight="2" color="white" fontSize={{ base : '22px', md : '32px'}}>
+            <Text
+              marginbottom="4px"
+              lineheight="2"
+              color="white"
+              fontSize={{ base: '22px', md: '32px' }}
+            >
               Gihyo C2C에서
             </Text>
-            <Text marginbottom="4px" lineheight="2" color="white" fontSize={{ base : '22px', md : '32px'}}>
+            <Text
+              marginbottom="4px"
+              lineheight="2"
+              color="white"
+              fontSize={{ base: '22px', md: '32px' }}
+            >
               마음에 드는 아이템을 찾자.
             </Text>
           </Box>
           <Box width="100%">
-            <Text color="white" fontSize={{ base : '16px', md : '22px'}}>
+            <Text color="white" fontSize={{ base: '16px', md: '22px' }}>
               Gihyo C2C는 실전적인 Next.js 애플리케이션 개발에서 사용되는 데모 애플리케이션입니다.
             </Text>
           </Box>

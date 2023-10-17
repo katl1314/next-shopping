@@ -15,7 +15,7 @@ import BreadcrumbItem from '@components/atoms/BreadcrumbItem';
 import Text from '@components/atoms/Text';
 import Box from '@components/layout/Box';
 import Flex from '@components/layout/Flex';
-import Breadcrumb from '@components/molecules/Breadcrumb';
+import Breadcrumb from '@components/molecules/BreadCrumb';
 
 const categoryNameDict: Record<Category, string> = {
   shoes: '신발',

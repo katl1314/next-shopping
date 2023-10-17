@@ -12,8 +12,6 @@ const addProduct = async (
   context: ApiContext,
   params: { product: Omit<Product, 'id'> },
 ): Promise<Product> => {
-  console.log('>> ', `${context.apiRootUrl.replace(/\/$/g, '')}/products`);
-  debugger;
   const result = await fetcher<Product>(`${context.apiRootUrl.replace(/\/$/g, '')}/products`, {
     headers: {
       Accept: 'application/json',

@@ -32,11 +32,7 @@ export const generateMetadata = async (props: Props): Promise<Metadata> => {
       title: id,
       description: '설명',
       url: 'https://test.com',
-      images: [
-        {url: 'https://nextjs.org/og.png',
-        width: 800,
-        height: 600,}
-      ],
+      images: [{ url: 'https://nextjs.org/og.png', width: 800, height: 600 }],
     },
     robots: {
       googleBot: {
@@ -47,6 +43,6 @@ export const generateMetadata = async (props: Props): Promise<Metadata> => {
         'max-image-preview': 'large',
         'max-snippet': -1,
       },
-    }
+    },
   };
 };

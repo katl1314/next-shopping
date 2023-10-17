@@ -1,6 +1,6 @@
 'use client';
+import { useState, useEffect } from 'react';
 import ItemsCarousel from 'react-items-carousel';
-import { useState, useRef, useMemo, useEffect } from 'react';
 import Box from '@components/layout/Box';
 
 interface ProductCardCarouselProps {
@@ -21,7 +21,7 @@ const ProductCardCarousel = ({ children }: ProductCardCarouselProps) => {
     return () => {
       // resize이벤트 삭제
       window.removeEventListener('resize', resize);
-    }
+    };
   }, []);
 
   const resize = () => {
@@ -29,17 +29,16 @@ const ProductCardCarousel = ({ children }: ProductCardCarouselProps) => {
 
     if (width < 500) {
       setGutter(2);
-    }
-    else {
+    } else {
       setGutter(5);
     }
-  }
+  };
 
   return (
-    <Box 
-      maxwidth={{ md : '100%', base: '800px'}} 
-      paddingleft={{ md : '100px', base : '20px'}} 
-      paddingright={{ md : '100px', base : '20px'}}
+    <Box
+      maxwidth={{ md: '100%', base: '800px' }}
+      paddingleft={{ md: '100px', base: '20px' }}
+      paddingright={{ md: '100px', base: '20px' }}
     >
       <ItemsCarousel
         requestToChangeActive={setActiveItemIndex}
@@ -50,7 +49,9 @@ const ProductCardCarousel = ({ children }: ProductCardCarouselProps) => {
         rightChevron={<button>{'>'}</button>}
         outsideChevron
         chevronWidth={chevronWidth}
-      >{children}</ItemsCarousel>
+      >
+        {children}
+      </ItemsCarousel>
     </Box>
   );
 };
