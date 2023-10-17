@@ -81,15 +81,15 @@ const HomePage: NextPage<IHomePageProps> = () => {
         justifycontent="center"
         flexdirection="column"
       >
-        <Box width="100%">
+        <Box width="90%">
           <Text variant="large">의류</Text>
           {renderProductCardCarousel(clothesProducts.data)}
         </Box>
-        <Box width="100%" margin="0 auto">
+        <Box width="90%" margin="0 auto">
           <Text variant="large">도서</Text>
           {renderProductCardCarousel(bookProducts.data)}
         </Box>
-        <Box width="100%" margin="0 auto">
+        <Box width="90%" margin="0 auto">
           <Text variant="large">신발</Text>
           {renderProductCardCarousel(shoesProducts.data)}
         </Box>
