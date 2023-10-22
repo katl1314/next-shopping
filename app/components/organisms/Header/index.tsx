@@ -18,7 +18,8 @@ const HeaderWrap = styled.header`
   border-bottom: 1px solid #e5e5e5;
   width: 100%;
   position: fixed;
-  z-index: 99;
+  z-index: 999;
+  background-color: #fff;
 `;
 
 // 네비게이션
@@ -50,7 +51,7 @@ const Header = () => {
               <AppLogo />
             </Link>
           </NavLink>
-          <NavLink>
+          {/* <NavLink>
             <Box
               display={{ base: 'none', md: 'block' }}
               paddingleft={{ base: '5px', md: '10px' }}
@@ -58,7 +59,7 @@ const Header = () => {
             >
               <Link href="/search/all">모두</Link>
             </Box>
-          </NavLink>
+          </NavLink> */}
           <NavLink>
             <Box
               display={{ base: 'none', md: 'block' }}

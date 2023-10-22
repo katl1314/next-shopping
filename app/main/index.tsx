@@ -1,5 +1,6 @@
 'use client';
 
+import Box from '../components/layout/Box';
 import StyledComponentsRegistry from '../lib/registry';
 import type { ApiContext } from '../types';
 import Header from '@components/organisms/Header';
@@ -20,7 +21,9 @@ const Main = ({ children }: MainProps) => {
       {/* _app.tsx대신 최상위 layout.tsx에서 Provider를 감싼다. */}
       <AuthContextProvider context={context}>
         <Header />
-        <ShoppingCartProvider>{children}</ShoppingCartProvider>
+        <ShoppingCartProvider>
+          <Box paddingtop="85px">{children}</Box>
+        </ShoppingCartProvider>
       </AuthContextProvider>
     </StyledComponentsRegistry>
   );
