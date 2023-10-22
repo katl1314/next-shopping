@@ -22,7 +22,16 @@ const Main = ({ children }: MainProps) => {
       <AuthContextProvider context={context}>
         <Header />
         <ShoppingCartProvider>
-          <Box paddingtop="85px">{children}</Box>
+          <Box
+            paddingtop="85px"
+            width={{ base: '90%', md: '1075px' }}
+            marginleft="auto"
+            marginright="auto"
+            margintop="0"
+            marginbottom="0"
+          >
+            {children}
+          </Box>
         </ShoppingCartProvider>
       </AuthContextProvider>
     </StyledComponentsRegistry>

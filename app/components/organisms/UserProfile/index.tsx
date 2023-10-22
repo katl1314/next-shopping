@@ -35,10 +35,8 @@ const UserProfile = ({
   username,
   profileImageUrl,
   numberOfProducts,
-  description,
 }: IUserProfileProps) => {
   const profileImageSize = variant === 'small' ? '100' : '120';
-  console.log(description);
 
   return (
     <Flex>

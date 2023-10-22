@@ -1,3 +1,4 @@
+'use client';
 import Box from './components/layout/Box';
 import logger from './utils/logger';
 
