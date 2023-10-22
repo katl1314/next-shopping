@@ -1,50 +1,15 @@
-'use client';
-
-import type { NextPage } from 'next';
-import Link from 'next/link';
-import { useParams, useRouter } from 'next/navigation';
-import ProductCard from '@/app/components/organisms/ProductCard';
-import UserProfile from '@/app/components/organisms/UserProfile';
-import AddToCartButtonContainer from '@/app/containers/AddToCartButtonContainer';
+import type { Metadata, NextPage } from 'next';
+import ProductPageClient from './page.client';
 import getAllProducts from '@/app/services/get-all-products';
-import { useProduct } from '@/app/services/products/use-product';
-import useUser from '@/app/services/users/use-user';
-import type { Category, ApiContext, Product, User } from '@/app/types';
-
-import BreadcrumbItem from '@components/atoms/BreadcrumbItem';
-import Text from '@components/atoms/Text';
-import Box from '@components/layout/Box';
+import type { ApiContext } from '@/app/types';
 import Flex from '@components/layout/Flex';
-import Breadcrumb from '@components/molecules/BreadCrumb';
 
-const categoryNameDict: Record<Category, string> = {
-  shoes: '신발',
-  clothes: '의류',
-  book: '책',
-};
-
+// 클라이언트 사이드 렌더링에서는 next.js proxy를 사용 불가
 const context: ApiContext = {
-  apiRootUrl: process.env.NEXT_PUBLIC_API_BASE_PATH ?? '/api/proxy',
+  apiRootUrl: process.env.API_BASE_URL ?? 'https://varied-valene-choiminhyeok.koyeb.app',
 };
 
-type ProductPageProps = {
-  id: string;
-  product: Product;
-};
-
-const ProductPage: NextPage<ProductPageProps> = () => {
-  const { id } = useParams();
-  const data = useProduct(context, id as string);
-  const user = useUser(context, { id: String(data.data.owner) });
-  const router = useRouter();
-
-  // 카트에 상품이 추가되면 카트 페이지로 고고싱
-  const handleAddToCartButtonClick = () => {
-    router.push('/cart');
-  };
-
-  const product = data.data ?? ({} as Product);
-
+const ProductPage: NextPage = () => {
   return (
     <Flex
       paddingtop="16px"
@@ -52,54 +17,45 @@ const ProductPage: NextPage<ProductPageProps> = () => {
       paddingleft={{ base: '16px', md: '0px' }}
       paddingright={{ base: '16px', md: '0px' }}
     >
-      <Box>
-        <Breadcrumb>
-          <BreadcrumbItem>
-            <Link href="/">톱</Link>
-          </BreadcrumbItem>
-          <BreadcrumbItem>
-            <Link href="/search">검색</Link>
-          </BreadcrumbItem>
-          <BreadcrumbItem>
-            <Link href={`/search/${product.category}`}>{categoryNameDict[product.category]}</Link>
-          </BreadcrumbItem>
-        </Breadcrumb>
-        <Flex paddingtop="16px" paddingbottom="8px" justifycontent="center">
-          <ProductCard {...product} variant="detail" />
-        </Flex>
-        <Box>
-          <Text variant="large">게시자</Text>
-          <Link href={`/users/${product.owner}`}>
-            <UserProfile {...(user.user ?? ({} as User))} />
-          </Link>
-        </Box>
-      </Box>
-      <Box padding="16px" width={{ base: '100%', md: '700px' }}>
-        <Flex
-          justifycontent="space-between"
-          flexdirection="column"
-          height={{ base: '', md: '100%' }}
-        >
-          <Box>
-            {product.description?.split('\n').map((text: string, i: number) => (
-              <Text key={i} variant="medium">
-                {text}
-              </Text>
-            ))}
-          </Box>
-          <AddToCartButtonContainer
-            product={product}
-            onAddToCartButtonClick={handleAddToCartButtonClick}
-          />
-        </Flex>
-      </Box>
+      <ProductPageClient />
     </Flex>
   );
 };
 
 export async function generateStaticParams() {
   const products = await getAllProducts(context);
-  return products.map(product => ({ id: product.id }));
+  return products.map(product => ({ id: `${product.id}` }));
 }
+
+type Props = {
+  params: { id: string };
+};
+
+export const generateMetadata = async (props: Props): Promise<Metadata> => {
+  const {
+    params: { id },
+  } = props;
+  return {
+    title: `${id} 검색`,
+    description: '설명',
+    // 오픈 그래프 지정 => 콘텐츠를 url로 공유한다, 콘텐츠가 표시되는 방식을 관리하기 위한 목적임.
+    openGraph: {
+      title: `${id} 검색`,
+      description: '설명',
+      url: 'https://test.com',
+      images: [{ url: 'https://nextjs.org/og.png', width: 800, height: 600 }],
+    },
+    robots: {
+      googleBot: {
+        index: true,
+        follow: false,
+        noimageindex: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
+  };
+};
 
 export default ProductPage;

@@ -1,6 +1,7 @@
 'use client';
 
 import { AiOutlineCheck, AiOutlineSearch, AiOutlineShoppingCart } from 'react-icons/ai';
+import { PiSignIn } from 'react-icons/pi';
 import styled, { css } from 'styled-components';
 import { IButtonProps } from '../Button';
 export interface IIconButton extends IButtonProps {
@@ -19,28 +20,22 @@ const StyledIconButton = styled.div<IIconButton>`
 
 export const CheckBoxIcon = (props: IIconButton) => {
   return (
-    <>
-      <StyledIconButton {...props}>
-        <AiOutlineCheck color="white" />
-      </StyledIconButton>
-    </>
+    <StyledIconButton {...props}>
+      <AiOutlineCheck color="white" />
+    </StyledIconButton>
   );
 };
 
 export const SearchIcon = () => {
-  return (
-    <>
-      <AiOutlineSearch size="32" />
-    </>
-  );
+  return <AiOutlineSearch size="32" />;
 };
 
 export const ShoppingCartIcon = () => {
-  return (
-    <>
-      <AiOutlineShoppingCart size="32" />
-    </>
-  );
+  return <AiOutlineShoppingCart size="32" />;
+};
+
+export const SignInIcon = () => {
+  return <PiSignIn size="32" />;
 };
 
 export default undefined;
