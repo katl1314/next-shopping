@@ -16,6 +16,9 @@ const HeaderWrap = styled.header`
   padding: 0 20px;
   box-sizing: border-box;
   border-bottom: 1px solid #e5e5e5;
+  width: 100%;
+  position: fixed;
+  z-index: 99;
 `;
 
 // 네비게이션

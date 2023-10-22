@@ -1,5 +1,3 @@
-'use client';
-
 import { NextPage } from 'next';
 import Flex from './components/layout/Flex';
 import type { Product } from './types';
