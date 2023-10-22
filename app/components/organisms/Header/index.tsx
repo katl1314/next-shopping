@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import styled from 'styled-components';
 import AppLogo from '../../atoms/AppLogo';
-import { SearchIcon, ShoppingCartIcon } from '../../atoms/IconButton';
+import { SearchIcon, ShoppingCartIcon, SignInIcon } from '../../atoms/IconButton';
 import { useAuthContext } from '@/app/context/AuthContext';
 import Button from '@components/atoms/Button';
 import ShapeImage from '@components/atoms/ShapeImage';
@@ -41,7 +41,7 @@ const Header = () => {
         alignitems="center"
         justifycontent={{ md: 'space-around', base: 'space-between' }}
       >
-        <Nav as="nav" height="56px" alignitems={'center'}>
+        <Nav as="nav" height="56px" alignitems={'center'} flexgrow={{ base: '2', md: '0' }}>
           <NavLink>
             <Link href="/" passHref>
               <AppLogo />
@@ -85,20 +85,20 @@ const Header = () => {
             </Box>
           </NavLink>
         </Nav>
-        <Nav as="nav" height="58px" alignitems="center" justifycontent="space-evenly">
-          <NavLink>
+        <Nav as="nav" height="56px" alignitems="center" justifycontent="space-evenly">
+          <NavLink style={{ flexGrow: 1 }}>
             <Box display={{ base: 'block', md: 'none' }}>
               <Link href="/search" passHref>
                 <SearchIcon />
               </Link>
             </Box>
           </NavLink>
-          <NavLink>
+          <NavLink style={{ flexGrow: 1 }}>
             <Link href="/cart">
               <ShoppingCartIcon />
             </Link>
           </NavLink>
-          <NavLink>
+          <NavLink style={{ flexGrow: 1 }}>
             {(() => {
               // 로그인 상태 => 전역 컨텍스트에 가지고 있으면
               if (authUser) {
@@ -117,16 +117,18 @@ const Header = () => {
                 // 미로그인 시
                 return (
                   <Link href="/signin">
-                    <Button padding="5px 20px">로그인</Button>
+                    <SignInIcon />
                   </Link>
                 );
               }
             })()}
           </NavLink>
-          <NavLink>
-            <Link href="/sell">
-              <Button padding="5px 20px">등록</Button>
-            </Link>
+          <NavLink style={{ flexGrow: 1, margin: 0 }}>
+            <Box display={{ base: 'none', md: 'block' }}>
+              <Link href="/sell">
+                <Button padding="5px 20px">등록</Button>
+              </Link>
+            </Box>
           </NavLink>
         </Nav>
       </Flex>
