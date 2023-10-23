@@ -30,6 +30,7 @@ interface IProductCardProps {
  */
 const ProductCardImageContainer = styled.div`
   z-index: 99;
+  width: 300px;
 `;
 /**
  * 상품 카드 컨테이너

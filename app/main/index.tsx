@@ -23,8 +23,8 @@ const Main = ({ children }: MainProps) => {
         <Header />
         <ShoppingCartProvider>
           <Box
-            paddingtop="85px"
-            width={{ base: '90%', md: '1075px' }}
+            paddingtop="90px"
+            maxwidth={{ base: '90%', md: '1075px' }}
             marginleft="auto"
             marginright="auto"
             margintop="0"

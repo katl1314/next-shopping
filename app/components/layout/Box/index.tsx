@@ -26,6 +26,7 @@ export interface IBoxProps {
   paddingright?: Responsive<Space>;
   paddingbottom?: Responsive<Space>;
   paddingleft?: Responsive<Space>;
+  overflowx?: string;
   onClick?: (event: React.MouseEvent) => unknown;
 }
 
