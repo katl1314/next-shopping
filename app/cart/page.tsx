@@ -1,7 +1,5 @@
 'use client';
-/**
- * 카트에 대한 페이지 컴포넌트
- */
+
 import type { NextPage } from 'next';
 import Link from 'next/link';
 import CartContainer from '../containers/CartContainer';
@@ -42,11 +40,5 @@ const CartPage: NextPage = () => {
     </Flex>
   );
 };
-
-// export function generateMetadata() {
-//   return {
-//     title: '카트',
-//   };
-// }
 
 export default CartPage;
