@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
-import Text from './components/atoms/Text';
-import Box from './components/layout/Box';
-import Flex from './components/layout/Flex';
+// import Text from './components/atoms/Text';
+// import Box from './components/layout/Box';
+// import Flex from './components/layout/Flex';
 import MainContent from './page.client';
 import type { Product } from './types';
 
@@ -14,7 +14,7 @@ interface IHomePageProps {
 const HomePage: NextPage<IHomePageProps> = () => {
   return (
     <>
-      <Flex padding="16px" justifycontent="center" backgroundcolor="primary">
+      {/* <Flex padding="16px" justifycontent="center" backgroundcolor="primary">
         <Flex width="100%" justifycontent="center" alignitems="center" flexdirection="column">
           <Box width="100%">
             <Text marginbottom="4px" color="white" variant="medium">
@@ -30,7 +30,7 @@ const HomePage: NextPage<IHomePageProps> = () => {
             </Text>
           </Box>
         </Flex>
-      </Flex>
+      </Flex> */}
       <MainContent />
     </>
   );

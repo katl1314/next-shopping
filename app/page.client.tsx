@@ -13,6 +13,7 @@ import type { Product, ApiContext } from './types';
 const CarouselView = styled(Flex)`
   overflow-x: scroll;
   flex-wrap: nowrap;
+  gap: 16px;
 
   /* x축 스크롤바 숨김 처리 */
   &::-webkit-scrollbar {
